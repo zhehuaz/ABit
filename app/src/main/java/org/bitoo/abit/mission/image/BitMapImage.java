@@ -1,7 +1,30 @@
 package org.bitoo.abit.mission.image;
 
 /**
- * Created by langley on 5/19/15.
+ * A image standing for progress of mission consists of bitmap,
+ * each bit in which is in one color.If the mission is completed,
+ * these bits in image shows a specific object.
  */
-public class BitMapImage implements MissionImage {
+public class BitMapImage extends ProgressImage {
+
+
+    @Override
+    public ProgressImage readImage(int id) {
+        return null;
+    }
+
+    @Override
+    public void modifyImage(int id, ProgressImage image) {
+
+    }
+
+    @Override
+    public void deleteImage(int id) {
+
+    }
+
+    @Override
+    public void insertImage(ProgressImage image) {
+
+    }
 }

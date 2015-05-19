@@ -1,8 +1,8 @@
 package org.bitoo.abit.ui;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import org.bitoo.abit.R;
 
 
 /**
- * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link org.bitoo.abit.ui.ImageFragment.OnItemSelectedListener} interface
  * to handle interaction events.
