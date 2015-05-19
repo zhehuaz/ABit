@@ -2,30 +2,21 @@ package org.bitoo.abit.storage;
 
 import org.bitoo.abit.mission.image.ProgressImage;
 
+import java.io.IOException;
+
 /**
  * IO class of {@link ProgressImage}, defines all the operations
- * of image on local storage.
+ * on local storage for each mission's image.
  */
 public interface ImageStorage {
     /**
-     * Read Image by id from local storage.
-     * @param id Image id.
-     * @return Image got from storage.
+     * Read Image by id from local storage to initialize image bitmap.
      */
-    ProgressImage readImage(int id);
+    void LoadImage() throws IOException;
 
     /**
-     * Modify image source
+     * replace image source by id
      */
-    void modifyImage(int id, ProgressImage image);
+    void modifyImage(int id) throws IOException;
 
-    /**
-     * Delete an image.
-     */
-    void deleteImage(int id);
-
-    /**
-     * insert a new image.
-     */
-    void insertImage(ProgressImage image);
 }

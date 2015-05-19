@@ -1,30 +1,38 @@
 package org.bitoo.abit.mission.image;
 
+import java.io.IOException;
+
 /**
  * A image standing for progress of mission consists of bitmap,
  * each bit in which is in one color.If the mission is completed,
  * these bits in image shows a specific object.
  */
 public class BitMapImage extends ProgressImage {
+    private final static String TAG = "BitMapImage";
 
+    private ColorBit[][] bitMap;
 
-    @Override
-    public ProgressImage readImage(int id) {
-        return null;
+    BitMapImage(int height, int width, int id){
+        this.height = height;
+        this.width = width;
+        this.id = id;
+        bitMap = new ColorBit[height][width];
     }
 
     @Override
-    public void modifyImage(int id, ProgressImage image) {
+    public void LoadImage() throws IOException {
 
     }
 
     @Override
-    public void deleteImage(int id) {
+    public void modifyImage(int id) throws IOException {
 
     }
 
-    @Override
-    public void insertImage(ProgressImage image) {
 
+    public class ColorBit{
+        int x;
+        int y;
+        int color = 0xffffff;// in hex
     }
 }
