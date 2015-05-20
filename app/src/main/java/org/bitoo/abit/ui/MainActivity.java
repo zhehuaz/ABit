@@ -1,13 +1,18 @@
 package org.bitoo.abit.ui;
 
-import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import org.bitoo.abit.R;
-
+/**
+ *  MainActivity holds a fragment, {@link MissionListFragment}
+ *  to show a list of missions created.Besides, when a mission
+ *  item in list is selected, a {@link ImageFragment} is created
+ *  with detailed information of the item.
+ *  This activity doesn't have a visible view, is used as a container instead.
+ */
 public class MainActivity extends ActionBarActivity implements ImageFragment.OnItemSelectedListener {
 
     @Override
