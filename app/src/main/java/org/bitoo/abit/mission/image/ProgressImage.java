@@ -9,10 +9,26 @@ import org.bitoo.abit.storage.ImageStorage;
  *  You can implement ProgressImage as a type of separating.
  */
 public abstract class ProgressImage implements ImageStorage {
+    /** This is ID of R.row in /gen */
     protected int id;
+
+    /** Attention, this name is usually complete fileName.*/
+    protected String name;
 
     /** Size of the image*/
     protected int height;
     protected int width;
+
+    public int getId() {
+        return id;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
 
 }

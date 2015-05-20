@@ -71,7 +71,7 @@ public class Mission {
     /**
      * To reset {@link #longestStreak}.
      */
-    public void resetlongestStreak() {
+    public void resetLongestStreak() {
         longestStreak = 0;
     }
 }

@@ -7,8 +7,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,21 +19,20 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class XmlImageParser {
     private BitColor[][] bitmap;
-    private int id = -1;
     private int height = 0;
     private int width = 0;
 
     /**
      * Parse XML file into Document.
-     * @param filePath Path of XML file.
+     * @param xmlInputStream Input Stream of XML file.
      * @return Document object for further use in DOM Parser.
      */
-    public Document parse(String filePath) {
+    public Document parse(InputStream xmlInputStream) {
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         Document document = null;
         try {
             DocumentBuilder builder = builderFactory.newDocumentBuilder();
-            document = builder.parse(new File(filePath));
+            document = builder.parse(xmlInputStream);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
@@ -46,23 +45,20 @@ public class XmlImageParser {
 
     /**
      * Load the image directly from XML file stored as {@link #bitmap}.
-     * Information of the image is {@link #id}, {@link #height}, and {@link #width}.
-     * @param filePath Path of the XML file.
+     * Information of the image is {@link #height}, and {@link #width}.
+     * @param xmlInputStream Path of the XML file.
      */
-    public void loadImage(String filePath) {
-        Document document = parse(filePath);
+    public void loadImage(InputStream xmlInputStream) {
+        Document document = parse(xmlInputStream);
         Element rootElement = document.getDocumentElement();// <image>
         System.out.println(rootElement.getNodeName());
         Node bitColor = null;
         Element eBitColor = null;
-        Element x = null;
-        Element y = null;
-        Element color = null;
         int xValue;
         int yValue;
 
-        // Atrributes
-        id = Integer.parseInt(rootElement.getAttribute("id"));
+        // Attributes
+        //id = Integer.parseInt(rootElement.getAttribute("id"));
         height = Integer.parseInt(rootElement.getAttribute("height"));
         width = Integer.parseInt(rootElement.getAttribute("width"));
         bitmap = new BitColor[height][width];
@@ -91,10 +87,6 @@ public class XmlImageParser {
 
     public BitColor[][] getBitmap() {
         return bitmap;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getHeight() {
