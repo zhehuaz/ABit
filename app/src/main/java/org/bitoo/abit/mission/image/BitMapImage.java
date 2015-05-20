@@ -12,11 +12,12 @@ import java.io.InputStream;
  * A image standing for progress of mission consists of bitmap,
  * each bit in which is in one color.If the mission is completed,
  * these bits in image shows a specific object.
+ *
+ * Pixel in this class is {@link BitColor}.
  */
 public class BitMapImage extends ProgressImage {
     private final static String TAG = "BitMapImage";
 
-    private BitColor[][] bitmap;
     private XmlImageParser imageParser;
 
     BitMapImage(int id) {
@@ -29,17 +30,17 @@ public class BitMapImage extends ProgressImage {
     }
 
     @Override
-    public void loadImage(Context context) {
-        loadImage(context.getResources().openRawResource(id));
-    }
-
-    @Override
     public void loadImage(InputStream is) {
         imageParser = new XmlImageParser();
         imageParser.loadImage(is);
         bitmap = imageParser.getBitmap();
         height = imageParser.getHeight();
         width = imageParser.getWidth();
+    }
+
+    @Override
+    public void loadImage(Context context) {
+        loadImage(context.getResources().openRawResource(id));
     }
 
     @Override
@@ -50,5 +51,9 @@ public class BitMapImage extends ProgressImage {
     @Override
     public void modifyImage(int id) throws IOException {
 
+    }
+
+    public BitColor[][] getBitmap() {
+        return (BitColor[][])bitmap;
     }
 }
