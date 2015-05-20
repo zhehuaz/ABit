@@ -10,13 +10,13 @@ import java.io.IOException;
 public class BitMapImage extends ProgressImage {
     private final static String TAG = "BitMapImage";
 
-    private ColorBit[][] bitMap;
+    private BitColor[][] bitMap;
 
-    BitMapImage(int height, int width, int id){
+    BitMapImage() {}
+    BitMapImage(int height, int width, int id) {
         this.height = height;
         this.width = width;
         this.id = id;
-        bitMap = new ColorBit[height][width];
     }
 
     @Override
@@ -27,12 +27,5 @@ public class BitMapImage extends ProgressImage {
     @Override
     public void modifyImage(int id) throws IOException {
 
-    }
-
-
-    public class ColorBit{
-        int x;
-        int y;
-        int color = 0xffffff;// in hex
     }
 }
