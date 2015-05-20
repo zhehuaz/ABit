@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ABit</string>
+    <string name="action_settings">设置</string>
+    <string name="title_null">(空)</string>
+    <string name="title_activity_main">主页面</string>
+</resources>

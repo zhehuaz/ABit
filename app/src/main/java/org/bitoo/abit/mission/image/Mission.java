@@ -20,12 +20,14 @@ public class Mission {
     protected int longestStreak;
     /** To check if the progress can be increased now.*/
     Date lastCheckDate;
+    String title;
 
     public Mission() {
         progress = 0;
         longestStreak = 0;
         // the date of last day.
         lastCheckDate = new Date(System.currentTimeMillis() - MILLIS_OF_ONE_DAY);
+        title = "";
     }
 
     public void setProgressImage(ProgressImage image){

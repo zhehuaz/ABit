@@ -34,4 +34,10 @@ public abstract class ProgressImage implements ImageStorage {
         return width;
     }
 
+    public abstract Pixel[][] getBitmap();
+
+    public String getName() {
+        return name;
+    }
+
 }

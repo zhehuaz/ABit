@@ -1,17 +1,19 @@
 package org.bitoo.abit.mission.image;
 
+import android.graphics.Color;
+
 /**
  * A Bit in a BitMap Image contains its position and color.
  */
-public class BitColor implements Pixel<String>{
+public class BitColor implements Pixel<Integer>{
     int x;
     int y;
-    String color;
+    int color;
 
     public BitColor(int x,int y,String color){
         this.x = x;
         this.y = y;
-        this.color = color;
+        this.color = Color.parseColor(color);
     }
 
     @Override
@@ -25,7 +27,7 @@ public class BitColor implements Pixel<String>{
     }
 
     @Override
-    public String getPixel() {
+    public Integer getPixel() {
         return color;
     }
 }
