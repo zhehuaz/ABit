@@ -1,5 +1,6 @@
 package org.bitoo.abit.mission.image;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.Date;
@@ -28,6 +29,21 @@ public class Mission {
         // the date of last day.
         lastCheckDate = new Date(System.currentTimeMillis() - MILLIS_OF_ONE_DAY);
         title = "";
+    }
+
+    public Mission(String title) {
+        this.title = title;
+    }
+
+    /**
+     * Load image when mission is created.
+     * The image's pixel is of {@link BitColor}.
+     * @param context to access /res
+     * @param id to find this resource XML file
+     */
+    public Mission(Context context, int id) {
+        progressImage = new BitMapImage(id);
+        progressImage.loadImage(context);
     }
 
     public void setProgressImage(ProgressImage image){
@@ -75,5 +91,9 @@ public class Mission {
      */
     public void resetLongestStreak() {
         longestStreak = 0;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

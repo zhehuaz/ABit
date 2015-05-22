@@ -9,11 +9,11 @@ import org.bitoo.abit.R;
 /**
  *  MainActivity holds a fragment, {@link MissionListFragment}
  *  to show a list of missions created.Besides, when a mission
- *  item in list is selected, a {@link ImageFragment} is created
+ *  item in list is selected, a {@link ImageFragmentDemo} is created
  *  with detailed information of the item.
  *  This activity doesn't have a visible view, is used as a container instead.
  */
-public class MainActivity extends ActionBarActivity implements ImageFragment.OnItemSelectedListener {
+public class MainActivity extends ActionBarActivity implements ImageFragmentDemo.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,8 @@
 package org.bitoo.abit.utils;
 
+import android.graphics.Color;
+
+import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.BitColor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,6 +12,8 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,9 +23,15 @@ import javax.xml.parsers.ParserConfigurationException;
  * Parse {@link org.bitoo.abit.mission.image.BitMapImage} from a xml file.
  */
 public class XmlImageParser {
-    private BitColor[][] bitmap;
+    private BitColor[] bitmap;
     private int height = 0;
     private int width = 0;
+
+    private static Map<Integer, Integer> imageIndex = new HashMap<>();
+
+    static{
+        imageIndex.put(1, R.raw.mario);
+    }
 
     /**
      * Parse XML file into Document.
@@ -61,7 +72,7 @@ public class XmlImageParser {
         //id = Integer.parseInt(rootElement.getAttribute("id"));
         height = Integer.parseInt(rootElement.getAttribute("height"));
         width = Integer.parseInt(rootElement.getAttribute("width"));
-        bitmap = new BitColor[height][width];
+        bitmap = new BitColor[height * width];
 
         // Traverse <bitcolor>s
         NodeList bitColors = rootElement.getChildNodes();// list of <bitcolor>
@@ -77,15 +88,30 @@ public class XmlImageParser {
                 yValue = Integer.parseInt(
                         eBitColor.getElementsByTagName("y").item(0).getTextContent());
 
-                bitmap[xValue][yValue] = new BitColor(xValue, yValue,
-                        eBitColor.getElementsByTagName("color").item(0).getTextContent());
+                bitmap[xValue * width + yValue] = new BitColor(xValue, yValue,
+                        Color.parseColor(eBitColor.getElementsByTagName("color").item(0).getTextContent()));
             }
         }
 
 
     }
 
-    public BitColor[][] getBitmap() {
+    /**
+     * Find corresponding image's resource ID(in R.raw) by
+     * {@link org.bitoo.abit.mission.image.ProgressImage#id}.
+     *
+     * @param id image ID
+     * @return resource ID
+     */
+    public int findImageById(int id){
+        return imageIndex.get(id);
+    }
+
+    public void putInImageIndex(int id,int resId){
+        imageIndex.put(id, resId);
+    }
+
+    public BitColor[] getBitmap() {
         return bitmap;
     }
 

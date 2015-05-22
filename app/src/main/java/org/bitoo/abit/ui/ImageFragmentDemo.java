@@ -6,57 +6,70 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 import org.bitoo.abit.R;
+import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.mission.image.Pixel;
+import org.bitoo.abit.mission.image.ProgressImage;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
  * Activities that contain this fragment must implement the
- * {@link org.bitoo.abit.ui.ImageFragment.OnItemSelectedListener} interface
+ * {@link ImageFragmentDemo.OnItemSelectedListener} interface
  * to handle interaction events.
- * Use the {@link ImageFragment#getInstance} factory method to
+ * Use the {@link ImageFragmentDemo#getInstance} factory method to
  * create an instance of this fragment.
  */
-public class ImageFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class ImageFragmentDemo extends Fragment {
+    GridView mGridView;
+    Mission mission;
+    ProgressImage progressImage;
+    Pixel[] bitmap;
+    ArrayList<HashMap<String, Object>> pixels = new ArrayList<HashMap<String, Object>>();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnItemSelectedListener mListener;
+    private static final String COLOR_KEY = "img_pixel";
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ImageFragment.
+     * @return A new instance of fragment ImageFragmentDemo.
      */
-    public static ImageFragment getInstance(String param1, String param2) {
-        ImageFragment fragment = new ImageFragment();
+    public static ImageFragmentDemo getInstance() {
+        ImageFragmentDemo fragment = new ImageFragmentDemo();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public ImageFragment() {
+    public ImageFragmentDemo() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
+
+        mGridView.setNumColumns(20);
+        mission = new Mission(getActivity(), R.raw.mario);
+        progressImage = mission.getProgressImage();
+        bitmap = progressImage.getBitmap();
+        int length = progressImage.getHeight()
+                * progressImage.getWidth();
+
+        for(int i = 0;i < length;i ++) {
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put(COLOR_KEY, bitmap[i]);
+
         }
+
     }
 
     @Override
@@ -64,6 +77,7 @@ public class ImageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_image_display, container, false);
+
     }
 
     @Override

@@ -20,6 +20,9 @@ public class BitMapImage extends ProgressImage {
 
     private XmlImageParser imageParser;
 
+    BitMapImage() {
+        id = -1;
+    }
     BitMapImage(int id) {
         this.id = id;
     }
@@ -39,12 +42,19 @@ public class BitMapImage extends ProgressImage {
     }
 
     @Override
-    public void loadImage(Context context) {
-        loadImage(context.getResources().openRawResource(id));
+    public boolean loadImage(Context context) {
+        if(id != -1) {
+            loadImage(context.getResources()
+                    .openRawResource(imageParser.findImageById(id)));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public void loadImage(Context context, String fileName) throws FileNotFoundException {
+    public void loadImage(Context context, String fileName)
+            throws FileNotFoundException {
         loadImage(context.openFileInput(fileName));
     }
 
@@ -53,7 +63,8 @@ public class BitMapImage extends ProgressImage {
 
     }
 
-    public BitColor[][] getBitmap() {
-        return (BitColor[][])bitmap;
+    @Override
+    public BitColor[] getBitmap() {
+        return (BitColor[])bitmap;
     }
 }

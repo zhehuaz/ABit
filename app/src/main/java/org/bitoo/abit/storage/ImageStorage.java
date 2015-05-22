@@ -16,8 +16,9 @@ public interface ImageStorage {
     /**
      * Read Image by id from local storage to initialize bitmap image.
      * @param context is used to getResourse().
+     * @return If loading image successfully.
      */
-    void loadImage(Context context);
+    boolean loadImage(Context context);
 
     /**
      * Read Image by InputStream from local storage to initialize bitmap image.

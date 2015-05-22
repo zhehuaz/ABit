@@ -10,7 +10,7 @@ import org.bitoo.abit.storage.ImageStorage;
  *  in data structure of {@link Pixel}
  */
 public abstract class ProgressImage implements ImageStorage {
-    /** This is ID of R.row in /gen */
+    /**  */
     protected int id;
 
     /** Attention, this name is usually complete fileName.*/
@@ -20,7 +20,7 @@ public abstract class ProgressImage implements ImageStorage {
     protected int height;
     protected int width;
 
-    protected Pixel[][] bitmap;
+    protected Pixel[] bitmap;
 
     public int getId() {
         return id;
@@ -34,7 +34,7 @@ public abstract class ProgressImage implements ImageStorage {
         return width;
     }
 
-    public abstract Pixel[][] getBitmap();
+    public abstract Pixel[] getBitmap();
 
     public String getName() {
         return name;

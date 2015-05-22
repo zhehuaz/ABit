@@ -1,7 +1,7 @@
 package org.bitoo.abit.ui;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +27,8 @@ public class MissionListFragment extends Fragment {
      * @return A new instance of fragment MissionListFrament.
      */
     // TODO: Rename and change types and number of parameters
-    public static ImageFragment newInstance(String param1, String param2) {
-        ImageFragment fragment = new ImageFragment();
+    public static ImageFragmentDemo newInstance(String param1, String param2) {
+        ImageFragmentDemo fragment = new ImageFragmentDemo();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
