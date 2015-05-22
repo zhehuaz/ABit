@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.BitColor;
+import org.bitoo.abit.mission.image.Pixel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -12,7 +13,9 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -23,7 +26,7 @@ import javax.xml.parsers.ParserConfigurationException;
  * Parse {@link org.bitoo.abit.mission.image.BitMapImage} from a xml file.
  */
 public class XmlImageParser {
-    private BitColor[] bitmap;
+    private List<Pixel> bitmap;
     private int height = 0;
     private int width = 0;
 
@@ -72,7 +75,8 @@ public class XmlImageParser {
         //id = Integer.parseInt(rootElement.getAttribute("id"));
         height = Integer.parseInt(rootElement.getAttribute("height"));
         width = Integer.parseInt(rootElement.getAttribute("width"));
-        bitmap = new BitColor[height * width];
+        //bitmap = new BitColor[height * width];
+        bitmap = new ArrayList<Pixel>();
 
         // Traverse <bitcolor>s
         NodeList bitColors = rootElement.getChildNodes();// list of <bitcolor>
@@ -88,8 +92,8 @@ public class XmlImageParser {
                 yValue = Integer.parseInt(
                         eBitColor.getElementsByTagName("y").item(0).getTextContent());
 
-                bitmap[xValue * width + yValue] = new BitColor(xValue, yValue,
-                        Color.parseColor(eBitColor.getElementsByTagName("color").item(0).getTextContent()));
+                bitmap.add(xValue * width + yValue, new BitColor(xValue, yValue,
+                        Color.parseColor(eBitColor.getElementsByTagName("color").item(0).getTextContent())));
             }
         }
 
@@ -111,7 +115,7 @@ public class XmlImageParser {
         imageIndex.put(id, resId);
     }
 
-    public BitColor[] getBitmap() {
+    public List<Pixel> getBitmap() {
         return bitmap;
     }
 

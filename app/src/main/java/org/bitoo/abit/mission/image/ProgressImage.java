@@ -2,6 +2,8 @@ package org.bitoo.abit.mission.image;
 
 import org.bitoo.abit.storage.ImageStorage;
 
+import java.util.List;
+
 /**
  *  The image consists of grids, while one grid may contain
  *  one color(as a normal bitmap image) or a piece of the origin
@@ -20,7 +22,7 @@ public abstract class ProgressImage implements ImageStorage {
     protected int height;
     protected int width;
 
-    protected Pixel[] bitmap;
+    protected List<Pixel> bitmap;
 
     public int getId() {
         return id;
@@ -34,7 +36,7 @@ public abstract class ProgressImage implements ImageStorage {
         return width;
     }
 
-    public abstract Pixel[] getBitmap();
+    public abstract List<Pixel> getBitmap();
 
     public String getName() {
         return name;

@@ -40,10 +40,12 @@ public class Mission {
      * The image's pixel is of {@link BitColor}.
      * @param context to access /res
      * @param id to find this resource XML file
+     * @param progress Current progress.
      */
-    public Mission(Context context, int id) {
+    public Mission(Context context, int id, int progress) {
         progressImage = new BitMapImage(id);
         progressImage.loadImage(context);
+        this.progress = progress;
     }
 
     public void setProgressImage(ProgressImage image){
@@ -95,5 +97,13 @@ public class Mission {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getLongestStreak() {
+        return longestStreak;
+    }
+
+    public int getProgress() {
+        return progress;
     }
 }

@@ -1,12 +1,14 @@
 package org.bitoo.abit.mission.image;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.bitoo.abit.utils.XmlImageParser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * A image standing for progress of mission consists of bitmap,
@@ -18,7 +20,7 @@ import java.io.InputStream;
 public class BitMapImage extends ProgressImage {
     private final static String TAG = "BitMapImage";
 
-    private XmlImageParser imageParser;
+    private XmlImageParser imageParser = new XmlImageParser();
 
     BitMapImage() {
         id = -1;
@@ -34,7 +36,6 @@ public class BitMapImage extends ProgressImage {
 
     @Override
     public void loadImage(InputStream is) {
-        imageParser = new XmlImageParser();
         imageParser.loadImage(is);
         bitmap = imageParser.getBitmap();
         height = imageParser.getHeight();
@@ -44,6 +45,7 @@ public class BitMapImage extends ProgressImage {
     @Override
     public boolean loadImage(Context context) {
         if(id != -1) {
+            Log.d(TAG, "opening image " + id + "with res id of " + imageParser.findImageById(id));
             loadImage(context.getResources()
                     .openRawResource(imageParser.findImageById(id)));
             return true;
@@ -64,7 +66,7 @@ public class BitMapImage extends ProgressImage {
     }
 
     @Override
-    public BitColor[] getBitmap() {
-        return (BitColor[])bitmap;
+    public List<Pixel> getBitmap() {
+        return bitmap;
     }
 }

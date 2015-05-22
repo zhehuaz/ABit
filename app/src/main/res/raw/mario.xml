@@ -333,7 +333,7 @@
     <bitcolor>
         <x>3</x>
         <y>6</y>
-        <color>#008000</color>
+        <color>#000000</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
@@ -343,62 +343,62 @@
     <bitcolor>
         <x>3</x>
         <y>8</y>
-        <color>#000000</color>
+        <color>#F8AB00</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>9</y>
-        <color>#000000</color>
+        <color>#F8AB00</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>10</y>
-        <color>#000000</color>
+        <color>#F8AB00</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>11</y>
-        <color>#000000</color>
+        <color>#F8AB00</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>12</y>
-        <color>#000000</color>
+        <color>#0000FF</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>13</y>
-        <color>#000000</color>
+        <color>#F8AB00</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>14</y>
-        <color>#000000</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>16</y>
-        <color>#000000</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>17</y>
-        <color>#000000</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>18</y>
-        <color>#000000</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>19</y>
-        <color>#000000</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>4</x>
@@ -863,7 +863,7 @@
     <bitcolor>
         <x>8</x>
         <y>12</y>
-        <color>#FFFFFF</color>
+        <color>#FF8040</color>
     </bitcolor>
     <bitcolor>
         <x>8</x>
@@ -873,32 +873,32 @@
     <bitcolor>
         <x>8</x>
         <y>14</y>
-        <color>#FFFFFF</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>8</x>
         <y>15</y>
-        <color>#FFFFFF</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>8</x>
         <y>16</y>
-        <color>#FFFFFF</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>8</x>
         <y>17</y>
-        <color>#FFFFFF</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>8</x>
         <y>18</y>
-        <color>#FFFFFF</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>8</x>
         <y>19</y>
-        <color>#FFFFFF</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>9</x>
@@ -1303,22 +1303,22 @@
     <bitcolor>
         <x>13</x>
         <y>0</y>
-        <color>#F8AB00</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
         <y>1</y>
-        <color>#F8AB00</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
         <y>2</y>
-        <color>#F8AB00</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
         <y>3</y>
-        <color>#F8AB00</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
@@ -1373,7 +1373,7 @@
     <bitcolor>
         <x>13</x>
         <y>14</y>
-        <color>#F8AB00</color>
+        <color>#0000FF</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
@@ -1388,17 +1388,17 @@
     <bitcolor>
         <x>13</x>
         <y>17</y>
-        <color>#F8AB00</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
         <y>18</y>
-        <color>#F8AB00</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
         <y>19</y>
-        <color>#F8AB00</color>
+        <color>#008000</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>

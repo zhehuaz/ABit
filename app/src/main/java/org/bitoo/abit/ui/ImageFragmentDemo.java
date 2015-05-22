@@ -10,11 +10,7 @@ import android.widget.GridView;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
-import org.bitoo.abit.mission.image.Pixel;
-import org.bitoo.abit.mission.image.ProgressImage;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import org.bitoo.abit.ui.custom.BitMapAdapter;
 
 
 /**
@@ -27,10 +23,6 @@ import java.util.HashMap;
 public class ImageFragmentDemo extends Fragment {
     GridView mGridView;
     Mission mission;
-    ProgressImage progressImage;
-    Pixel[] bitmap;
-    ArrayList<HashMap<String, Object>> pixels = new ArrayList<HashMap<String, Object>>();
-
 
     private OnItemSelectedListener mListener;
     private static final String COLOR_KEY = "img_pixel";
@@ -55,20 +47,8 @@ public class ImageFragmentDemo extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
 
-        mGridView.setNumColumns(20);
-        mission = new Mission(getActivity(), R.raw.mario);
-        progressImage = mission.getProgressImage();
-        bitmap = progressImage.getBitmap();
-        int length = progressImage.getHeight()
-                * progressImage.getWidth();
 
-        for(int i = 0;i < length;i ++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put(COLOR_KEY, bitmap[i]);
-
-        }
 
     }
 
@@ -78,6 +58,17 @@ public class ImageFragmentDemo extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_image_display, container, false);
 
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mission = new Mission(getActivity(), 1, 210);
+        BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission);
+        mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
+
+        mGridView.setNumColumns(mission.getProgressImage().getWidth());
+        mGridView.setAdapter(adapter);
     }
 
     @Override
