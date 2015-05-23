@@ -3,35 +3,50 @@ package org.bitoo.abit.mission.image;
 import android.content.Context;
 import android.util.Log;
 
+import org.bitoo.abit.storage.MissionStorage;
+
 import java.util.Date;
 
 /**
  * A Mission is a progress memoir that marks your progress
  * of a particular task.The progress displays as {@link ProgressImage}.
  */
-public class Mission {
+public class Mission implements MissionStorage{
 
     private final static String TAG = "Mission";
-    private final static long MILLIS_OF_ONE_DAY = 86400000;
+    protected final static long MILLIS_OF_ONE_DAY = 86400000;
+    protected final static int MAX_MARK_CONTAIN = 50;
 
     protected ProgressImage progressImage;
 
-    /** Progress of the mission.*/
-    protected int progress;
+    /**
+     * Marks if the mission is done of each day.
+     *
+     * The progress is stored in this array as a BITMAP, which means
+     * one Bit marks one day.Thus, a 50-byte-sized array contains progresss
+     * information of 400 days.
+     * To obtain info of progress, call {@link #updateProgress()}
+     */
+    protected byte[] progressMask;
+
+    /** Progress of the mission.How many day passed by since the mission is created.*/
+    protected int progressDayNum;
     protected int longestStreak;
     /** To check if the progress can be increased now.*/
-    Date lastCheckDate;
-    String title;
+    protected Date lastCheckDate;
+    protected String title;
 
     public Mission() {
-        progress = 0;
+        progressDayNum = 0;
         longestStreak = 0;
         // the date of last day.
         lastCheckDate = new Date(System.currentTimeMillis() - MILLIS_OF_ONE_DAY);
         title = "";
+
     }
 
     public Mission(String title) {
+        this();
         this.title = title;
     }
 
@@ -42,10 +57,11 @@ public class Mission {
      * @param id to find this resource XML file
      * @param progress Current progress.
      */
-    public Mission(Context context, int id, int progress) {
+    public Mission(Context context, int id, byte[] progress) {
+        this();
         progressImage = new BitMapImage(id);
         progressImage.loadImage(context);
-        this.progress = progress;
+        this.progressMask = progress;
     }
 
     public void setProgressImage(ProgressImage image){
@@ -60,14 +76,8 @@ public class Mission {
      * Add 1 to current progress.
      */
     public void updateProgress() {
-        ++ progress;
-    }
+        // TODO : store mission info in SQLite.
 
-    /**
-     * Set progress 0.
-     */
-    public void resetProgress() {
-        progress = 0;
     }
 
     /**
@@ -104,6 +114,6 @@ public class Mission {
     }
 
     public int getProgress() {
-        return progress;
+        return progressDayNum;
     }
 }

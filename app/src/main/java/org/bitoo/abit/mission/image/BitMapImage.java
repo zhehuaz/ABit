@@ -29,9 +29,9 @@ public class BitMapImage extends ProgressImage {
         this.id = id;
     }
     BitMapImage(int height, int width, int id) {
+        this(id);
         this.height = height;
         this.width = width;
-        this.id = id;
     }
 
     @Override
