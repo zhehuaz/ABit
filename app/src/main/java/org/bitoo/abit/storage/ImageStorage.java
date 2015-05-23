@@ -5,7 +5,6 @@ import android.content.Context;
 import org.bitoo.abit.mission.image.ProgressImage;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -18,7 +17,7 @@ public interface ImageStorage {
      * @param context is used to getResourse().
      * @return If loading image successfully.
      */
-    boolean loadImage(Context context);
+    boolean loadImage(Context context) throws FileNotFoundException;
 
     /**
      * Read Image by InputStream from local storage to initialize bitmap image.
@@ -33,9 +32,5 @@ public interface ImageStorage {
      */
     void loadImage(Context context, String fileName) throws FileNotFoundException;
 
-    /**
-     * Replace image source by id.
-     */
-    void modifyImage(int id) throws IOException;
 
 }

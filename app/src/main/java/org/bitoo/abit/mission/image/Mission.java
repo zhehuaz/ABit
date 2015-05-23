@@ -5,6 +5,7 @@ import android.util.Log;
 
 import org.bitoo.abit.storage.MissionStorage;
 
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 /**
@@ -19,6 +20,13 @@ public class Mission implements MissionStorage{
 
     protected ProgressImage progressImage;
 
+    /**
+     * Misssion's local id doesn't have to be identical to that of remote.
+     *
+     * When a Mission is to be synchronized, server returns a new id
+     * and local database update it.
+     */
+    protected long id;
     /**
      * Marks if the mission is done of each day.
      *
@@ -35,6 +43,7 @@ public class Mission implements MissionStorage{
     /** To check if the progress can be increased now.*/
     protected Date lastCheckDate;
     protected String title;
+    protected Context context;
 
     public Mission() {
         progressDayNum = 0;
@@ -53,14 +62,15 @@ public class Mission implements MissionStorage{
     /**
      * Load image when mission is created.
      * The image's pixel is of {@link BitColor}.
-     * @param context to access /res
-     * @param id to find this resource XML file
+     * @param context to access local storage
+     * @param imageName find this resource XML file
      * @param progress Current progress.
      */
-    public Mission(Context context, int id, byte[] progress) {
+    public Mission(Context context, String imageName, byte[] progress) throws FileNotFoundException {
         this();
-        progressImage = new BitMapImage(id);
-        progressImage.loadImage(context);
+        this.context = context;
+        progressImage = new BitMapImage(imageName);
+        progressImage.loadImage(context, imageName);
         this.progressMask = progress;
     }
 

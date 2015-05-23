@@ -12,8 +12,6 @@ import java.util.List;
  *  in data structure of {@link Pixel}
  */
 public abstract class ProgressImage implements ImageStorage {
-    /**  */
-    protected int id;
 
     /** Attention, this name is usually complete fileName.*/
     protected String name;
@@ -23,10 +21,6 @@ public abstract class ProgressImage implements ImageStorage {
     protected int width;
 
     protected List<Pixel> bitmap;
-
-    public int getId() {
-        return id;
-    }
 
     public int getHeight() {
         return height;

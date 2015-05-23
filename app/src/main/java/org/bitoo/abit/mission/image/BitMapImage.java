@@ -1,12 +1,10 @@
 package org.bitoo.abit.mission.image;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.bitoo.abit.utils.XmlImageParser;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -23,13 +21,11 @@ public class BitMapImage extends ProgressImage {
     private XmlImageParser imageParser = new XmlImageParser();
 
     BitMapImage() {
-        id = -1;
     }
-    BitMapImage(int id) {
-        this.id = id;
+    BitMapImage(String imageName) {
+        name = imageName;
     }
-    BitMapImage(int height, int width, int id) {
-        this(id);
+    BitMapImage(int height, int width) {
         this.height = height;
         this.width = width;
     }
@@ -43,11 +39,9 @@ public class BitMapImage extends ProgressImage {
     }
 
     @Override
-    public boolean loadImage(Context context) {
-        if(id != -1) {
-            Log.d(TAG, "opening image " + id + "with res id of " + imageParser.findImageById(id));
-            loadImage(context.getResources()
-                    .openRawResource(imageParser.findImageById(id)));
+    public boolean loadImage(Context context) throws FileNotFoundException {
+        if(name != null) {
+            loadImage(context.openFileInput(name));
             return true;
         } else {
             return false;
@@ -58,11 +52,6 @@ public class BitMapImage extends ProgressImage {
     public void loadImage(Context context, String fileName)
             throws FileNotFoundException {
         loadImage(context.openFileInput(fileName));
-    }
-
-    @Override
-    public void modifyImage(int id) throws IOException {
-
     }
 
     @Override
