@@ -123,7 +123,11 @@ public class Mission implements MissionStorage{
         return longestStreak;
     }
 
-    public int getProgress() {
+    public int getProgressDayNum() {
         return progressDayNum;
+    }
+
+    public boolean getProgressMask(int i) {
+        return (progressMask[i / 8] >> (i % 8) & 0x1) == 0x1;
     }
 }

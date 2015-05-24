@@ -21,7 +21,7 @@ public class BitMapAdapter extends BaseAdapter {
     private final static String TAG = "BitMapAdapter";
     Context context;
 
-    /** I can get {@link Mission#progress} here.*/
+    /** I can get {@link Mission#progressMask} here.*/
     Mission mission;
 
     /** Pixels of the bitmap grid.*/
@@ -59,7 +59,7 @@ public class BitMapAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.grid_pixel, null);
         }
         ImageView imageView = (ImageView) convertView.findViewById(R.id.img_pixel);
-        if(position <= mission.getProgress())
+        if(mission.getProgressMask(position))
             imageView.setBackgroundColor((int) bitmap.get(position).getPixel());
         else
             imageView.setBackgroundColor(Color.GRAY);

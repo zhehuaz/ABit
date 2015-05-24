@@ -3,6 +3,7 @@ package org.bitoo.abit.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import java.io.FileNotFoundException;
  * create an instance of this fragment.
  */
 public class ImageFragmentDemo extends Fragment {
+    private static final String TAG = "ImageFramentDemo";
+
     GridView mGridView;
     Mission mission;
 
@@ -67,9 +70,14 @@ public class ImageFragmentDemo extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         try {
-            mission = new Mission(getActivity(), "mario.xml", null);//TODO : should not be null
+            byte[] progress = new byte[50];
+            for(int i = 0;i < 50;i ++){
+                progress[i] = ~0;
+            }
+            mission = new Mission(getActivity(), "mario.xml", progress);//TODO : should get from database
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), "Load Image source error.", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Load Image source error.");
             e.printStackTrace();
         }
         BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission);

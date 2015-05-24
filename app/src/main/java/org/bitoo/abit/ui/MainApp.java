@@ -20,19 +20,22 @@ public class MainApp extends Application {
 
     @Override
     public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "In MainApp onCreate()");
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int checkNum = preferences.getInt(VERSION_KEY, 0);
+        Log.i(TAG, "checkNum is " + checkNum);
         if (checkNum == 0) {
+            Log.i(TAG, "First time to launch");
             initApp();
             first = true;
             preferences.edit().putInt(VERSION_KEY, 1).apply();
         }
 
-        super.onCreate();
     }
 
     /**
-     * Called when app first lauched.
+     * Called when app first launched.
      */
     private void initApp(){
         // Create database and table
@@ -47,13 +50,13 @@ public class MainApp extends Application {
          * last_day DATE NOT NULL
          * );
          */
-        db.execSQL("CREATE TABLE mission(\n" +
+      /*  db.execSQL("CREATE TABLE mission(\n" +
                 " id INTEGER PRIMARY KEY AUTOINCRECEMENT,\n" +
                 " title TEXT NOT NULL,\n" +
                 " image_name VARCHAR(20) NOT NULL,\n" +
                 " progress_mask VARCHAR(100) NOT NULL,\n" +
                 " first_day DATE NOT NULL,\n" +
-                " last_day DATE NOT NULL);");
+                " last_day DATE NOT NULL);");*/
 
         //save raw images into internal storage
         try {
