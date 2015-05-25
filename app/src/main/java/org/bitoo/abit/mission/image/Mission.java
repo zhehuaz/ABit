@@ -15,7 +15,7 @@ import java.util.Date;
 public class Mission implements MissionStorage{
 
     private final static String TAG = "Mission";
-    protected final static long MILLIS_OF_ONE_DAY = 86400000;
+    public final static long MILLIS_OF_ONE_DAY = 86400000;
     protected final static int MAX_MARK_CONTAIN = 50;
 
     protected ProgressImage progressImage;
@@ -40,35 +40,37 @@ public class Mission implements MissionStorage{
     /** Progress of the mission.How many day passed by since the mission is created.*/
     protected int progressDayNum;
     protected int longestStreak;
+
     /** To check if the progress can be increased now.*/
     protected Date lastCheckDate;
+
+    protected Date createDate;
     protected String title;
     protected Context context;
 
-    public Mission() {
-        progressDayNum = 0;
-        longestStreak = 0;
-        // the date of last day.
-        lastCheckDate = new Date(System.currentTimeMillis() - MILLIS_OF_ONE_DAY);
-        title = "";
-
-    }
-
-    public Mission(String title) {
-        this();
-        this.title = title;
-    }
-
     /**
+     * Initialize a mission, called when create a new mission,
+     * or load a mission object from database.
      * Load image when mission is created.
      * The image's pixel is of {@link BitColor}.
      * @param context to access local storage
      * @param imageName find this resource XML file
      * @param progress Current progress.
+     * @throws FileNotFoundException when image is not found.
      */
-    public Mission(Context context, String imageName, byte[] progress) throws FileNotFoundException {
-        this();
+    public Mission(Context context,
+                   int id,
+                   String title,
+                   Date createDate,
+                   Date lastCheckDate,
+                   String imageName,
+                   byte[] progress)
+            throws FileNotFoundException {
         this.context = context;
+        this.id = id;
+        this.title = title;
+        this.createDate = createDate;
+        this.lastCheckDate = lastCheckDate;
         progressImage = new BitMapImage(imageName);
         progressImage.loadImage(context, imageName);
         this.progressMask = progress;
@@ -129,5 +131,25 @@ public class Mission implements MissionStorage{
 
     public boolean getProgressMask(int i) {
         return (progressMask[i / 8] >> (i % 8) & 0x1) == 0x1;
+    }
+
+    public byte[] getProgressMask() {
+        return progressMask;
+    }
+
+    public Date getLastCheckDate() {
+        return lastCheckDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
     }
 }

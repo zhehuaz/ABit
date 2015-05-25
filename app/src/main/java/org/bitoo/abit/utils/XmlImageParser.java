@@ -2,7 +2,6 @@ package org.bitoo.abit.utils;
 
 import android.graphics.Color;
 
-import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.BitColor;
 import org.bitoo.abit.mission.image.Pixel;
 import org.w3c.dom.Document;
@@ -14,9 +13,7 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,12 +26,6 @@ public class XmlImageParser {
     private List<Pixel> bitmap;
     private int height = 0;
     private int width = 0;
-
-    private static Map<Integer, Integer> imageIndex = new HashMap<>();
-
-    static{
-        imageIndex.put(1, R.raw.mario);
-    }
 
     /**
      * Parse XML file into Document.
@@ -80,7 +71,6 @@ public class XmlImageParser {
 
         // Traverse <bitcolor>s
         NodeList bitColors = rootElement.getChildNodes();// list of <bitcolor>
-        NodeList bitInfos;// <x>, <y>, and <color>
         int length = bitColors.getLength();
         for (int i = 0;i < length;i ++) {
             bitColor = bitColors.item(i);// for each <bitcolor>
@@ -98,21 +88,6 @@ public class XmlImageParser {
         }
 
 
-    }
-
-    /**
-     * Find corresponding image's resource ID(in R.raw) by
-     * {@link org.bitoo.abit.mission.image.ProgressImage#id}.
-     *
-     * @param id image ID
-     * @return resource ID
-     */
-    public int findImageById(int id){
-        return imageIndex.get(id);
-    }
-
-    public void putInImageIndex(int id,int resId){
-        imageIndex.put(id, resId);
     }
 
     public List<Pixel> getBitmap() {

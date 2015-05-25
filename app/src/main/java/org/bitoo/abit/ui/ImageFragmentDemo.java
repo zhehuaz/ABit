@@ -13,8 +13,10 @@ import android.widget.Toast;
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.ui.custom.BitMapAdapter;
+import org.bitoo.abit.utils.MissionSQLiteHelper;
 
 import java.io.FileNotFoundException;
+import java.util.Date;
 
 
 /**
@@ -26,6 +28,8 @@ import java.io.FileNotFoundException;
  */
 public class ImageFragmentDemo extends Fragment {
     private static final String TAG = "ImageFramentDemo";
+    MissionSQLiteHelper sqlHelper =
+            new MissionSQLiteHelper(getActivity(), MissionSQLiteHelper.DATABASE_NAME, null, 1);
 
     GridView mGridView;
     Mission mission;
@@ -53,9 +57,6 @@ public class ImageFragmentDemo extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
     }
 
     @Override
@@ -63,7 +64,6 @@ public class ImageFragmentDemo extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_image_display, container, false);
-
     }
 
     @Override
@@ -74,17 +74,25 @@ public class ImageFragmentDemo extends Fragment {
             for(int i = 0;i < 50;i ++){
                 progress[i] = ~0;
             }
-            mission = new Mission(getActivity(), "mario.xml", progress);//TODO : should get from database
+            mission = new Mission(getActivity(),
+                    0, "hello",
+                    new Date(System.currentTimeMillis()),
+                    new Date(System.currentTimeMillis()),
+                    "pacmonster.xml",
+                    progress);//TODO : should get from database
+            sqlHelper.addMission(mission);
+            Mission mission1 = sqlHelper.loadMission(getActivity(), 0);
+            BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission1);
+            mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
+
+            mGridView.setNumColumns(mission.getProgressImage().getWidth());
+            mGridView.setAdapter(adapter);
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), "Load Image source error.", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Load Image source error.");
             e.printStackTrace();
         }
-        BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission);
-        mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
 
-        mGridView.setNumColumns(mission.getProgressImage().getWidth());
-        mGridView.setAdapter(adapter);
     }
 
     @Override

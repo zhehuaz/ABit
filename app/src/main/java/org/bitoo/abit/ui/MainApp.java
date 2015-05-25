@@ -1,14 +1,13 @@
 package org.bitoo.abit.ui;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.utils.FileHandler;
+import org.bitoo.abit.utils.MissionSQLiteHelper;
 
 import java.io.IOException;
 
@@ -31,7 +30,6 @@ public class MainApp extends Application {
             first = true;
             preferences.edit().putInt(VERSION_KEY, 1).apply();
         }
-
     }
 
     /**
@@ -39,29 +37,14 @@ public class MainApp extends Application {
      */
     private void initApp(){
         // Create database and table
-        SQLiteDatabase db = this.openOrCreateDatabase("ABit.db", Context.MODE_PRIVATE, null);
-        /**
-         * CREATE TABLE mission(
-         * id INTEGER PRIMARY KEY AUTOINCRECEMENT,
-         * title TEXT NOT NULL,
-         * image_name VARCHAR(20) NOT NULL,
-         * progress_mask VARCHAR(100) NOT NULL,
-         * first_day DATE NOT NULL,
-         * last_day DATE NOT NULL
-         * );
-         */
-      /*  db.execSQL("CREATE TABLE mission(\n" +
-                " id INTEGER PRIMARY KEY AUTOINCRECEMENT,\n" +
-                " title TEXT NOT NULL,\n" +
-                " image_name VARCHAR(20) NOT NULL,\n" +
-                " progress_mask VARCHAR(100) NOT NULL,\n" +
-                " first_day DATE NOT NULL,\n" +
-                " last_day DATE NOT NULL);");*/
+        MissionSQLiteHelper missionSQLiteHelper =
+                new MissionSQLiteHelper(this, MissionSQLiteHelper.DATABASE_NAME, null, 1);
 
         //save raw images into internal storage
         try {
             // FIXME : All the source files should be moved,is there a way to traversal R.raw?
             FileHandler.copyFile(this, getResources().openRawResource(R.raw.mario), "mario.xml");
+            FileHandler.copyFile(this, getResources().openRawResource(R.raw.pacmonster), "pacmonster.xml");
         } catch (IOException e) {
             e.printStackTrace();
             Log.e(TAG, "Can't load image source");
