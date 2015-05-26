@@ -3,7 +3,7 @@ package org.bitoo.abit.mission.image;
 /**
  * A Bit in a BitMap Image contains its position and color.
  */
-public class BitColor implements Pixel{
+public class BitColor implements Pixel<Integer>{
     int x;
     int y;
     int color;

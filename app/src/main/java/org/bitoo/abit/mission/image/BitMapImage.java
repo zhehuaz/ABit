@@ -5,8 +5,8 @@ import android.content.Context;
 import org.bitoo.abit.utils.XmlImageParser;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * A image standing for progress of mission consists of bitmap,
@@ -18,23 +18,20 @@ import java.io.InputStream;
 public class BitMapImage extends ProgressImage {
     private final static String TAG = "BitMapImage";
 
-    private XmlImageParser imageParser;
+    private XmlImageParser imageParser = new XmlImageParser();
 
     BitMapImage() {
-        id = -1;
     }
-    BitMapImage(int id) {
-        this.id = id;
+    BitMapImage(String imageName) {
+        name = imageName;
     }
-    BitMapImage(int height, int width, int id) {
+    BitMapImage(int height, int width) {
         this.height = height;
         this.width = width;
-        this.id = id;
     }
 
     @Override
     public void loadImage(InputStream is) {
-        imageParser = new XmlImageParser();
         imageParser.loadImage(is);
         bitmap = imageParser.getBitmap();
         height = imageParser.getHeight();
@@ -42,10 +39,9 @@ public class BitMapImage extends ProgressImage {
     }
 
     @Override
-    public boolean loadImage(Context context) {
-        if(id != -1) {
-            loadImage(context.getResources()
-                    .openRawResource(imageParser.findImageById(id)));
+    public boolean loadImage(Context context) throws FileNotFoundException {
+        if(name != null) {
+            loadImage(context.openFileInput(name));
             return true;
         } else {
             return false;
@@ -59,12 +55,7 @@ public class BitMapImage extends ProgressImage {
     }
 
     @Override
-    public void modifyImage(int id) throws IOException {
-
-    }
-
-    @Override
-    public BitColor[] getBitmap() {
-        return (BitColor[])bitmap;
+    public List<Pixel> getBitmap() {
+        return bitmap;
     }
 }

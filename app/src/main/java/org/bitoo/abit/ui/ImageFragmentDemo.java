@@ -3,18 +3,19 @@ package org.bitoo.abit.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
-import org.bitoo.abit.mission.image.Pixel;
-import org.bitoo.abit.mission.image.ProgressImage;
+import org.bitoo.abit.ui.custom.BitMapAdapter;
+import org.bitoo.abit.utils.MissionSQLiteHelper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.FileNotFoundException;
 
 
 /**
@@ -25,12 +26,11 @@ import java.util.HashMap;
  * create an instance of this fragment.
  */
 public class ImageFragmentDemo extends Fragment {
+    private static final String TAG = "ImageFramentDemo";
+    MissionSQLiteHelper sqlHelper;
+
     GridView mGridView;
     Mission mission;
-    ProgressImage progressImage;
-    Pixel[] bitmap;
-    ArrayList<HashMap<String, Object>> pixels = new ArrayList<HashMap<String, Object>>();
-
 
     private OnItemSelectedListener mListener;
     private static final String COLOR_KEY = "img_pixel";
@@ -54,22 +54,13 @@ public class ImageFragmentDemo extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        /**
+         * Context here is identical to that in {@link MissionSQLiteHelper}
+         * Global context required.
+         */
+        sqlHelper = new MissionSQLiteHelper(getActivity().getApplicationContext());
         super.onCreate(savedInstanceState);
-        mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
-
-        mGridView.setNumColumns(20);
-        mission = new Mission(getActivity(), R.raw.mario);
-        progressImage = mission.getProgressImage();
-        bitmap = progressImage.getBitmap();
-        int length = progressImage.getHeight()
-                * progressImage.getWidth();
-
-        for(int i = 0;i < length;i ++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put(COLOR_KEY, bitmap[i]);
-
-        }
-
     }
 
     @Override
@@ -77,7 +68,36 @@ public class ImageFragmentDemo extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_image_display, container, false);
+    }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        try {
+            byte[] progress = new byte[50];
+            for(int i = 0;i < 50;i ++){
+                if(i % 30 != 0)
+                progress[i] = ~0;
+            }
+            mission = new Mission(getActivity(),
+                    1, "hello",
+                    System.currentTimeMillis(),
+                    System.currentTimeMillis(),
+                    "pacmonster.xml",
+                    progress);//TODO : should get from database
+            //sqlHelper.addMission(mission);
+
+            Mission mission1 = sqlHelper.loadMission(getActivity(), 1);
+            BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission1);
+            mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
+
+            mGridView.setNumColumns(mission.getProgressImage().getWidth());
+            mGridView.setAdapter(adapter);
+        } catch (FileNotFoundException e) {
+            Toast.makeText(getActivity(), "Load Image source error.", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Load Image source error.");
+            e.printStackTrace();
+        }
     }
 
     @Override
