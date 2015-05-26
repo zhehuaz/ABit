@@ -2,6 +2,7 @@ package org.bitoo.abit.ui;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -38,7 +39,10 @@ public class MainApp extends Application {
     private void initApp(){
         // Create database and table
         MissionSQLiteHelper missionSQLiteHelper =
-                new MissionSQLiteHelper(this, MissionSQLiteHelper.DATABASE_NAME, null, 1);
+                new MissionSQLiteHelper(this.getApplicationContext(), MissionSQLiteHelper.DATABASE_NAME, null, 1);
+        SQLiteDatabase db = missionSQLiteHelper.getWritableDatabase();// create a new database this way
+        Log.d(TAG, "database is created in : " + db.getPath());
+        db.close();
 
         //save raw images into internal storage
         try {

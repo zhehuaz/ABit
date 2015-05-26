@@ -28,8 +28,7 @@ import java.util.Date;
  */
 public class ImageFragmentDemo extends Fragment {
     private static final String TAG = "ImageFramentDemo";
-    MissionSQLiteHelper sqlHelper =
-            new MissionSQLiteHelper(getActivity(), MissionSQLiteHelper.DATABASE_NAME, null, 1);
+    MissionSQLiteHelper sqlHelper;
 
     GridView mGridView;
     Mission mission;
@@ -56,6 +55,12 @@ public class ImageFragmentDemo extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        /**
+         * Context here is identical to that in {@link MissionSQLiteHelper}
+         * Global context required.
+         */
+        sqlHelper = new MissionSQLiteHelper(getActivity().getApplicationContext(), MissionSQLiteHelper.DATABASE_NAME, null, 1);
         super.onCreate(savedInstanceState);
     }
 
@@ -72,16 +77,18 @@ public class ImageFragmentDemo extends Fragment {
         try {
             byte[] progress = new byte[50];
             for(int i = 0;i < 50;i ++){
+                if(i % 30 != 0)
                 progress[i] = ~0;
             }
             mission = new Mission(getActivity(),
-                    0, "hello",
+                    1, "hello",
                     new Date(System.currentTimeMillis()),
                     new Date(System.currentTimeMillis()),
                     "pacmonster.xml",
                     progress);//TODO : should get from database
-            sqlHelper.addMission(mission);
-            Mission mission1 = sqlHelper.loadMission(getActivity(), 0);
+            //sqlHelper.addMission(mission);
+
+            Mission mission1 = sqlHelper.loadMission(getActivity(), 1);
             BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission1);
             mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
 
@@ -92,7 +99,6 @@ public class ImageFragmentDemo extends Fragment {
             Log.e(TAG, "Load Image source error.");
             e.printStackTrace();
         }
-
     }
 
     @Override

@@ -21,8 +21,10 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
     private static final String TAG = "MissoinSQLiteHelper";
     public static final String DATABASE_NAME = "ABit";
     public static final String TABLE_NAME = "progressData";
+    public static final int VERSION = 1;
+
     public MissionSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+        super(context, name, factory, VERSION);
     }
 
     @Override
@@ -31,7 +33,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
         /**
          * # To create the progressData table
          * CREATE TABLE {@link #TABLE_NAME}(
-         * id INTEGER PRIMARY KEY AUTOINCRECEMENT,
+         * id INTEGER PRIMARY KEY,
          * title TEXT NOT NULL,
          * image_name VARCHAR(20) NOT NULL,
          * progress_mask BLOB NOT NULL,
@@ -40,7 +42,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
          * );
          */
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(\n" +
-                " id INTEGER PRIMARY KEY AUTOINCRECEMENT,\n" +
+                " id INTEGER PRIMARY KEY    ,\n" +
                 " title TEXT NOT NULL,\n" +
                 " image_name VARCHAR(20) NOT NULL,\n" +
                 " progress_mask BLOB NOT NULL,\n" +
@@ -57,14 +59,16 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
      * Sample:
      * INSERT INTO progressData (id, title, image_name, progress_mask, first_day, last_day)
      * VALUES( 1, 'hello', 'mario.xml', '', xxxxxxxx, xxxxxxxx);
+     * If mission is new, id should be null.
      */
     public void addMission(Mission mission) {
         String sqlStatment = "INSERT INTO " + TABLE_NAME +
                 " (id, title, image_name, progress_mask, first_day, last_day)" +
                         " VALUES(?, ?, ?, ?, ?, ?)";
         Log.v(TAG, "Executing :\n" + sqlStatment);
+        long id = mission.getId();
         Object[] args = new Object[]{
-                mission.getId(),
+                id == 0 ? null : id,
                 mission.getTitle(),
                 mission.getProgressImage().getName(),
                 mission.getProgressMask(),
@@ -79,7 +83,8 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
                 mission.getProgressMask() + "\n" +
                 mission.getCreateDate().getTime() + "\n" +
                 mission.getLastCheckDate().getTime());
-        getWritableDatabase().execSQL(sqlStatment, args);
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(sqlStatment, args);
     }
 
     /**
