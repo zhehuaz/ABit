@@ -10,7 +10,6 @@ import org.bitoo.abit.mission.image.Mission;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -85,8 +84,8 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
                 mission.getTitle(),
                 mission.getProgressImage().getName(),
                 mission.getProgressMask(),
-                mission.getCreateDate().getTime(),
-                mission.getLastCheckDate().getTime()
+                mission.getCreateDate(),
+                mission.getLastCheckDate()
         };
 
         Log.d(TAG, "Mission : " +
@@ -94,8 +93,8 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
                 mission.getTitle() + "\n" +
                         mission.getProgressImage().getName() + "\n" +
                 mission.getProgressMask() + "\n" +
-                mission.getCreateDate().getTime() + "\n" +
-                mission.getLastCheckDate().getTime());
+                mission.getCreateDate() + "\n" +
+                mission.getLastCheckDate());
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sqlStatment, args);
     }
@@ -116,8 +115,8 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
                 context,
                 id,
                 cursor.getString(cursor.getColumnIndex("title")),
-                new Date(cursor.getLong(cursor.getColumnIndex("first_day"))),
-                new Date(cursor.getLong(cursor.getColumnIndex("last_day"))),
+                cursor.getLong(cursor.getColumnIndex("first_day")),
+                cursor.getLong(cursor.getColumnIndex("last_day")),
                 cursor.getString(cursor.getColumnIndex("image_name")),
                 cursor.getBlob(cursor.getColumnIndex("progress_mask"))
         );
@@ -125,22 +124,36 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
         return mission;
     }
 
-    public List<Mission> loadMissions() {
+    /**
+     * List fundamental information of missions, to show them in a list.
+     * Information of missions is not complete.Image and progress is not to be returned.
+     * @param context to access resource
+     * @return list of missions
+     */
+    public List<Mission> loadMissions(Context context) {
         List<Mission> missionList = new ArrayList<>();
-        String sqlStatment =  "SELECT * FROM " + TABLE_NAME;
+        String sqlStatment =  "SELECT id,title,first_day,last_day FROM " + TABLE_NAME;
         Cursor cursor = getReadableDatabase().rawQuery(sqlStatment, null);
         cursor.moveToFirst();
         while(!cursor.moveToNext()) {
-
+            missionList.add(new Mission(context,
+                    cursor.getLong(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("title")),
+                    cursor.getLong(cursor.getColumnIndex("first_day")),
+                    cursor.getLong(cursor.getColumnIndex("last_day"))));
         }
+        cursor.close();
         return missionList;
     }
 
     /**
-     * Sample
+     * Sample:
+     *  DELETE FROM {@link #TABLE_NAME}
+     *      WHERE id = 1;
      */
     public void deleteMission(Context context, int id) {
-
+        String sqlStatement = "DELETE FROM " + TABLE_NAME + "WHERE id = " + id;
+        getWritableDatabase().execSQL(sqlStatement);
     }
 
 }

@@ -16,7 +16,6 @@ import org.bitoo.abit.ui.custom.BitMapAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
 import java.io.FileNotFoundException;
-import java.util.Date;
 
 
 /**
@@ -82,8 +81,8 @@ public class ImageFragmentDemo extends Fragment {
             }
             mission = new Mission(getActivity(),
                     1, "hello",
-                    new Date(System.currentTimeMillis()),
-                    new Date(System.currentTimeMillis()),
+                    System.currentTimeMillis(),
+                    System.currentTimeMillis(),
                     "pacmonster.xml",
                     progress);//TODO : should get from database
             //sqlHelper.addMission(mission);

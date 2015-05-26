@@ -42,9 +42,9 @@ public class Mission implements MissionStorage{
     protected int longestStreak;
 
     /** To check if the progress can be increased now.*/
-    protected Date lastCheckDate;
+    protected long lastCheckDate;
 
-    protected Date createDate;
+    protected long createDate;
     protected String title;
     protected Context context;
 
@@ -61,8 +61,8 @@ public class Mission implements MissionStorage{
     public Mission(Context context,
                    int id,
                    String title,
-                   Date createDate,
-                   Date lastCheckDate,
+                   long createDate,
+                   long lastCheckDate,
                    String imageName,
                    byte[] progress)
             throws FileNotFoundException {
@@ -80,7 +80,7 @@ public class Mission implements MissionStorage{
      * @param createDate
      * @param lastCheckDate
      */
-    public Mission(Context context, int id, String title, Date createDate, Date lastCheckDate) {
+    public Mission(Context context, long id, String title, long createDate, long lastCheckDate) {
         this.context = context;
         this.id = id;
         this.title = title;
@@ -110,15 +110,16 @@ public class Mission implements MissionStorage{
      */
     public boolean check() {
         Date curDate = new Date(System.currentTimeMillis());
-        if (curDate.before(lastCheckDate)){
+        Date lastCheck = new Date(lastCheckDate);
+        if (curDate.before(lastCheck)){
             Log.e(TAG, "current date is before last check day");
         }
-        else if (curDate == lastCheckDate){
+        else if (curDate == lastCheck){
             return false;
         }
         updateProgress();
         ++ longestStreak;
-        lastCheckDate = curDate;
+        lastCheckDate = curDate.getTime();
         return true;
     }
 
@@ -149,7 +150,7 @@ public class Mission implements MissionStorage{
         return progressMask;
     }
 
-    public Date getLastCheckDate() {
+    public long getLastCheckDate() {
         return lastCheckDate;
     }
 
@@ -161,7 +162,7 @@ public class Mission implements MissionStorage{
         return id;
     }
 
-    public Date getCreateDate() {
+    public long getCreateDate() {
         return createDate;
     }
 }

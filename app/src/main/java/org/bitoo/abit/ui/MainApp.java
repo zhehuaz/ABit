@@ -39,10 +39,10 @@ public class MainApp extends Application {
     private void initApp(){
         // Create database and table
         MissionSQLiteHelper missionSQLiteHelper =
-                new MissionSQLiteHelper(this.getApplicationContext(), MissionSQLiteHelper.DATABASE_NAME, null, 1);
+                new MissionSQLiteHelper(this.getApplicationContext());
         SQLiteDatabase db = missionSQLiteHelper.getWritableDatabase();// create a new database this way
         Log.d(TAG, "database is created in : " + db.getPath());
-        db.close();
+        //db.close();
 
         //save raw images into internal storage
         try {
