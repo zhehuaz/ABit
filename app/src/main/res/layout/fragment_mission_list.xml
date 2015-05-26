@@ -1,13 +1,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="org.bitoo.abit.ui.ImageFragmentDemo">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-    <Button
-        android:id="@+id/bt_open_test_frag"
+    android:layout_height="match_parent" tools:context="org.bitoo.abit.ui.ImageFragmentDemo" xmlns:card="http://schemas.android.com/apk/res-auto"
+    >
+    <ScrollView
         android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+    <it.gmariotti.cardslib.library.view.CardViewNative
+        android:id="@+id/cd_missionlist"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="open test fragment"/>
+        card:card_layout_resourceID="@layout/native_material_largeimage_card"
+        />
+    </ScrollView>
 </FrameLayout>

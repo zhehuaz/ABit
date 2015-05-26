@@ -1,39 +1,34 @@
 package org.bitoo.abit.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.Toast;
 
 import org.bitoo.abit.R;
+import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.utils.MissionSQLiteHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import it.gmariotti.cardslib.library.cards.actions.BaseSupplementalAction;
+import it.gmariotti.cardslib.library.cards.actions.IconSupplementalAction;
+import it.gmariotti.cardslib.library.cards.material.MaterialLargeImageCard;
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.view.CardViewNative;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MissionListFragment extends Fragment {
+    MissionSQLiteHelper sqLiteHelper;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MissionListFrament.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ImageFragmentDemo newInstance(String param1, String param2) {
         ImageFragmentDemo fragment = new ImageFragmentDemo();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -43,21 +38,54 @@ public class MissionListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_mission_list, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Button button = (Button)getActivity().findViewById(R.id.bt_open_test_frag);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageFragmentDemo fragmentDemo = new ImageFragmentDemo();
-                getActivity().getFragmentManager().beginTransaction()
-                        .replace(R.layout.fragment_image_display, fragmentDemo).commit();
-            }
-        });
+        sqLiteHelper = new MissionSQLiteHelper(getActivity().getApplication());
+        List<Mission> missions = sqLiteHelper.loadMissions();
+
+        for(final Mission mission : missions) {
+
+            ArrayList<BaseSupplementalAction> actions = new ArrayList<BaseSupplementalAction>();
+            IconSupplementalAction shareAction = new IconSupplementalAction(getActivity(), R.id.tv_share);
+            shareAction.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
+                @Override
+                public void onClick(Card card, View view) {
+                    Toast.makeText(getActivity(), "SHARE", Toast.LENGTH_SHORT).show();
+                }
+            });
+            IconSupplementalAction deleteAction = new IconSupplementalAction(getActivity(), R.id.tv_delete);
+            deleteAction.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
+                @Override
+                public void onClick(Card card, View view) {
+                    Toast.makeText(getActivity(), "DELETE", Toast.LENGTH_LONG).show();
+                }
+            });
+            actions.add(shareAction);
+            actions.add(deleteAction);
+
+            MaterialLargeImageCard card =
+                    MaterialLargeImageCard.with(getActivity())
+                            .setTextOverImage(mission.getTitle())
+                            .setTitle("This is a test")
+                            .setSubTitle("This is a little test")
+                            .useDrawableId(R.drawable.mario)
+                            .setupSupplementalActions(R.layout.cd_mission_supplemental, actions)
+                            .build();
+
+            card.setOnClickListener(new Card.OnCardClickListener() {
+                @Override
+                public void onClick(Card card, View view) {
+                    Intent intent = new Intent(getActivity(), DetailedMissionActivity.class);
+                    intent.putExtra("mission_id", mission.getId());
+                    getActivity().startActivity(intent);
+                }
+            });
+            CardViewNative cardView = (CardViewNative) getActivity().findViewById(R.id.cd_missionlist);
+            cardView.setCard(card);
+        }
     }
 }

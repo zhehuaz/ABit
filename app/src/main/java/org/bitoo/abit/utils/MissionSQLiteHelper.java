@@ -23,7 +23,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
     public static final String DATABASE_NAME = "ABit";
     public static final String TABLE_NAME = "progressData";
     public static final int VERSION = 1;
-
+    private Context context;
     /**
      *
      * @param context ATTENTION, context here must be {@link android.app.Application}
@@ -33,10 +33,11 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
      */
     private MissionSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+        this.context = context;
     }
 
     public MissionSQLiteHelper(Context context) {
-        super(context, DATABASE_NAME, null, VERSION);
+        this(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override
@@ -127,20 +128,20 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
     /**
      * List fundamental information of missions, to show them in a list.
      * Information of missions is not complete.Image and progress is not to be returned.
-     * @param context to access resource
      * @return list of missions
      */
-    public List<Mission> loadMissions(Context context) {
+    public List<Mission> loadMissions() {
         List<Mission> missionList = new ArrayList<>();
         String sqlStatment =  "SELECT id,title,first_day,last_day FROM " + TABLE_NAME;
         Cursor cursor = getReadableDatabase().rawQuery(sqlStatment, null);
         cursor.moveToFirst();
-        while(!cursor.moveToNext()) {
+        while(!cursor.isAfterLast()) {
             missionList.add(new Mission(context,
                     cursor.getLong(cursor.getColumnIndex("id")),
                     cursor.getString(cursor.getColumnIndex("title")),
                     cursor.getLong(cursor.getColumnIndex("first_day")),
                     cursor.getLong(cursor.getColumnIndex("last_day"))));
+            cursor.moveToNext();
         }
         cursor.close();
         return missionList;
