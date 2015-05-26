@@ -66,14 +66,26 @@ public class Mission implements MissionStorage{
                    String imageName,
                    byte[] progress)
             throws FileNotFoundException {
+        this(context, id, title, createDate, lastCheckDate);
+        progressImage = new BitMapImage(imageName);
+        progressImage.loadImage(context, imageName);
+        this.progressMask = progress;
+    }
+
+    /**
+     *
+     * @param context
+     * @param id
+     * @param title
+     * @param createDate
+     * @param lastCheckDate
+     */
+    public Mission(Context context, int id, String title, Date createDate, Date lastCheckDate) {
         this.context = context;
         this.id = id;
         this.title = title;
         this.createDate = createDate;
         this.lastCheckDate = lastCheckDate;
-        progressImage = new BitMapImage(imageName);
-        progressImage.loadImage(context, imageName);
-        this.progressMask = progress;
     }
 
     public void setProgressImage(ProgressImage image){

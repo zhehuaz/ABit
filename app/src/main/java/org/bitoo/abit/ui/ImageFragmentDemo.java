@@ -60,7 +60,7 @@ public class ImageFragmentDemo extends Fragment {
          * Context here is identical to that in {@link MissionSQLiteHelper}
          * Global context required.
          */
-        sqlHelper = new MissionSQLiteHelper(getActivity().getApplicationContext(), MissionSQLiteHelper.DATABASE_NAME, null, 1);
+        sqlHelper = new MissionSQLiteHelper(getActivity().getApplicationContext());
         super.onCreate(savedInstanceState);
     }
 

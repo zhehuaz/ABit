@@ -9,7 +9,9 @@ import android.util.Log;
 import org.bitoo.abit.mission.image.Mission;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Mission saves settings in SQLite database, and this class
@@ -23,8 +25,19 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
     public static final String TABLE_NAME = "progressData";
     public static final int VERSION = 1;
 
-    public MissionSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, VERSION);
+    /**
+     *
+     * @param context ATTENTION, context here must be {@link android.app.Application}
+     * @param name of database, use {@link #DATABASE_NAME}
+     * @param factory
+     * @param version of database, use {@link #VERSION}
+     */
+    private MissionSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+    }
+
+    public MissionSQLiteHelper(Context context) {
+        super(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override
@@ -111,4 +124,23 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
         cursor.close();
         return mission;
     }
+
+    public List<Mission> loadMissions() {
+        List<Mission> missionList = new ArrayList<>();
+        String sqlStatment =  "SELECT * FROM " + TABLE_NAME;
+        Cursor cursor = getReadableDatabase().rawQuery(sqlStatment, null);
+        cursor.moveToFirst();
+        while(!cursor.moveToNext()) {
+
+        }
+        return missionList;
+    }
+
+    /**
+     * Sample
+     */
+    public void deleteMission(Context context, int id) {
+
+    }
+
 }
