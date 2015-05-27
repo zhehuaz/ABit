@@ -2,15 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="org.bitoo.abit.ui.ImageFragmentDemo" xmlns:card="http://schemas.android.com/apk/res-auto"
     >
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent">
 
-    <it.gmariotti.cardslib.library.view.CardViewNative
-        android:id="@+id/cd_missionlist"
-        android:layout_width="match_parent"
+    <it.gmariotti.cardslib.library.view.CardListView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        card:card_layout_resourceID="@layout/native_material_largeimage_card"
+        android:id="@+id/cdlv_missions"
+        card:list_card_layout_resourceID="@layout/cd_mission_item"
         />
-    </ScrollView>
 </FrameLayout>

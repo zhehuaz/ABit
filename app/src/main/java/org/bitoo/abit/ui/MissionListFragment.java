@@ -16,16 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.gmariotti.cardslib.library.cards.actions.BaseSupplementalAction;
-import it.gmariotti.cardslib.library.cards.actions.IconSupplementalAction;
+import it.gmariotti.cardslib.library.cards.actions.TextSupplementalAction;
 import it.gmariotti.cardslib.library.cards.material.MaterialLargeImageCard;
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.view.CardViewNative;
+import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.view.CardListView;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MissionListFragment extends Fragment {
     MissionSQLiteHelper sqLiteHelper;
+    CardListView cardListView;
+    CardArrayAdapter cardArrayAdapter;
 
     public static ImageFragmentDemo newInstance(String param1, String param2) {
         ImageFragmentDemo fragment = new ImageFragmentDemo();
@@ -46,18 +49,22 @@ public class MissionListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         sqLiteHelper = new MissionSQLiteHelper(getActivity().getApplication());
         List<Mission> missions = sqLiteHelper.loadMissions();
+        ArrayList<Card> cards = new ArrayList<>();
+        cardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
+        cardListView = (CardListView) getActivity().findViewById(R.id.cdlv_missions);
+        cardListView.setAdapter(cardArrayAdapter);
 
         for(final Mission mission : missions) {
 
             ArrayList<BaseSupplementalAction> actions = new ArrayList<BaseSupplementalAction>();
-            IconSupplementalAction shareAction = new IconSupplementalAction(getActivity(), R.id.tv_share);
+            TextSupplementalAction shareAction = new TextSupplementalAction(getActivity(), R.id.tv_share);
             shareAction.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
                     Toast.makeText(getActivity(), "SHARE", Toast.LENGTH_SHORT).show();
                 }
             });
-            IconSupplementalAction deleteAction = new IconSupplementalAction(getActivity(), R.id.tv_delete);
+            TextSupplementalAction deleteAction = new TextSupplementalAction(getActivity(), R.id.tv_delete);
             deleteAction.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
@@ -84,8 +91,8 @@ public class MissionListFragment extends Fragment {
                     getActivity().startActivity(intent);
                 }
             });
-            CardViewNative cardView = (CardViewNative) getActivity().findViewById(R.id.cd_missionlist);
-            cardView.setCard(card);
+            cards.add(card);
         }
+        cardArrayAdapter.addAll(cards);
     }
 }
