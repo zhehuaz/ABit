@@ -1,5 +1,6 @@
 package org.bitoo.abit.ui;
 
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,19 +8,19 @@ import android.view.MenuItem;
 
 import org.bitoo.abit.R;
 
-
-public class DetailedMissionActivity extends AppCompatActivity implements DetailedMissionActivityFragment.OnItemSelectedListener{
+public class AddMissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detailed_mission);
+        setContentView(R.layout.activity_add_mission);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_detailed_mission, menu);
+        getMenuInflater().inflate(R.menu.menu_add_mission, menu);
         return true;
     }
 
@@ -36,10 +37,5 @@ public class DetailedMissionActivity extends AppCompatActivity implements Detail
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onItemSelected(int position) {
-
     }
 }

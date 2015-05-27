@@ -23,6 +23,10 @@
             android:name=".ui.DetailedMissionActivity"
             android:label="@string/title_activity_detailed_mission" >
         </activity>
+        <activity
+            android:name=".ui.AddMissionActivity"
+            android:label="@string/title_activity_add_mission" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,9 +1,6 @@
 package org.bitoo.abit.ui;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,13 +8,13 @@ import android.view.MenuItem;
 
 import org.bitoo.abit.R;
 /**
- *  MainActivity holds a fragment, {@link MissionListFragment}
+ *  MainActivity holds a fragment, {@link MainActivityFragment}
  *  to show a list of missions created.Besides, when a mission
- *  item in list is selected, a {@link ImageFragmentDemo} is created
+ *  item in list is selected, a {@link DetailedMissionActivityFragment} is created
  *  with detailed information of the item.
  *  This activity doesn't have a visible view, is used as a container instead.
  */
-public class MainActivity extends ActionBarActivity implements ImageFragmentDemo.OnItemSelectedListener {
+public class MainActivity extends ActionBarActivity implements DetailedMissionActivityFragment.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

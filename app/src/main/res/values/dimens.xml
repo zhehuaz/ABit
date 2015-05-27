@@ -5,4 +5,8 @@
     <dimen name="no_margin">0dp</dimen>
     <dimen name="pixel_little_margin">1dp</dimen>
     <dimen name="text_size_medium">15sp</dimen>
+    <dimen name="card_left_margin">5dp</dimen>
+    <dimen name="card_top_margin">2dp</dimen>
+    <dimen name="card_right_margin">5dp</dimen>
+
 </resources>

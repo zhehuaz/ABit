@@ -11,4 +11,5 @@
     <string name="title_activity_detailed_mission">DetailedMissionActivity</string>
     <string name="bt_share">SHARE</string>
     <string name="bt_delete">DELETE</string>
+    <string name="title_activity_add_mission">AddMissionActivity</string>
 </resources>

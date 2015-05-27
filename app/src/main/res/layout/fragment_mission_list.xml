@@ -3,7 +3,7 @@
              xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="org.bitoo.abit.ui.ImageFragmentDemo"
+             tools:context="org.bitoo.abit.ui.DetailedMissionActivityFragment"
              xmlns:card="http://schemas.android.com/apk/res-auto">
 
     <it.gmariotti.cardslib.library.view.CardListView
@@ -11,6 +11,11 @@
         android:layout_height="fill_parent"
         android:id="@+id/cdlv_missions"
         card:list_card_layout_resourceID="@layout/cd_mission_item"
+        android:layout_marginTop="@dimen/card_top_margin"
+        android:layout_marginLeft="@dimen/card_left_margin"
+        android:layout_marginStart="@dimen/card_left_margin"
+        android:layout_marginEnd="@dimen/card_right_margin"
+        android:layout_marginRight="@dimen/card_right_margin"
         />
     <com.gc.materialdesign.views.ButtonFloat
         android:id="@+id/bt_add"
@@ -22,7 +27,7 @@
         android:layout_marginRight="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:background="#1E88E5"
+        android:background="#D90000"
         materialdesign:animate="false"
         materialdesign:iconDrawable="@drawable/ic_action_new" />
 </RelativeLayout>

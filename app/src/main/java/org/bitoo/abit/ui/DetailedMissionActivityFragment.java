@@ -1,6 +1,5 @@
 package org.bitoo.abit.ui;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.MaterialMenuIcon;
 
 import org.bitoo.abit.R;
@@ -25,12 +23,12 @@ import java.io.FileNotFoundException;
 
 /**
  * Activities that contain this fragment must implement the
- * {@link ImageFragmentDemo.OnItemSelectedListener} interface
+ * {@link DetailedMissionActivityFragment.OnItemSelectedListener} interface
  * to handle interaction events.
- * Use the {@link ImageFragmentDemo#getInstance} factory method to
+ * Use the {@link DetailedMissionActivityFragment#getInstance} factory method to
  * create an instance of this fragment.
  */
-public class ImageFragmentDemo extends Fragment {
+public class DetailedMissionActivityFragment extends Fragment {
     private static final String TAG = "ImageFramentDemo";
     MissionSQLiteHelper sqlHelper;
 
@@ -47,16 +45,16 @@ public class ImageFragmentDemo extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment ImageFragmentDemo.
+     * @return A new instance of fragment DetailedMissionActivityFragment.
      */
-    public static ImageFragmentDemo getInstance() {
-        ImageFragmentDemo fragment = new ImageFragmentDemo();
+    public static DetailedMissionActivityFragment getInstance() {
+        DetailedMissionActivityFragment fragment = new DetailedMissionActivityFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public ImageFragmentDemo() {
+    public DetailedMissionActivityFragment() {
         // Required empty public constructor
     }
 
@@ -95,7 +93,7 @@ public class ImageFragmentDemo extends Fragment {
                     System.currentTimeMillis(),
                     System.currentTimeMillis(),
                     "pacmonster.xml",
-                    progress);//TODO : should get from database
+                    progress);
             //sqlHelper.addMission(mission);
 
             Mission mission1 = sqlHelper.loadMission(getActivity(), 1);

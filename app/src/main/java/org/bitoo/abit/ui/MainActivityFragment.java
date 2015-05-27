@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.balysv.materialmenu.MaterialMenuIcon;
 import com.gc.materialdesign.views.Button;
 
 import org.bitoo.abit.R;
@@ -29,18 +28,18 @@ import it.gmariotti.cardslib.library.view.CardListView;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MissionListFragment extends Fragment {
+public class MainActivityFragment extends Fragment {
     MissionSQLiteHelper sqLiteHelper;
     CardListView cardListView;
     CardArrayAdapter cardArrayAdapter;
     Button addButton;
 
-    public static ImageFragmentDemo newInstance(String param1, String param2) {
-        ImageFragmentDemo fragment = new ImageFragmentDemo();
+    public static DetailedMissionActivityFragment newInstance(String param1, String param2) {
+        DetailedMissionActivityFragment fragment = new DetailedMissionActivityFragment();
         return fragment;
     }
 
-    public MissionListFragment() {
+    public MainActivityFragment() {
     }
 
     @Override
