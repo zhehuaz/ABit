@@ -1,9 +1,13 @@
 package org.bitoo.abit.ui;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
 
 import org.bitoo.abit.R;
 /**

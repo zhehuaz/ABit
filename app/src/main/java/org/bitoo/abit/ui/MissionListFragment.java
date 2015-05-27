@@ -1,12 +1,16 @@
 package org.bitoo.abit.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.balysv.materialmenu.MaterialMenuIcon;
+import com.gc.materialdesign.views.Button;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
@@ -29,6 +33,7 @@ public class MissionListFragment extends Fragment {
     MissionSQLiteHelper sqLiteHelper;
     CardListView cardListView;
     CardArrayAdapter cardArrayAdapter;
+    Button addButton;
 
     public static ImageFragmentDemo newInstance(String param1, String param2) {
         ImageFragmentDemo fragment = new ImageFragmentDemo();
@@ -47,15 +52,16 @@ public class MissionListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        addButton = (Button) getActivity().findViewById(R.id.bt_add);
+        addButton.setBackgroundColor(Color.parseColor("#EE0000"));
+
         sqLiteHelper = new MissionSQLiteHelper(getActivity().getApplication());
         List<Mission> missions = sqLiteHelper.loadMissions();
         ArrayList<Card> cards = new ArrayList<>();
-        cardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
         cardListView = (CardListView) getActivity().findViewById(R.id.cdlv_missions);
-        cardListView.setAdapter(cardArrayAdapter);
+
 
         for(final Mission mission : missions) {
-
             ArrayList<BaseSupplementalAction> actions = new ArrayList<BaseSupplementalAction>();
             TextSupplementalAction shareAction = new TextSupplementalAction(getActivity(), R.id.tv_share);
             shareAction.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
@@ -93,6 +99,7 @@ public class MissionListFragment extends Fragment {
             });
             cards.add(card);
         }
-        cardArrayAdapter.addAll(cards);
+        cardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
+        cardListView.setAdapter(cardArrayAdapter);
     }
 }

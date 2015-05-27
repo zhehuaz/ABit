@@ -1,5 +1,6 @@
 package org.bitoo.abit.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -8,7 +9,7 @@ import android.view.MenuItem;
 import org.bitoo.abit.R;
 
 
-public class DetailedMissionActivity extends ActionBarActivity implements ImageFragmentDemo.OnItemSelectedListener{
+public class DetailedMissionActivity extends Activity implements ImageFragmentDemo.OnItemSelectedListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

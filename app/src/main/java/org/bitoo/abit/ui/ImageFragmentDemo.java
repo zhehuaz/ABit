@@ -1,14 +1,19 @@
 package org.bitoo.abit.ui;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.balysv.materialmenu.MaterialMenuDrawable;
+import com.balysv.materialmenu.MaterialMenuIcon;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
@@ -29,8 +34,11 @@ public class ImageFragmentDemo extends Fragment {
     private static final String TAG = "ImageFramentDemo";
     MissionSQLiteHelper sqlHelper;
 
-    GridView mGridView;
-    Mission mission;
+    private Toolbar toolbar;
+    private GridView mGridView;
+    private MaterialMenuIcon materialMenu;
+
+    private Mission mission;
 
     private OnItemSelectedListener mListener;
     private static final String COLOR_KEY = "img_pixel";
@@ -73,6 +81,9 @@ public class ImageFragmentDemo extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //toolbar = (Toolbar) getActivity().findViewById(R.id.tb_action);
+
+
         try {
             byte[] progress = new byte[50];
             for(int i = 0;i < 50;i ++){
