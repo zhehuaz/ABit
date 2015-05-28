@@ -6,9 +6,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.style.LineHeightSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.Button;
@@ -26,15 +29,17 @@ import it.gmariotti.cardslib.library.cards.actions.BaseSupplementalAction;
 import it.gmariotti.cardslib.library.cards.actions.IconSupplementalAction;
 import it.gmariotti.cardslib.library.cards.actions.TextSupplementalAction;
 import it.gmariotti.cardslib.library.cards.material.MaterialLargeImageCard;
+import it.gmariotti.cardslib.library.cards.topcolored.TopColoredCard;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.internal.dismissanimation.SwipeDismissAnimation;
 import it.gmariotti.cardslib.library.view.CardListView;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
-    private final ArrayList<Card> cards = new ArrayList<>();
+    private ArrayList<Card> cards;
     private MissionSQLiteHelper sqLiteHelper;
     private CardArrayAdapter cardArrayAdapter;
     public MainActivityFragment() {
@@ -56,15 +61,14 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         List<Mission> missions = sqLiteHelper.loadMissions();
         CardListView cardListView = (CardListView) getActivity().findViewById(R.id.cdlv_missions);
 
-        // Init actions
-
-
         // Show all missions
+        cards = new ArrayList<Card>();
         for(Mission mission : missions) {
-            createCard(mission);
+            cards.add(createCard(mission));
         }
         cardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
         cardListView.setAdapter(cardArrayAdapter);
+
     }
 
     @Override
@@ -87,51 +91,30 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         }
 
         sqLiteHelper.addMission(mission);
-        createCard(mission);
+        cardArrayAdapter.add(createCard(mission));
         cardArrayAdapter.notifyDataSetChanged();
     }
 
     private Card createCard(final Mission mission) {
-        ArrayList<BaseSupplementalAction> actions = new ArrayList<BaseSupplementalAction>();
-        IconSupplementalAction shareAction = new IconSupplementalAction(getActivity(), R.id.tv_share);
-        shareAction.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
-            @Override
-            public void onClick(Card card, View view) {
-                Toast.makeText(getActivity(), "SHARE", Toast.LENGTH_SHORT).show();
-            }
-        });
-        IconSupplementalAction deleteAction = new IconSupplementalAction(getActivity(), R.id.tv_delete);
-        deleteAction.setOnActionClickListener(new IconSupplementalAction.OnActionClickListener() {
-            @Override
-            public void onClick(final Card card, View view) {
-                new AlertDialog.Builder(getActivity())
-                        .setMessage("确定不再坚持 " + card.getTitle() + " 了吗？")
-                        .setPositiveButton("不再坚持！", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                sqLiteHelper.deleteMission(getActivity().getApplication(),
-                                        Long.parseLong(card.getId()));
-                                if(!cards.contains(card))
-                                    Toast.makeText(getActivity(), "Can't find this card", Toast.LENGTH_SHORT).show();
-                                cards.remove(card);
-                                cardArrayAdapter.notifyDataSetChanged();
-                            }
-                        })
-                        .setNegativeButton("还没想好", null)
-                        .create()
-                        .show();
-            }
-        });
-        actions.add(shareAction);
-        actions.add(deleteAction);
 
-        MaterialLargeImageCard card =
-                MaterialLargeImageCard.with(getActivity())
-                        .setTextOverImage(mission.getTitle())
-                        .setTitle(mission.getTitle())
-                        .useDrawableId(R.drawable.bg_cardtest)
-                        .setupSupplementalActions(R.layout.cd_mission_supplemental, actions)
-                        .build();
+        TopColoredCard card = TopColoredCard.with(getActivity())
+                .setColorResId(mission.getId() % 2 == 0 ? R.color.material_deep_teal_500 : R.color.material_blue_grey_800)
+                .setTitleOverColor(mission.getTitle())
+                .setupSubLayoutId(R.layout.cd_mission_custom_layout)
+                .setupInnerElements(new TopColoredCard.OnSetupInnerElements() {
+                    @Override
+                    public void setupInnerViewElementsSecondHalf(View view) {
+                        TextView tv = (TextView) view.findViewById(R.id.tv_custom_layout);
+                        if(tv != null) {
+                            tv.setText("12天");
+                        }
+                        ImageView iv = (ImageView) view.findViewById(R.id.iv_custom_layout);
+                        if(iv != null) {
+                            iv.setImageResource(R.drawable.mario);
+                        }
+                    }
+                })
+                .build();
         card.setId(mission.getId() + "");
 
         card.setOnClickListener(new Card.OnCardClickListener() {
@@ -142,7 +125,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 getActivity().startActivity(intent);
             }
         });
-        cards.add(card);
         return card;
     }
 }

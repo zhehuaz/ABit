@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
-             android:layout_height="match_parent" style="@style/cardlist_outer_layout"
+             android:layout_height="match_parent"
              tools:context="org.bitoo.abit.ui.DetailedMissionActivityFragment"
              xmlns:card="http://schemas.android.com/apk/res-auto">
 
@@ -19,7 +19,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="#696969"
+        android:background="#CC0000"
         materialdesign:animate="false"
         materialdesign:iconDrawable="@drawable/ic_action_new" />
 </RelativeLayout>

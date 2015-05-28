@@ -8,7 +8,7 @@
     <style name="cardlist_outer_layout" parent="card.native.content_outer_layout">
         <item name="android:paddingLeft">@dimen/card_main_content_native_material_large_image_paddingLeft</item>
         <item name="android:paddingRight">@dimen/card_main_content_native_material_large_image_paddingRight</item>
-        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingTop">@dimen/card_main_content_native_cardwithlist_paddingTop</item>
         <item name="android:paddingBottom">@dimen/card_main_content_native_material_large_image_paddingBottom</item>
     </style>
 

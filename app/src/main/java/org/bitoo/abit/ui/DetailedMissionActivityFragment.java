@@ -74,10 +74,9 @@ public class DetailedMissionActivityFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //toolbar = (Toolbar) getActivity().findViewById(R.id.tb_action);
-
-
         try {
-            Mission mission = sqlHelper.loadMission(getActivity(), getActivity().getIntent().getLongExtra(MainActivity.MISSION_ID, 0));
+            long id = getActivity().getIntent().getLongExtra(MainActivity.MISSION_ID, 0);
+            Mission mission = sqlHelper.loadMission(getActivity(), id);
             if(mission == null)
                 throw new FileNotFoundException();
             BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission);

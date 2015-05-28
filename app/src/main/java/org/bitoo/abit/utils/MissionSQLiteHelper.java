@@ -1,6 +1,5 @@
 package org.bitoo.abit.utils;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -57,7 +56,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
          */
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(\n" +
                 " id INTEGER PRIMARY KEY    ,\n" +
-                " title TEXT NOT NULL,\n" +
+                " title TEXT NOT NULL UNIQUE,\n" +
                 " image_name VARCHAR(20) NOT NULL,\n" +
                 " progress_mask BLOB NOT NULL,\n" +
                 " first_day LONG NOT NULL,\n" +
@@ -97,6 +96,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
                 mission.getLastCheckDate());
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sqlStatment, args);
+        // FIXME ID should be returned here.
         db.close();
     }
 
@@ -110,9 +110,9 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
         Mission mission = null;
         String sqlStatment = "SELECT * FROM " + TABLE_NAME + " WHERE id=" + id;
         Cursor cursor = getReadableDatabase().rawQuery(sqlStatment, null);
-        cursor.moveToFirst();
+        ;
 
-        if(!cursor.isLast()) {
+        if(cursor.moveToFirst()) {
             mission = new Mission(
                     context,
                     id,

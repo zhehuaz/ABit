@@ -8,6 +8,7 @@
         android:id="@+id/list_cardId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card:card_layout_resourceID="@layout/native_material_largeimage_card"
+        card:card_layout_resourceID="@layout/native_material_topcolored_card"
+        style="@style/card_external"
         />
 </LinearLayout>
