@@ -95,6 +95,7 @@
     <orderEntry type="library" exported="" name="cardslib-cards-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.1.1" level="project" />
+    <orderEntry type="library" exported="" name="lib-2.1.4" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-22.1.1" level="project" />
   </component>
 </module>

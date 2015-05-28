@@ -27,4 +27,5 @@ dependencies {
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
     compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
     compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
+    compile 'fr.tvbarthel.blurdialogfragment:lib:2.1.4'
 }

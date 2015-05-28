@@ -1,5 +1,6 @@
 package org.bitoo.abit.utils;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -77,11 +78,9 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
     public void addMission(Mission mission) {
         String sqlStatment = "INSERT INTO " + TABLE_NAME +
                 " (id, title, image_name, progress_mask, first_day, last_day)" +
-                        " VALUES(?, ?, ?, ?, ?, ?)";
+                        " VALUES(NULL, ?, ?, ?, ?, ?)";
         Log.v(TAG, "Executing :\n" + sqlStatment);
-        long id = mission.getId();
         Object[] args = new Object[]{
-                id == 0 ? null : id,
                 mission.getTitle(),
                 mission.getProgressImage().getName(),
                 mission.getProgressMask(),
@@ -92,12 +91,13 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
         Log.d(TAG, "Mission : " +
                 mission.getId() + "\n" +
                 mission.getTitle() + "\n" +
-                        mission.getProgressImage().getName() + "\n" +
+                mission.getProgressImage().getName() + "\n" +
                 mission.getProgressMask() + "\n" +
                 mission.getCreateDate() + "\n" +
                 mission.getLastCheckDate());
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sqlStatment, args);
+        db.close();
     }
 
     /**
@@ -106,21 +106,23 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
      * WHERE id=1;
      * @return mission got from database.
      */
-    public Mission loadMission(Context context, int id) throws FileNotFoundException {
-        Mission mission;
+    public Mission loadMission(Context context, long id) throws FileNotFoundException {
+        Mission mission = null;
         String sqlStatment = "SELECT * FROM " + TABLE_NAME + " WHERE id=" + id;
         Cursor cursor = getReadableDatabase().rawQuery(sqlStatment, null);
         cursor.moveToFirst();
 
-        mission = new Mission(
-                context,
-                id,
-                cursor.getString(cursor.getColumnIndex("title")),
-                cursor.getLong(cursor.getColumnIndex("first_day")),
-                cursor.getLong(cursor.getColumnIndex("last_day")),
-                cursor.getString(cursor.getColumnIndex("image_name")),
-                cursor.getBlob(cursor.getColumnIndex("progress_mask"))
-        );
+        if(!cursor.isLast()) {
+            mission = new Mission(
+                    context,
+                    id,
+                    cursor.getString(cursor.getColumnIndex("title")),
+                    cursor.getLong(cursor.getColumnIndex("first_day")),
+                    cursor.getLong(cursor.getColumnIndex("last_day")),
+                    cursor.getString(cursor.getColumnIndex("image_name")),
+                    cursor.getBlob(cursor.getColumnIndex("progress_mask"))
+            );
+        }
         cursor.close();
         return mission;
     }
@@ -152,8 +154,8 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
      *  DELETE FROM {@link #TABLE_NAME}
      *      WHERE id = 1;
      */
-    public void deleteMission(Context context, int id) {
-        String sqlStatement = "DELETE FROM " + TABLE_NAME + "WHERE id = " + id;
+    public void deleteMission(Context context, long id) {
+        String sqlStatement = "DELETE FROM " + TABLE_NAME + " WHERE id=" + id;
         getWritableDatabase().execSQL(sqlStatement);
     }
 

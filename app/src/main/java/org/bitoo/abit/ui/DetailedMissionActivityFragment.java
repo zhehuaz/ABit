@@ -31,13 +31,7 @@ import java.io.FileNotFoundException;
 public class DetailedMissionActivityFragment extends Fragment {
     private static final String TAG = "ImageFramentDemo";
     MissionSQLiteHelper sqlHelper;
-
-    private Toolbar toolbar;
     private GridView mGridView;
-    private MaterialMenuIcon materialMenu;
-
-    private Mission mission;
-
     private OnItemSelectedListener mListener;
     private static final String COLOR_KEY = "img_pixel";
 
@@ -83,21 +77,10 @@ public class DetailedMissionActivityFragment extends Fragment {
 
 
         try {
-            byte[] progress = new byte[50];
-            for(int i = 0;i < 50;i ++){
-                if(i % 30 != 0)
-                progress[i] = ~0;
-            }
-            mission = new Mission(getActivity(),
-                    1, "hello",
-                    System.currentTimeMillis(),
-                    System.currentTimeMillis(),
-                    "pacmonster.xml",
-                    progress);
-            //sqlHelper.addMission(mission);
-
-            Mission mission1 = sqlHelper.loadMission(getActivity(), 1);
-            BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission1);
+            Mission mission = sqlHelper.loadMission(getActivity(), getActivity().getIntent().getLongExtra(MainActivity.MISSION_ID, 0));
+            if(mission == null)
+                throw new FileNotFoundException();
+            BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission);
             mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
 
             mGridView.setNumColumns(mission.getProgressImage().getWidth());

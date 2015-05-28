@@ -3,13 +3,11 @@ package org.bitoo.abit.ui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
-import com.balysv.materialmenu.MaterialMenuIcon;
 import com.balysv.materialmenu.extras.toolbar.MaterialMenuIconCompat;
 
 import org.bitoo.abit.R;
@@ -21,6 +19,7 @@ import org.bitoo.abit.R;
  *  This activity doesn't have a visible view, is used as a container instead.
  */
 public class MainActivity extends ActionBarActivity implements DetailedMissionActivityFragment.OnItemSelectedListener {
+    public static final String MISSION_ID = "MissoinId";
 
     private MaterialMenuIconCompat materialMenu;
     private byte menuIconState = 0;

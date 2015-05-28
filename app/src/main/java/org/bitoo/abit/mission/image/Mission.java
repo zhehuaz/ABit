@@ -59,7 +59,7 @@ public class Mission implements MissionStorage{
      * @throws FileNotFoundException when image is not found.
      */
     public Mission(Context context,
-                   int id,
+                   long id,
                    String title,
                    long createDate,
                    long lastCheckDate,
