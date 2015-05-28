@@ -1,10 +1,16 @@
 package org.bitoo.abit.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+import com.balysv.materialmenu.MaterialMenuDrawable;
+import com.balysv.materialmenu.MaterialMenuIcon;
+import com.balysv.materialmenu.extras.toolbar.MaterialMenuIconCompat;
 
 import org.bitoo.abit.R;
 /**
@@ -16,10 +22,26 @@ import org.bitoo.abit.R;
  */
 public class MainActivity extends ActionBarActivity implements DetailedMissionActivityFragment.OnItemSelectedListener {
 
+    private MaterialMenuIconCompat materialMenu;
+    private byte menuIconState = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        materialMenu = new MaterialMenuIconCompat(this, Color.GRAY, MaterialMenuDrawable.Stroke.THIN);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        materialMenu.syncState(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        materialMenu.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -36,9 +58,17 @@ public class MainActivity extends ActionBarActivity implements DetailedMissionAc
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //noinspection Simpl ifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if(id == android.R.id.home) {
+            if(menuIconState == 0) {
+                materialMenu.animateState(MaterialMenuDrawable.IconState.ARROW);
+                menuIconState = 1;
+            } else {
+                materialMenu.animateState(MaterialMenuDrawable.IconState.BURGER);
+                menuIconState = 0;
+            }
         }
 
         return super.onOptionsItemSelected(item);

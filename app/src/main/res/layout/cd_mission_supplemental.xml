@@ -3,21 +3,17 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
         android:layout_toLeftOf="@+id/tv_delete"
         android:layout_toStartOf="@+id/tv_delete"
-        android:text="@string/bt_share"
+        android:src="@mipmap/ic_share_black"
         android:id="@+id/tv_share"
         style="@style/card.native.actions.button"/>
 
-    <TextView
+    <ImageView
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bt_delete"
+        android:src="@mipmap/ic_delete_black"
         android:id="@+id/tv_delete"
         style="@style/card.native.actions.button"/>
 </RelativeLayout>

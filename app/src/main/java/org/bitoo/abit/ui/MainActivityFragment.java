@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.gmariotti.cardslib.library.cards.actions.BaseSupplementalAction;
+import it.gmariotti.cardslib.library.cards.actions.IconSupplementalAction;
 import it.gmariotti.cardslib.library.cards.actions.TextSupplementalAction;
 import it.gmariotti.cardslib.library.cards.material.MaterialLargeImageCard;
 import it.gmariotti.cardslib.library.internal.Card;
@@ -34,11 +35,6 @@ public class MainActivityFragment extends Fragment {
     CardArrayAdapter cardArrayAdapter;
     Button addButton;
 
-    public static DetailedMissionActivityFragment newInstance(String param1, String param2) {
-        DetailedMissionActivityFragment fragment = new DetailedMissionActivityFragment();
-        return fragment;
-    }
-
     public MainActivityFragment() {
     }
 
@@ -52,7 +48,6 @@ public class MainActivityFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         addButton = (Button) getActivity().findViewById(R.id.bt_add);
-        addButton.setBackgroundColor(Color.parseColor("#EE0000"));
 
         sqLiteHelper = new MissionSQLiteHelper(getActivity().getApplication());
         List<Mission> missions = sqLiteHelper.loadMissions();
@@ -62,14 +57,14 @@ public class MainActivityFragment extends Fragment {
 
         for(final Mission mission : missions) {
             ArrayList<BaseSupplementalAction> actions = new ArrayList<BaseSupplementalAction>();
-            TextSupplementalAction shareAction = new TextSupplementalAction(getActivity(), R.id.tv_share);
+            IconSupplementalAction shareAction = new IconSupplementalAction(getActivity(), R.id.tv_share);
             shareAction.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
                     Toast.makeText(getActivity(), "SHARE", Toast.LENGTH_SHORT).show();
                 }
             });
-            TextSupplementalAction deleteAction = new TextSupplementalAction(getActivity(), R.id.tv_delete);
+            IconSupplementalAction deleteAction = new IconSupplementalAction(getActivity(), R.id.tv_delete);
             deleteAction.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
@@ -82,9 +77,7 @@ public class MainActivityFragment extends Fragment {
             MaterialLargeImageCard card =
                     MaterialLargeImageCard.with(getActivity())
                             .setTextOverImage(mission.getTitle())
-                            .setTitle("This is a test")
-                            .setSubTitle("This is a little test")
-                            .useDrawableId(R.drawable.mario)
+                            .useDrawableId(R.drawable.bg_cardtest)
                             .setupSupplementalActions(R.layout.cd_mission_supplemental, actions)
                             .build();
 
