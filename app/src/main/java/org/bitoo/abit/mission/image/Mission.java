@@ -17,7 +17,6 @@ public class Mission implements MissionStorage{
     private final static String TAG = "Mission";
     public final static long MILLIS_OF_ONE_DAY = 86400000;
     protected final static int MAX_MARK_CONTAIN = 50;
-
     protected ProgressImage progressImage;
 
     /**
@@ -164,5 +163,9 @@ public class Mission implements MissionStorage{
 
     public long getCreateDate() {
         return createDate;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

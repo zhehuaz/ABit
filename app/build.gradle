@@ -22,10 +22,10 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:cardview-v7:22.1.1'
+    compile 'com.android.support:recyclerview-v7:22.1.1'
     compile 'com.balysv.materialmenu:material-menu:1.5.3'
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.3'
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
-    compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
-    compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
     compile 'fr.tvbarthel.blurdialogfragment:lib:2.1.4'
 }

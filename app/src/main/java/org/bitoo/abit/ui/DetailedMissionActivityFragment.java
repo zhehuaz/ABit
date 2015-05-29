@@ -2,6 +2,7 @@ package org.bitoo.abit.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,9 +31,11 @@ import java.io.FileNotFoundException;
  */
 public class DetailedMissionActivityFragment extends Fragment {
     private static final String TAG = "ImageFramentDemo";
-    MissionSQLiteHelper sqlHelper;
+    private MissionSQLiteHelper sqlHelper;
     private GridView mGridView;
     private OnItemSelectedListener mListener;
+    private Mission mission;
+
     private static final String COLOR_KEY = "img_pixel";
 
     /**
@@ -76,7 +79,7 @@ public class DetailedMissionActivityFragment extends Fragment {
         //toolbar = (Toolbar) getActivity().findViewById(R.id.tb_action);
         try {
             long id = getActivity().getIntent().getLongExtra(MainActivity.MISSION_ID, 0);
-            Mission mission = sqlHelper.loadMission(getActivity(), id);
+            mission = sqlHelper.loadMission(getActivity(), id);
             if(mission == null)
                 throw new FileNotFoundException();
             BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission);
@@ -117,6 +120,10 @@ public class DetailedMissionActivityFragment extends Fragment {
     public interface OnItemSelectedListener {
         // TODO: Update argument type and name
         public void onItemSelected(int position);
+    }
+
+    public void deleteMission() {
+        sqlHelper.deleteMission(getActivity().getApplicationContext(), mission.getId());
     }
 
 }

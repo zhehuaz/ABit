@@ -74,7 +74,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
      * VALUES( 1, 'hello', 'mario.xml', '', xxxxxxxx, xxxxxxxx);
      * If mission is new, id should be null.
      */
-    public void addMission(Mission mission) {
+    public long addMission(Mission mission) {
         String sqlStatment = "INSERT INTO " + TABLE_NAME +
                 " (id, title, image_name, progress_mask, first_day, last_day)" +
                         " VALUES(NULL, ?, ?, ?, ?, ?)";
@@ -96,8 +96,13 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
                 mission.getLastCheckDate());
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sqlStatment, args);
-        // FIXME ID should be returned here.
+        long id;
+        Cursor cursor = db.rawQuery("SELECT last_insert_rowid()", null);
+        cursor.moveToFirst();
+        id = cursor.getLong(0);
         db.close();
+        cursor.close();
+        return id;
     }
 
     /**

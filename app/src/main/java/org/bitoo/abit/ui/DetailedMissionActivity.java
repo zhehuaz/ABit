@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.bitoo.abit.R;
 
@@ -30,11 +31,19 @@ public class DetailedMissionActivity extends AppCompatActivity implements Detail
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_share :
+                Toast.makeText(this, "SHARE ", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_delete :
+                DetailedMissionActivityFragment fragment =
+                        (DetailedMissionActivityFragment) getFragmentManager().findFragmentById(R.id.detailed_fragment);
+                fragment.deleteMission();
+                // TODO update list
+                break;
+            default:
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
