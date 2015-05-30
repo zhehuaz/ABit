@@ -1,12 +1,10 @@
 package org.bitoo.abit.ui;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.extras.toolbar.MaterialMenuIconCompat;
@@ -29,9 +27,9 @@ public class MainActivity extends ActionBarActivity implements DetailedMissionAc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         materialMenu = new MaterialMenuIconCompat(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

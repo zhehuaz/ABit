@@ -2,6 +2,10 @@ package org.bitoo.abit.ui.custom;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.graphics.Palette;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,22 +28,47 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
     public Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
+        public TextView mTitleText;
+        public TextView mDateText;
         public ImageView mImageView;
+        public CardView card;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.tv_mission_title);
+            mDateText = (TextView) itemView.findViewById(R.id.tv_mission_date);
+            mTitleText = (TextView) itemView.findViewById(R.id.tv_mission_title);
             mImageView = (ImageView) itemView.findViewById(R.id.iv_mission_preview);
+            card = (CardView) itemView.findViewById(R.id.cd_layout);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, DetailedMissionActivity.class);
-                    intent.putExtra(MainActivity.MISSION_ID, missions.get(getAdapterPosition()).getId());
-                    context.startActivity(intent);
+            if(card != null) {
+                card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, DetailedMissionActivity.class);
+                        intent.putExtra(MainActivity.MISSION_ID, missions.get(getAdapterPosition()).getId());
+                        context.startActivity(intent);
+                    }
+                });
+            }
+
+            if(mImageView != null) {
+                Bitmap bitmap = ((BitmapDrawable) mImageView.getDrawable()).getBitmap();
+                if (bitmap != null) {
+                    Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                        @Override
+                        public void onGenerated(Palette palette) {
+                            Palette.Swatch light = palette.getLightVibrantSwatch();
+                            Palette.Swatch dark = palette.getDarkMutedSwatch();
+                            if (card != null) {
+                                card.setCardBackgroundColor(light.getRgb());
+                            }
+                            if (mDateText != null && dark != null) {
+                                mDateText.setTextColor(dark.getTitleTextColor());
+                            }
+                        }
+                    });
                 }
-            });
+            }
         }
     }
 
@@ -56,7 +85,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
 
     @Override
     public void onBindViewHolder(MissionListAdapter.ViewHolder holder, int position) {
-        holder.mTextView.setText(missions.get(position).getTitle());
+        holder.mTitleText.setText(missions.get(position).getTitle());
     }
 
     @Override
