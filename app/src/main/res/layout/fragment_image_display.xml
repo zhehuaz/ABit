@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/no_margin"
     android:paddingTop="@dimen/no_margin"
     android:paddingBottom="@dimen/no_margin"
-    tools:context="org.bitoo.abit.ui.MissionListFragment">
+    tools:context="org.bitoo.abit.ui.MainActivityFragment">
 
     <GridView
         android:id="@+id/gv_prog_image"

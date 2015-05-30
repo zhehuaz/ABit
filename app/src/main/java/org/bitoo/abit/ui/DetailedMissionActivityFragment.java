@@ -2,13 +2,17 @@ package org.bitoo.abit.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.balysv.materialmenu.MaterialMenuIcon;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
@@ -20,35 +24,34 @@ import java.io.FileNotFoundException;
 
 /**
  * Activities that contain this fragment must implement the
- * {@link ImageFragmentDemo.OnItemSelectedListener} interface
+ * {@link DetailedMissionActivityFragment.OnItemSelectedListener} interface
  * to handle interaction events.
- * Use the {@link ImageFragmentDemo#getInstance} factory method to
+ * Use the {@link DetailedMissionActivityFragment#getInstance} factory method to
  * create an instance of this fragment.
  */
-public class ImageFragmentDemo extends Fragment {
+public class DetailedMissionActivityFragment extends Fragment {
     private static final String TAG = "ImageFramentDemo";
-    MissionSQLiteHelper sqlHelper;
-
-    GridView mGridView;
-    Mission mission;
-
+    private MissionSQLiteHelper sqlHelper;
+    private GridView mGridView;
     private OnItemSelectedListener mListener;
+    private Mission mission;
+
     private static final String COLOR_KEY = "img_pixel";
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment ImageFragmentDemo.
+     * @return A new instance of fragment DetailedMissionActivityFragment.
      */
-    public static ImageFragmentDemo getInstance() {
-        ImageFragmentDemo fragment = new ImageFragmentDemo();
+    public static DetailedMissionActivityFragment getInstance() {
+        DetailedMissionActivityFragment fragment = new DetailedMissionActivityFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public ImageFragmentDemo() {
+    public DetailedMissionActivityFragment() {
         // Required empty public constructor
     }
 
@@ -73,22 +76,13 @@ public class ImageFragmentDemo extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //toolbar = (Toolbar) getActivity().findViewById(R.id.tb_action);
         try {
-            byte[] progress = new byte[50];
-            for(int i = 0;i < 50;i ++){
-                if(i % 30 != 0)
-                progress[i] = ~0;
-            }
-            mission = new Mission(getActivity(),
-                    1, "hello",
-                    System.currentTimeMillis(),
-                    System.currentTimeMillis(),
-                    "pacmonster.xml",
-                    progress);//TODO : should get from database
-            //sqlHelper.addMission(mission);
-
-            Mission mission1 = sqlHelper.loadMission(getActivity(), 1);
-            BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission1);
+            long id = getActivity().getIntent().getLongExtra(MainActivity.MISSION_ID, 0);
+            mission = sqlHelper.loadMission(getActivity(), id);
+            if(mission == null)
+                throw new FileNotFoundException();
+            BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission);
             mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
 
             mGridView.setNumColumns(mission.getProgressImage().getWidth());
@@ -126,6 +120,10 @@ public class ImageFragmentDemo extends Fragment {
     public interface OnItemSelectedListener {
         // TODO: Update argument type and name
         public void onItemSelected(int position);
+    }
+
+    public void deleteMission() {
+        sqlHelper.deleteMission(getActivity().getApplicationContext(), mission.getId());
     }
 
 }

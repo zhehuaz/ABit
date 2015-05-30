@@ -4,4 +4,6 @@
     <string name="action_settings">设置</string>
     <string name="title_null">(空)</string>
     <string name="title_activity_main">主页面</string>
+    <string name="bt_share">分享</string>
+    <string name="bt_delete">删除</string>
 </resources>

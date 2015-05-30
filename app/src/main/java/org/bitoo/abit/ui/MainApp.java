@@ -42,7 +42,7 @@ public class MainApp extends Application {
                 new MissionSQLiteHelper(this.getApplicationContext());
         SQLiteDatabase db = missionSQLiteHelper.getWritableDatabase();// create a new database this way
         Log.d(TAG, "database is created in : " + db.getPath());
-        //db.close();
+        db.close();
 
         //save raw images into internal storage
         try {

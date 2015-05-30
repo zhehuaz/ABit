@@ -1,5 +1,6 @@
+
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragment"
-    android:name="org.bitoo.abit.ui.MissionListFragment"
-    tools:layout="@layout/fragment_image_display" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_fragment"
+    android:name="org.bitoo.abit.ui.MainActivityFragment"
+    tools:layout="@layout/fragment_mission_list" android:layout_width="match_parent"
     android:layout_height="match_parent" />

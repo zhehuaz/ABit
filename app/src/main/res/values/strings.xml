@@ -8,4 +8,8 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="title_null">(null)</string>
     <string name="action_settings"></string>
+    <string name="title_activity_detailed_mission">DetailedMissionActivity</string>
+    <string name="bt_share">SHARE</string>
+    <string name="bt_delete">DELETE</string>
+    <string name="title_activity_add_mission">AddMissionActivity</string>
 </resources>

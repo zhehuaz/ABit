@@ -23,7 +23,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
     public static final String DATABASE_NAME = "ABit";
     public static final String TABLE_NAME = "progressData";
     public static final int VERSION = 1;
-
+    private Context context;
     /**
      *
      * @param context ATTENTION, context here must be {@link android.app.Application}
@@ -33,10 +33,11 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
      */
     private MissionSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+        this.context = context;
     }
 
     public MissionSQLiteHelper(Context context) {
-        super(context, DATABASE_NAME, null, VERSION);
+        this(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
          */
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(\n" +
                 " id INTEGER PRIMARY KEY    ,\n" +
-                " title TEXT NOT NULL,\n" +
+                " title TEXT NOT NULL UNIQUE,\n" +
                 " image_name VARCHAR(20) NOT NULL,\n" +
                 " progress_mask BLOB NOT NULL,\n" +
                 " first_day LONG NOT NULL,\n" +
@@ -73,14 +74,12 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
      * VALUES( 1, 'hello', 'mario.xml', '', xxxxxxxx, xxxxxxxx);
      * If mission is new, id should be null.
      */
-    public void addMission(Mission mission) {
+    public long addMission(Mission mission) {
         String sqlStatment = "INSERT INTO " + TABLE_NAME +
                 " (id, title, image_name, progress_mask, first_day, last_day)" +
-                        " VALUES(?, ?, ?, ?, ?, ?)";
+                        " VALUES(NULL, ?, ?, ?, ?, ?)";
         Log.v(TAG, "Executing :\n" + sqlStatment);
-        long id = mission.getId();
         Object[] args = new Object[]{
-                id == 0 ? null : id,
                 mission.getTitle(),
                 mission.getProgressImage().getName(),
                 mission.getProgressMask(),
@@ -91,12 +90,19 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
         Log.d(TAG, "Mission : " +
                 mission.getId() + "\n" +
                 mission.getTitle() + "\n" +
-                        mission.getProgressImage().getName() + "\n" +
+                mission.getProgressImage().getName() + "\n" +
                 mission.getProgressMask() + "\n" +
                 mission.getCreateDate() + "\n" +
                 mission.getLastCheckDate());
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sqlStatment, args);
+        long id;
+        Cursor cursor = db.rawQuery("SELECT last_insert_rowid()", null);
+        cursor.moveToFirst();
+        id = cursor.getLong(0);
+        db.close();
+        cursor.close();
+        return id;
     }
 
     /**
@@ -105,21 +111,23 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
      * WHERE id=1;
      * @return mission got from database.
      */
-    public Mission loadMission(Context context, int id) throws FileNotFoundException {
-        Mission mission;
+    public Mission loadMission(Context context, long id) throws FileNotFoundException {
+        Mission mission = null;
         String sqlStatment = "SELECT * FROM " + TABLE_NAME + " WHERE id=" + id;
         Cursor cursor = getReadableDatabase().rawQuery(sqlStatment, null);
-        cursor.moveToFirst();
+        ;
 
-        mission = new Mission(
-                context,
-                id,
-                cursor.getString(cursor.getColumnIndex("title")),
-                cursor.getLong(cursor.getColumnIndex("first_day")),
-                cursor.getLong(cursor.getColumnIndex("last_day")),
-                cursor.getString(cursor.getColumnIndex("image_name")),
-                cursor.getBlob(cursor.getColumnIndex("progress_mask"))
-        );
+        if(cursor.moveToFirst()) {
+            mission = new Mission(
+                    context,
+                    id,
+                    cursor.getString(cursor.getColumnIndex("title")),
+                    cursor.getLong(cursor.getColumnIndex("first_day")),
+                    cursor.getLong(cursor.getColumnIndex("last_day")),
+                    cursor.getString(cursor.getColumnIndex("image_name")),
+                    cursor.getBlob(cursor.getColumnIndex("progress_mask"))
+            );
+        }
         cursor.close();
         return mission;
     }
@@ -127,20 +135,20 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
     /**
      * List fundamental information of missions, to show them in a list.
      * Information of missions is not complete.Image and progress is not to be returned.
-     * @param context to access resource
      * @return list of missions
      */
-    public List<Mission> loadMissions(Context context) {
+    public List<Mission> loadMissions() {
         List<Mission> missionList = new ArrayList<>();
         String sqlStatment =  "SELECT id,title,first_day,last_day FROM " + TABLE_NAME;
         Cursor cursor = getReadableDatabase().rawQuery(sqlStatment, null);
         cursor.moveToFirst();
-        while(!cursor.moveToNext()) {
+        while(!cursor.isAfterLast()) {
             missionList.add(new Mission(context,
                     cursor.getLong(cursor.getColumnIndex("id")),
                     cursor.getString(cursor.getColumnIndex("title")),
                     cursor.getLong(cursor.getColumnIndex("first_day")),
                     cursor.getLong(cursor.getColumnIndex("last_day"))));
+            cursor.moveToNext();
         }
         cursor.close();
         return missionList;
@@ -151,8 +159,8 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper{
      *  DELETE FROM {@link #TABLE_NAME}
      *      WHERE id = 1;
      */
-    public void deleteMission(Context context, int id) {
-        String sqlStatement = "DELETE FROM " + TABLE_NAME + "WHERE id = " + id;
+    public void deleteMission(Context context, long id) {
+        String sqlStatement = "DELETE FROM " + TABLE_NAME + " WHERE id=" + id;
         getWritableDatabase().execSQL(sqlStatement);
     }
 
