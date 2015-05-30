@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.view.WindowManager;
-
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.extras.toolbar.MaterialMenuIconCompat;
@@ -81,5 +79,6 @@ public class MainActivity extends ActionBarActivity implements DetailedMissionAc
     public void onItemSelected(int position) {
 
     }
+
 
 }

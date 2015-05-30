@@ -24,4 +24,5 @@
         android:background="@color/accent_color"
         materialdesign:animate="false"
         materialdesign:iconDrawable="@drawable/ic_action_new" />
+
 </RelativeLayout>
