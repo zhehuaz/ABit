@@ -1,6 +1,13 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vp_main">
 
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_fragment"
-    android:name="org.bitoo.abit.ui.MainActivityFragment"
-    tools:layout="@layout/fragment_mission_list" android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    </android.support.v4.view.ViewPager>
+
+
+</RelativeLayout>

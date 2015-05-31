@@ -2,9 +2,11 @@ package org.bitoo.abit.ui.custom;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
@@ -59,10 +61,11 @@ public class BitMapAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.grid_pixel, null);
         }
         ImageView imageView = (ImageView) convertView.findViewById(R.id.img_pixel);
-        if(mission.getProgressMask(position))
+        if(mission.getProgressMask(position)) {
             imageView.setBackgroundColor((int) bitmap.get(position).getPixel());
-        else
+        } else {
             imageView.setBackgroundColor(Color.GRAY);
+        }
         return convertView;
     }
 }

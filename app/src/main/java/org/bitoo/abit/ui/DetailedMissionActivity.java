@@ -37,7 +37,7 @@ public class DetailedMissionActivity extends AppCompatActivity implements Detail
                 break;
             case R.id.action_delete :
                 DetailedMissionActivityFragment fragment =
-                        (DetailedMissionActivityFragment) getFragmentManager().findFragmentById(R.id.detailed_fragment);
+                        (DetailedMissionActivityFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment);
                 fragment.deleteMission();
                 // TODO update list
                 break;
