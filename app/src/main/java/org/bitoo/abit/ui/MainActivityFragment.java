@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.gc.materialdesign.views.Button;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.ui.custom.HidingScrollListener;
 import org.bitoo.abit.ui.custom.MissionListAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
@@ -23,6 +25,8 @@ import java.util.List;
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
+    private final static String TAG = "MainActivityFragment";
+
     private MissionSQLiteHelper sqLiteHelper;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -50,6 +54,17 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         missions = sqLiteHelper.loadMissions();
         adapter = new MissionListAdapter(getActivity(), missions);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new HidingScrollListener() {
+            @Override
+            public void onHide(int dy) {
+                ((MainActivity) getActivity()).moveUpToolBar(dy);
+            }
+
+            @Override
+            public void onShow() {
+                ((MainActivity) getActivity()).moveDownToolBar();
+            }
+        });
     }
 
     @Override

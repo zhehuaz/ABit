@@ -1,31 +1,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-                android:background="@color/light_primary_color"
+                android:background="#00FFFFFF"
              tools:context="org.bitoo.abit.ui.DetailedMissionActivityFragment">
-    <android.support.v7.widget.Toolbar
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tb_mission_list"
-        android:background="?attr/colorPrimary"
-        android:minHeight="162dp"
-        app:title="@string/app_name"
-        app:titleMarginBottom="120dp"
-        />
-
-    
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_mission_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical">
-
-        </android.support.v7.widget.RecyclerView>
-
-
+        android:scrollbars="vertical"
+        android:paddingTop="?attr/actionBarSize"
+        android:clipToPadding="false"/>
 
     <com.gc.materialdesign.views.ButtonFloat
         android:id="@+id/bt_add"
