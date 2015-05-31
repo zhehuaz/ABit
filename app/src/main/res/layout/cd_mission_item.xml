@@ -3,9 +3,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/cd_layout"
-    android:layout_margin="16dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="4dp"
     card_view:cardCornerRadius="0dp"
-    card_view:cardElevation="5dp"
+    card_view:cardElevation="2dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
     <LinearLayout

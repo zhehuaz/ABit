@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements DetailedMissionAc
 
         fragments = new ArrayList<>();
         viewPager = (ViewPager) findViewById(R.id.vp_main);
+        MainActivityFragment mainActivityFragment = new MainActivityFragment();
         fragments.add(new MainActivityFragment());
         fragments.add(new AddMissionActivityFragment());
         pagerAdapter= new ViewPagerAdapter(getSupportFragmentManager(), fragments);

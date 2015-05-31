@@ -10,15 +10,11 @@ import android.util.Log;
 public abstract class HidingScrollListener extends RecyclerView.OnScrollListener {
     private final static String TAG = "HidingScrollListener";
     private static final int HIDE_THRESHOLD = 50;
-    private final static int BARHEIGHT = 300;
     private int scrolledDistance = 0;
-    private boolean controlVisible = false;
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        Log.d(TAG, "Scrolled " + "y:" + dy);
-
 //
 //        if (scrolledDistance > HIDE_THRESHOLD && controlVisible) {
 //            onHide(dy);
@@ -34,11 +30,17 @@ public abstract class HidingScrollListener extends RecyclerView.OnScrollListener
 //            scrolledDistance += dy;
 //        }
 
+        if(dy < 0) {
+            scrolledDistance += dy;
+        }
+
         if(dy > 0) {
             onHide(dy);
-        } else {
+        } else if(scrolledDistance < -HIDE_THRESHOLD) {
             onShow();
+            scrolledDistance = 0;
         }
+
     }
 
     public abstract void onHide(int dy);

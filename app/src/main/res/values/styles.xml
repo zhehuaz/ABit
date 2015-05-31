@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryDark">@color/dark_primary_color</item>
         <item name="toolbarStyle">@style/DefaultToolbarStyle</item>
+        <item name="android:windowBackground">@color/light_primary_color</item>
     </style>
 
     <style name="ActivityTheme" parent="AppTheme">
@@ -14,9 +15,10 @@
     
     <style name="DefaultToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:minHeight">162dp</item>
-        <item name="titleMarginBottom">100dp</item>
+        <item name="android:minHeight">71dp</item>
+        <item name="titleMarginTop">30dp</item>
         <item name="titleTextAppearance">@style/DefaultToolbarTextAppearance</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
     
     <style name="DefaultToolbarTextAppearance">
