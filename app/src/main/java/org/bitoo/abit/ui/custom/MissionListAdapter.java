@@ -57,13 +57,23 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                     Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                         @Override
                         public void onGenerated(Palette palette) {
-                            Palette.Swatch light = palette.getLightVibrantSwatch();
-                            Palette.Swatch dark = palette.getDarkMutedSwatch();
+                            Palette.Swatch lightMuted = palette.getLightMutedSwatch();
+                            Palette.Swatch darkMuted = palette.getDarkMutedSwatch();
+                            Palette.Swatch lightVibrant = palette.getLightVibrantSwatch();
+                            Palette.Swatch darkVibrant = palette.getDarkVibrantSwatch();
                             if (card != null) {
-                                card.setCardBackgroundColor(light.getRgb());
+                                if(lightVibrant != null) {
+                                    card.setCardBackgroundColor(lightVibrant.getRgb());
+                                } else if(lightMuted != null) {
+                                    card.setCardBackgroundColor(lightMuted.getRgb());
+                                }
                             }
-                            if (mDateText != null && dark != null) {
-                                mDateText.setTextColor(dark.getTitleTextColor());
+                            if (mDateText != null) {
+                                if(darkMuted != null) {
+                                    mDateText.setTextColor(darkMuted.getTitleTextColor());
+                                } else if(darkVibrant != null) {
+                                    mDateText.setTextColor(darkVibrant.getTitleTextColor());
+                                }
                             }
                         }
                     });
