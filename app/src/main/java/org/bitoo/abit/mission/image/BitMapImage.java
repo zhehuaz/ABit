@@ -38,16 +38,26 @@ public class BitMapImage extends ProgressImage {
         width = imageParser.getWidth();
     }
 
+    /**
+     * I assume that name of image is initialized.
+     * @param context is used to get resource.
+     * @throws FileNotFoundException if the {@link #name} exists.
+     */
     @Override
-    public boolean loadImage(Context context) throws FileNotFoundException {
+    public void loadImage(Context context) throws FileNotFoundException {
         if(name != null) {
             loadImage(context.openFileInput(name));
-            return true;
         } else {
-            return false;
+            throw new FileNotFoundException();
         }
     }
 
+    /**
+     * I'm
+     * @param context is used to openFileInput().
+     * @param fileName Name of XML file.
+     * @throws FileNotFoundException
+     */
     @Override
     public void loadImage(Context context, String fileName)
             throws FileNotFoundException {

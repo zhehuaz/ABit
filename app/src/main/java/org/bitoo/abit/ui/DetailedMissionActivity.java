@@ -1,8 +1,8 @@
 package org.bitoo.abit.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -40,7 +40,11 @@ public class DetailedMissionActivity extends AppCompatActivity implements Detail
                 DetailedMissionActivityFragment fragment =
                         (DetailedMissionActivityFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment);
                 fragment.deleteMission();
-                // TODO update list
+                Intent intent = new Intent();
+                intent.putExtra(MainActivity.ACTION_IS_DELETE, true);
+                intent.putExtra(MainActivity.ACTION_ID_DELETED, fragment.getMissionId());
+                setResult(MainActivity.REQUEST_IS_DELETE, intent);
+                finish();
                 break;
             default:
                 this.finish();

@@ -27,11 +27,16 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements DetailedMissionActivityFragment.OnItemSelectedListener {
     private static final String TAG = "MainActivity";
     public static final String MISSION_ID = "MissoinId";
+    public static final String ACTION_IS_DELETE = "IsDelete";
+    public static final String ACTION_ID_DELETED = "IdDeleted";
+
+    public static final int REQUEST_IS_DELETE = 0x1;
 
     private ViewPager viewPager;
     private ViewPagerAdapter pagerAdapter;
     private List<Fragment> fragments;
     public Toolbar toolbar;
+    public MainActivityFragment mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements DetailedMissionAc
 
         fragments = new ArrayList<>();
         viewPager = (ViewPager) findViewById(R.id.vp_main);
-        MainActivityFragment mainActivityFragment = new MainActivityFragment();
-        fragments.add(new MainActivityFragment());
+        mainFragment = new MainActivityFragment();
+        fragments.add(mainFragment);
         fragments.add(new AddMissionActivityFragment());
         pagerAdapter= new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);

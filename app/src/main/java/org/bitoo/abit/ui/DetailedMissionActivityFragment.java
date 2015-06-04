@@ -129,4 +129,8 @@ public class DetailedMissionActivityFragment extends Fragment {
         sqlHelper.deleteMission(getActivity().getApplicationContext(), mission.getId());
     }
 
+    public long getMissionId() {
+        return mission.getId();
+    }
+
 }

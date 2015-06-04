@@ -17,7 +17,7 @@ public interface ImageStorage {
      * @param context is used to getResourse().
      * @return If loading image successfully.
      */
-    boolean loadImage(Context context) throws FileNotFoundException;
+    void loadImage(Context context) throws FileNotFoundException;
 
     /**
      * Read Image by InputStream from local storage to initialize bitmap image.

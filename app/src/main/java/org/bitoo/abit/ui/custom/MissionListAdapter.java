@@ -1,5 +1,6 @@
 package org.bitoo.abit.ui.custom;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,7 +22,7 @@ import org.bitoo.abit.ui.MainActivity;
 import java.util.List;
 
 /**
- * Created by langley on 5/29/15.
+ * Adapter to mission list in {@link org.bitoo.abit.ui.MainActivityFragment} using CardView.
  */
 public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.ViewHolder> {
     List<Mission> missions;
@@ -33,6 +34,10 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
         public ImageView mImageView;
         public CardView card;
 
+        /**
+         * In card, text of date and bottom panel of card has a dynamic color
+         * determined by the color of picture you use.
+         */
         public ViewHolder(View itemView) {
             super(itemView);
             mDateText = (TextView) itemView.findViewById(R.id.tv_mission_date);
@@ -46,7 +51,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                     public void onClick(View view) {
                         Intent intent = new Intent(context, DetailedMissionActivity.class);
                         intent.putExtra(MainActivity.MISSION_ID, missions.get(getAdapterPosition()).getId());
-                        context.startActivity(intent);
+                        ((MainActivity)context).mainFragment.startActivityForResult(intent, MainActivity.REQUEST_IS_DELETE);
                     }
                 });
             }
