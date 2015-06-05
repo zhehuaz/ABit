@@ -42,6 +42,12 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
         this(context, DATABASE_NAME, null, VERSION);
     }
 
+    /**
+     * Called when database is created.
+     * After the database is firstly created, a table of progressData is created.
+     * This table stores all the information about missions.
+     * @param db is the database created.
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -53,7 +59,8 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
          * image_name VARCHAR(20) NOT NULL,
          * progress_mask BLOB NOT NULL,
          * first_day DATE NOT NULL,
-         * last_day DATE NOT NULL
+         * last_day DATE NOT NULL,
+         * tweet_path TEXT NOT NULL TODO : insert this path
          * );
          */
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(\n" +

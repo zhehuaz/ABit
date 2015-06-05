@@ -93,7 +93,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
+        switch (resultCode) {
             case MainActivity.REQUEST_IS_DELETE :
                 if(data.getBooleanExtra(MainActivity.ACTION_IS_DELETE, false)) {
                     long id = data.getLongExtra(MainActivity.ACTION_ID_DELETED, -1);
@@ -106,6 +106,8 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                         }
                     }
                 }
+                break;
+            default:
                 break;
         }
     }

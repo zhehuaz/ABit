@@ -26,6 +26,7 @@ public class Mission{
      * and local database update it.
      */
     protected long id;
+
     /**
      * Marks if the mission is done of each day.
      *
@@ -35,6 +36,11 @@ public class Mission{
      * To obtain info of progress, call {@link #updateProgress()}
      */
     protected byte[] progressMask;
+
+    /**
+     * The path that the progress tweet is stored in as an XML file.
+     */
+    protected String tweetFilePath;
 
     /** Progress of the mission.How many day passed by since the mission is created.*/
     protected int progressDayNum;
@@ -72,8 +78,8 @@ public class Mission{
     }
 
     /**
-     * Initialize a mission only for display its general information.
-     * Used in {@link @MainAcitivity} to generate a minssion list to show.
+     * Initialize a mission only for display its primary information.
+     * Used in {@link @MainAcitivity} to generate a mission list to show.
      * @param context prepared to future usage.
      */
     public Mission(Context context, long id, String title, long createDate, long lastCheckDate) {
