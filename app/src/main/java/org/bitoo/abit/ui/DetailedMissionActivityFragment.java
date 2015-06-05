@@ -1,9 +1,9 @@
 package org.bitoo.abit.ui;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
-
-import com.balysv.materialmenu.MaterialMenuIcon;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
@@ -35,6 +33,8 @@ public class DetailedMissionActivityFragment extends Fragment {
     private GridView mGridView;
     private OnItemSelectedListener mListener;
     private Mission mission;
+    Toolbar toolbar;
+
 
     private static final String COLOR_KEY = "img_pixel";
 
@@ -76,7 +76,10 @@ public class DetailedMissionActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //toolbar = (Toolbar) getActivity().findViewById(R.id.tb_action);
+        toolbar = (Toolbar) getActivity().findViewById(R.id.tb_main);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         try {
             long id = getActivity().getIntent().getLongExtra(MainActivity.MISSION_ID, 0);
             mission = sqlHelper.loadMission(getActivity(), id);
@@ -124,6 +127,10 @@ public class DetailedMissionActivityFragment extends Fragment {
 
     public void deleteMission() {
         sqlHelper.deleteMission(getActivity().getApplicationContext(), mission.getId());
+    }
+
+    public long getMissionId() {
+        return mission.getId();
     }
 
 }

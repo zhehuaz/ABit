@@ -2,11 +2,12 @@
 <android.support.v7.widget.CardView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/cd_test"
-    android:layout_margin="16dp"
-    card_view:cardBackgroundColor="@color/primary_color"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="5dp"
+    android:id="@+id/cd_layout"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="4dp"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="2dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
     <LinearLayout
@@ -24,7 +25,6 @@
                 android:scaleType="centerCrop"/>
             <FrameLayout
                 android:id="@+id/ly_card_panel"
-                android:background="@color/panel_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -32,17 +32,16 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true">
-            <TextView
-                android:id="@+id/tv_mission_title"
-                android:layout_marginLeft="@dimen/card_title_left_margin"
-                android:layout_marginStart="@dimen/card_title_left_margin"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="AAAA"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="@color/title_text_color"
-                />
+                <TextView
+                    android:id="@+id/tv_mission_title"
+                    android:layout_margin="@dimen/card_title_left_margin"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="AAAA"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/title_text_color"
+                    />
             </FrameLayout>
         </RelativeLayout>
         <RelativeLayout
@@ -50,16 +49,15 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_mission_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4/12/2015"
-                android:textColor="@color/secondary_text"
-                android:id="@+id/tv_mission_date"
-                android:layout_marginLeft="@dimen/card_title_left_margin"
-                android:layout_marginStart="@dimen/card_title_left_margin"
-                android:layout_alignParentTop="true"
+                android:text="4/28/2015"
+                android:textSize="12sp"
+                android:layout_margin="15dp"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                android:textColor="@color/secondary_text"
+               />
         </RelativeLayout>
     </LinearLayout>
 

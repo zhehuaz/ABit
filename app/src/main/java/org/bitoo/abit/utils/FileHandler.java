@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by langley on 5/20/15.
+ * Handle all types of files to encapsulate file operations.
  */
 public class FileHandler {
     /**

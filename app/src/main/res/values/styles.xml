@@ -1,28 +1,42 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="actionBarStyle">@style/my_actionbar_style</item>
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/dark_primary_color</item>
+        <item name="toolbarStyle">@style/DefaultToolbarStyle</item>
+        <item name="android:windowBackground">@color/light_primary_color</item>
+    </style>
+
+    <style name="ActivityTheme" parent="AppTheme">
+        <item name="android:background">@color/light_primary_color</item>
     </style>
     
-    <style name="my_actionbar_style" parent="Widget.AppCompat.ActionBar">
-        <item name="background">@color/dark_primary_color</item>
-        <item name="backgroundStacked">@color/dark_primary_color</item>
-        <item name="backgroundSplit">@color/dark_primary_color</item>
-        <item name="titleTextStyle">@style/my_actionbar_text_style</item>
+    <style name="DefaultToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="titleTextAppearance">@style/DefaultToolbarTextAppearance</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
+    
+    <style name="DefaultToolbarTextAppearance">
+        <item name="android:textSize">@dimen/abc_text_size_title_material_toolbar</item>
+        <item name="android:textColor">@color/title_text_color</item>
+    </style>
+
     <style name="my_actionbar_text_style" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/title_text_color</item>
     </style>
 
-    <color name="primary_color">#00BCD4</color>
-    <color name="dark_primary_color">#1976D2</color>
-    <color name="accent_color">#FF4081</color>
+    <color name="dark_primary_color">#388E3C</color>
+    <color name="primary_color">#4caf50</color>
+    <color name="dark_primary_color_b">#00FFFFFF</color>
+    <color name="accent_color">#d32f2f</color>
     <color name="highlight_color">#FFC107</color>
     <color name="title_text_color">#FFFFFF</color>
-    <color name="secondary_text">#BBFFFFFF</color>
-    <color name="light_primary_color">#BBDEFB</color>
+    <color name="secondary_text">#DDFFFFFF</color>
+    <color name="light_primary_color">#F0F4C3</color>
     <color name="primary_text_color">#424242</color>
     <color name="divider_color">#B6B6B6</color>
     <color name="panel_color">#6600BCD4</color>

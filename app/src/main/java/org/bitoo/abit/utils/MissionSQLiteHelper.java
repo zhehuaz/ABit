@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.storage.MissionStorage;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -18,17 +19,18 @@ import java.util.List;
  * Most functions are called by Mission, I mean, Mission handles
  * data subjectively.
  */
-public class MissionSQLiteHelper extends SQLiteOpenHelper{
+public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStorage{
     private static final String TAG = "MissoinSQLiteHelper";
     public static final String DATABASE_NAME = "ABit";
     public static final String TABLE_NAME = "progressData";
     public static final int VERSION = 1;
     private Context context;
+
     /**
-     *
+     * Constructor.
      * @param context ATTENTION, context here must be {@link android.app.Application}
      * @param name of database, use {@link #DATABASE_NAME}
-     * @param factory
+     * @param factory is usually null
      * @param version of database, use {@link #VERSION}
      */
     private MissionSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

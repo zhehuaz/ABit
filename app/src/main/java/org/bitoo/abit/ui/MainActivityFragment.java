@@ -13,21 +13,23 @@ import com.gc.materialdesign.views.Button;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.ui.custom.HidingScrollListener;
 import org.bitoo.abit.ui.custom.MissionListAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
 import java.io.FileNotFoundException;
+import java.util.Iterator;
 import java.util.List;
 
-
-/**
- * A placeholder fragment containing a simple view.
- */
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
+    private final static String TAG = "MainActivityFragment";
+
+
     private MissionSQLiteHelper sqLiteHelper;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<Mission> missions;
+    private Intent intent;
 
     public MainActivityFragment() {
     }
@@ -51,6 +53,17 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         missions = sqLiteHelper.loadMissions();
         adapter = new MissionListAdapter(getActivity(), missions);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new HidingScrollListener() {
+            @Override
+            public void onHide(int dy) {
+                ((MainActivity) getActivity()).moveUpToolBar(dy);
+            }
+
+            @Override
+            public void onShow() {
+                ((MainActivity) getActivity()).moveDownToolBar();
+            }
+        });
     }
 
     @Override
@@ -75,6 +88,31 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case MainActivity.REQUEST_IS_DELETE :
+                if(data.getBooleanExtra(MainActivity.ACTION_IS_DELETE, false)) {
+                    long id = data.getLongExtra(MainActivity.ACTION_ID_DELETED, -1);
+                    if(id != -1) {
+                        for(Mission mission : missions) {
+                            if (mission.getId() == id) {
+                                missions.remove(mission);
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }

@@ -1,6 +1,28 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:paddingBottom="@dimen/no_margin"
+    android:layout_marginBottom="@dimen/no_margin"
+    android:layout_margin="@dimen/no_margin"
+    android:layout_height="fill_parent">
 
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_fragment"
-    android:name="org.bitoo.abit.ui.MainActivityFragment"
-    tools:layout="@layout/fragment_mission_list" android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:paddingBottom="0dp"
+        android:id="@+id/vp_main"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        />
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tb_main"
+        app:title="@string/app_name"
+        />
+
+
+</RelativeLayout>

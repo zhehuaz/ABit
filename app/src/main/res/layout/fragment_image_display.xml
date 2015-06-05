@@ -1,17 +1,40 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:paddingLeft="@dimen/no_margin"
-    android:paddingRight="@dimen/no_margin"
-    android:paddingTop="@dimen/no_margin"
-    android:paddingBottom="@dimen/no_margin"
-    tools:context="org.bitoo.abit.ui.MainActivityFragment">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+                android:paddingLeft="@dimen/no_margin"
+                android:paddingRight="@dimen/no_margin"
+                android:paddingTop="@dimen/no_margin"
+                android:paddingBottom="@dimen/no_margin"
+                tools:context="org.bitoo.abit.ui.MainActivityFragment">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        android:id="@+id/tb_main"
+        app:title="Hello"
+        app:subtitle="A bit matters."
 
+        />
     <GridView
+        android:layout_below="@id/tb_main"
         android:id="@+id/gv_prog_image"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         >
 
     </GridView>
+    <com.gc.materialdesign.views.ButtonFloatSmall
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:id="@+id/bt_check"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        materialdesign:iconDrawable="@drawable/ic_star_white_48dp"/>
 
 </RelativeLayout>
