@@ -2,6 +2,7 @@ package org.bitoo.abit.utils;
 
 import android.content.Context;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,9 +27,4 @@ public class FileHandler {
         }
         fos.close();
     }
-
-    public static void createFile(){
-
-    }
-
 }

@@ -85,9 +85,11 @@ public class DetailedMissionActivityFragment extends Fragment {
             mission = sqlHelper.loadMission(getActivity(), id);
             if(mission == null)
                 throw new FileNotFoundException();
+
+            toolbar.setSubtitle(mission.getMotto());
+
             BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission);
             mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
-
             mGridView.setNumColumns(mission.getProgressImage().getWidth());
             mGridView.setAdapter(adapter);
         } catch (FileNotFoundException e) {

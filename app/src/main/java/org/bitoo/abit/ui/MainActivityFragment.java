@@ -73,7 +73,8 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
             mission = new Mission(getActivity(),
                     "减肥 测试",
                     System.currentTimeMillis(),
-                    "mario.xml");
+                    "mario.xml",
+                    "别让今天的自己成为昨天厌恶的那个人");
             mission.setId(sqLiteHelper.addMission(mission));
             missions.add(mission);
             adapter.notifyDataSetChanged();

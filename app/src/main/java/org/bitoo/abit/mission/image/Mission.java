@@ -3,8 +3,6 @@ package org.bitoo.abit.mission.image;
 import android.content.Context;
 import android.util.Log;
 
-import org.bitoo.abit.storage.MissionStorage;
-
 import java.io.FileNotFoundException;
 import java.util.Date;
 
@@ -55,6 +53,7 @@ public class Mission{
 
     protected long createDate;
     protected String title;
+    protected String motto;
     protected Context context;
 
     /**
@@ -67,11 +66,13 @@ public class Mission{
     public Mission(Context context,
                    String title,
                    long createDate,
-                   String imageName)
+                   String imageName,
+                   String motto)
             throws FileNotFoundException {
-        this(context, 0, title, createDate, createDate - MILLIS_OF_ONE_DAY);
+        this(context, 0, title, createDate, createDate - MILLIS_OF_ONE_DAY, motto);
         this.progressImage = new BitMapImage(imageName);
         this.progressMask = new byte[MAX_MARK_CONTAIN];
+
     }
 
     /**
@@ -79,12 +80,13 @@ public class Mission{
      * Used in {@link @MainAcitivity} to generate a mission list to show.
      * @param context prepared to future usage.
      */
-    public Mission(Context context, long id, String title, long createDate, long lastCheckDate) {
+    public Mission(Context context, long id, String title, long createDate, long lastCheckDate, String motto) {
         this.context = context;
         this.id = id;
         this.title = title;
         this.createDate = createDate;
         this.lastCheckDate = lastCheckDate;
+        this.motto = motto;
     }
 
     /**
@@ -104,12 +106,14 @@ public class Mission{
                    long lastCheckDate,
                    String imageName,
                    byte[] progressMask,
-                   String tweetFilePath) throws FileNotFoundException {
-        this(context, id, title, createDate, lastCheckDate);
+                   String tweetFilePath,
+                   String motto) throws FileNotFoundException {
+        this(context, id, title, createDate, lastCheckDate, motto);
         progressImage = new BitMapImage(imageName);
         progressImage.loadImage(context, imageName);
         this.progressMask = progressMask;
         this.tweetFilePath = tweetFilePath;
+        this.motto = motto;
     }
 
     public void setProgressImage(ProgressImage image){
@@ -196,6 +200,10 @@ public class Mission{
 
     public long getCreateDate() {
         return createDate;
+    }
+
+    public String getMotto() {
+        return motto;
     }
 
     public void setId(long id) {
