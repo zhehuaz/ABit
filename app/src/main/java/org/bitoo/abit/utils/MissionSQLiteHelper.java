@@ -10,6 +10,8 @@ import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.storage.MissionStorage;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,12 +66,13 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
          * );
          */
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(\n" +
-                " id INTEGER PRIMARY KEY    ,\n" +
+                " id INTEGER PRIMARY KEY,\n" +
                 " title TEXT NOT NULL UNIQUE,\n" +
                 " image_name VARCHAR(20) NOT NULL,\n" +
                 " progress_mask BLOB NOT NULL,\n" +
                 " first_day LONG NOT NULL,\n" +
-                " last_day LONG NOT NULL);");
+                " last_day LONG NOT NULL,\n" +
+                " tweet_path TEXT NOT NULL);");
     }
 
     @Override
@@ -79,36 +82,44 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
 
     /**
      * Sample:
-     * INSERT INTO progressData (id, title, image_name, progress_mask, first_day, last_day)
-     * VALUES( 1, 'hello', 'mario.xml', '', xxxxxxxx, xxxxxxxx);
-     * If mission is new, id should be null.
+     * INSERT INTO progressData (id, title, image_name, progress_mask, first_day, last_day, tweet_path)
+     * VALUES( 1, 'hello', 'mario.xml', '', xxxxxxxx, xxxxxxxx, 'hello_xxxx');
+     *
+     * Tweet XML file path is generated when insert, so client don't need
+     * to care for it, and the file is created in non-sense.
      */
     public long addMission(Mission mission) {
         String sqlStatment = "INSERT INTO " + TABLE_NAME +
-                " (id, title, image_name, progress_mask, first_day, last_day)" +
-                        " VALUES(NULL, ?, ?, ?, ?, ?)";
+                " (id, title, image_name, progress_mask, first_day, last_day, tweet_path)" +
+                        " VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+        String fileName = mission.getTitle() + "_" + mission.getCreateDate();
         Log.v(TAG, "Executing :\n" + sqlStatment);
         Object[] args = new Object[]{
                 mission.getTitle(),
                 mission.getProgressImage().getName(),
                 mission.getProgressMask(),
                 mission.getCreateDate(),
-                mission.getLastCheckDate()
+                mission.getLastCheckDate(),
+                fileName
         };
 
-        Log.d(TAG, "Mission : " +
-                mission.getId() + "\n" +
-                mission.getTitle() + "\n" +
-                mission.getProgressImage().getName() + "\n" +
-                mission.getProgressMask() + "\n" +
-                mission.getCreateDate() + "\n" +
-                mission.getLastCheckDate());
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sqlStatment, args);
         long id;
         Cursor cursor = db.rawQuery("SELECT last_insert_rowid()", null);
         cursor.moveToFirst();
         id = cursor.getLong(0);
+
+        try {
+            FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.i(TAG, "Creating + " + fileName);
+            e.printStackTrace();
+        } catch (IOException e) {
+            Log.e(TAG, "Error closing file of tweet");
+            e.printStackTrace();
+        }
         db.close();
         cursor.close();
         return id;
@@ -134,7 +145,8 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
                     cursor.getLong(cursor.getColumnIndex("first_day")),
                     cursor.getLong(cursor.getColumnIndex("last_day")),
                     cursor.getString(cursor.getColumnIndex("image_name")),
-                    cursor.getBlob(cursor.getColumnIndex("progress_mask"))
+                    cursor.getBlob(cursor.getColumnIndex("progress_mask")),
+                    cursor.getString(cursor.getColumnIndex("tweet_path"))
             );
         }
         cursor.close();

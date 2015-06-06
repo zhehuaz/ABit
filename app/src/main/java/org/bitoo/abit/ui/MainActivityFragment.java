@@ -68,19 +68,12 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        byte[] progress = new byte[50];
-        for(int i = 0;i < 50;i ++){
-            if(i % 30 != 0)
-                progress[i] = ~0;
-        }
         Mission mission = null;
         try {
             mission = new Mission(getActivity(),
-                    1, "减肥 测试",
+                    "减肥 测试",
                     System.currentTimeMillis(),
-                    System.currentTimeMillis(),
-                    "mario.xml",
-                    progress);
+                    "mario.xml");
             mission.setId(sqLiteHelper.addMission(mission));
             missions.add(mission);
             adapter.notifyDataSetChanged();

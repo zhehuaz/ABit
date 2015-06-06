@@ -29,4 +29,5 @@ dependencies {
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.4'
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
     compile 'fr.tvbarthel.blurdialogfragment:lib:2.1.4'
+    compile files('libs/dom4j-1.6.1.jar')
 }

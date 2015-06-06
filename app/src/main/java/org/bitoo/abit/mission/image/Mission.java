@@ -31,7 +31,7 @@ public class Mission{
      * Marks if the mission is done of each day.
      *
      * The progress is stored in this array as a BITMAP, which means
-     * one Bit marks one day.Thus, a 50-byte-sized array contains progresss
+     * one Bit marks one day.Thus, a 50-byte-sized array contains progress
      * information of 400 days.
      * To obtain info of progress, call {@link #updateProgress()}
      */
@@ -39,6 +39,10 @@ public class Mission{
 
     /**
      * The path that the progress tweet is stored in as an XML file.
+     * Only file path of tweets is stored but the whole tweets, in consider of
+     * storage pressure of memory and efficiency.
+     * Tweets would be loaded and parsed when the item is selected individually
+     * from XML file using {@link #loadTweet(int)}
      */
     protected String tweetFilePath;
 
@@ -54,27 +58,20 @@ public class Mission{
     protected Context context;
 
     /**
-     * Initialize a mission, called when create a new mission,
-     * or load a mission object from database.
-     * Load image when mission is created.
+     * Initialize a mission, called when create a new mission and store it in database.
      * The image's pixel is of {@link BitColor}.
      * @param context to access local storage
      * @param imageName find this resource XML file
-     * @param progress Current progress.
      * @throws FileNotFoundException when image is not found.
      */
     public Mission(Context context,
-                   long id,
                    String title,
                    long createDate,
-                   long lastCheckDate,
-                   String imageName,
-                   byte[] progress)
+                   String imageName)
             throws FileNotFoundException {
-        this(context, id, title, createDate, lastCheckDate);
-        progressImage = new BitMapImage(imageName);
-        progressImage.loadImage(context, imageName);
-        this.progressMask = progress;
+        this(context, 0, title, createDate, createDate - MILLIS_OF_ONE_DAY);
+        this.progressImage = new BitMapImage(imageName);
+        this.progressMask = new byte[MAX_MARK_CONTAIN];
     }
 
     /**
@@ -88,6 +85,31 @@ public class Mission{
         this.title = title;
         this.createDate = createDate;
         this.lastCheckDate = lastCheckDate;
+    }
+
+    /**
+     * Initialize a mission for all detail information.
+     * Called in order to show detailed mission.
+     *
+     * @param context to access local storage.
+     * @param imageName to load {@link #progressImage}
+     * @param progressMask to show progress
+     * @param tweetFilePath to show tweet of each day
+     * @throws FileNotFoundException
+     */
+    public Mission(Context context,
+                   long id,
+                   String title,
+                   long createDate,
+                   long lastCheckDate,
+                   String imageName,
+                   byte[] progressMask,
+                   String tweetFilePath) throws FileNotFoundException {
+        this(context, id, title, createDate, lastCheckDate);
+        progressImage = new BitMapImage(imageName);
+        progressImage.loadImage(context, imageName);
+        this.progressMask = progressMask;
+        this.tweetFilePath = tweetFilePath;
     }
 
     public void setProgressImage(ProgressImage image){
@@ -123,6 +145,14 @@ public class Mission{
         ++ longestStreak;
         lastCheckDate = curDate.getTime();
         return true;
+    }
+
+    public void addTweet(Tweet tweet, int position) {
+        // TODO
+    }
+
+    public void loadTweet(int position) {
+        // TODO
     }
 
     /**
@@ -170,5 +200,9 @@ public class Mission{
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public class Tweet {
+        String text;
     }
 }
