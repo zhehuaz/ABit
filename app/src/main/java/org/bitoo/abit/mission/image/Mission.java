@@ -3,7 +3,10 @@ package org.bitoo.abit.mission.image;
 import android.content.Context;
 import android.util.Log;
 
+import org.bitoo.abit.utils.TweetXmlParser;
+
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -16,6 +19,7 @@ public class Mission{
     public final static long MILLIS_OF_ONE_DAY = 86400000;
     protected final static int MAX_MARK_CONTAIN = 50;
     protected ProgressImage progressImage;
+    protected TweetXmlParser tweetXmlParser;
 
     /**
      * Misssion's local id doesn't have to be identical to that of remote.
@@ -31,7 +35,7 @@ public class Mission{
      * The progress is stored in this array as a BITMAP, which means
      * one Bit marks one day.Thus, a 50-byte-sized array contains progress
      * information of 400 days.
-     * To obtain info of progress, call {@link #updateProgress()}
+     * To obtain info of progress, call {@link #updateProgress(Date)}
      */
     protected byte[] progressMask;
 
@@ -72,7 +76,6 @@ public class Mission{
         this(context, 0, title, createDate, createDate - MILLIS_OF_ONE_DAY, motto);
         this.progressImage = new BitMapImage(imageName);
         this.progressMask = new byte[MAX_MARK_CONTAIN];
-
     }
 
     /**
@@ -114,6 +117,7 @@ public class Mission{
         this.progressMask = progressMask;
         this.tweetFilePath = tweetFilePath;
         this.motto = motto;
+        tweetXmlParser = new TweetXmlParser(context, tweetFilePath);
     }
 
     public void setProgressImage(ProgressImage image){
@@ -125,11 +129,17 @@ public class Mission{
     }
 
     /**
-     * Add 1 to current progress.
+     * Add 1 to current progress, and not add tweet.
+     * So be careful to keep consistant of progress and tweet.
+     *
+     * ATTENTION : this method only update progress info in this object,
+     * and not for SQLite.
      */
-    public void updateProgress() {
-        // TODO : store mission info in SQLite.
-
+    public int updateProgress(Date curDate) {
+        int position = curDate.compareTo(new Date(createDate)) - 1;
+        progressMask[position / 8] |= 1 << (position % 8);
+        lastCheckDate = curDate.getTime();
+        return position;
     }
 
     /**
@@ -140,23 +150,23 @@ public class Mission{
         Date curDate = new Date(System.currentTimeMillis());
         Date lastCheck = new Date(lastCheckDate);
         if (curDate.before(lastCheck)){
-            Log.e(TAG, "current date is before last check day");
+            Log.e(TAG, "current position is before last check day");
         }
         else if (curDate == lastCheck){
             return false;
         }
-        updateProgress();
-        ++ longestStreak;
-        lastCheckDate = curDate.getTime();
+        //updateProgress();
+        //TODO ++ longestStreak;
+        //lastCheckDate = curDate.getTime();
         return true;
     }
 
-    public void addTweet(Tweet tweet, int position) {
-        // TODO
+    public void addTweet(Tweet tweet) throws IOException {
+        tweetXmlParser.addTweet(tweet);
     }
 
-    public void loadTweet(int position) {
-        // TODO
+    public Tweet loadTweet(int position) throws FileNotFoundException {
+        return tweetXmlParser.quary(position);
     }
 
     /**
@@ -210,7 +220,5 @@ public class Mission{
         this.id = id;
     }
 
-    public class Tweet {
-        String text;
-    }
+
 }

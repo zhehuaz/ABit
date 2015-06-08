@@ -1,5 +1,6 @@
 package org.bitoo.abit.utils;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -112,16 +113,9 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
         cursor.moveToFirst();
         id = cursor.getLong(0);
 
-        try {
-            FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            Log.i(TAG, "Creating + " + fileName);
-            e.printStackTrace();
-        } catch (IOException e) {
-            Log.e(TAG, "Error closing file of tweet");
-            e.printStackTrace();
-        }
+        TweetXmlParser tweetXmlParser = new TweetXmlParser(context, fileName);
+        tweetXmlParser.generateXmlFile();
+
         db.close();
         cursor.close();
         return id;
@@ -133,7 +127,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
      * WHERE id=1;
      * @return mission got from database.
      */
-    public Mission loadMission(Context context, long id) throws FileNotFoundException {
+    public Mission loadMission(long id) throws FileNotFoundException {
         Mission mission = null;
         String sqlStatment = "SELECT * FROM " + TABLE_NAME + " WHERE id=" + id;
         Cursor cursor = getReadableDatabase().rawQuery(sqlStatment, null);
@@ -184,7 +178,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
      *  DELETE FROM {@link #TABLE_NAME}
      *      WHERE id = 1;
      */
-    public void deleteMission(Context context, long id) {
+    public void deleteMission(long id) {
         String deleteSqlStatement = "DELETE FROM " + TABLE_NAME + " WHERE id=" + id;
         String quarySqlStatement = "SELECT tweet_path FROM " + TABLE_NAME + " WHERE id=" + id;
         Cursor cursor = getReadableDatabase().rawQuery(quarySqlStatement, null);
@@ -193,6 +187,18 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
         Log.d(TAG, "tweet file is deleted");
         getWritableDatabase().execSQL(deleteSqlStatement);
         cursor.close();
+    }
+
+    /**
+     * Update progressMask of Mission in SQLite.
+     * @param mission in which new progressMask stores in.
+     */
+    public void updateProgress(Mission mission) {
+        ContentValues cv = new ContentValues();
+        cv.put("progress_mask", mission.getProgressMask());
+        cv.put("last_day", mission.getLastCheckDate());
+        String[] whereClause = {mission.getId() + ""};
+        getWritableDatabase().update(TABLE_NAME, cv, "id" + " = ?", whereClause);
     }
 
 }
