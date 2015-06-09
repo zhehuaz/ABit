@@ -22,7 +22,7 @@ import org.bitoo.abit.utils.MissionSQLiteHelper;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
+import java.sql.Date;
 
 
 /**
@@ -113,16 +113,17 @@ public class DetailedMissionActivityFragment extends Fragment {
                 public void onClick(View view) {
                     if (mission.check()) {
                         int position = mission.updateProgress(new Date(System.currentTimeMillis()));
-                        sqlHelper.updateProgress(mission);
-                        try {
-                            mission.addTweet(new Tweet(position, "Hello"));
-                            bitmapAdapter.notifyDataSetChanged();
-                            checkButton.setClickable(false);
-                        } catch (IOException e) {
-                            Toast.makeText(getActivity(), "Error when add Tweet", Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
+                        if(position >= 0) {
+                            sqlHelper.updateProgress(mission);
+                            try {
+                                mission.addTweet(new Tweet(position, "Hello"));
+                                bitmapAdapter.notifyDataSetChanged();
+                                checkButton.setClickable(false);
+                            } catch (IOException e) {
+                                Toast.makeText(getActivity(), "Error when add Tweet", Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                            }
                         }
-
                     }
                 }
             });

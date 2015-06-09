@@ -7,7 +7,7 @@ import org.bitoo.abit.utils.TweetXmlParser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * A Mission is a progress memoir that marks your progress
@@ -136,7 +136,9 @@ public class Mission{
      * and not for SQLite.
      */
     public int updateProgress(Date curDate) {
-        int position = curDate.compareTo(new Date(createDate)) - 1;
+        int position = (int)(curDate.getTime() / MILLIS_OF_ONE_DAY - lastCheckDate / MILLIS_OF_ONE_DAY);
+        if(position < 0)
+            return position;
         progressMask[position / 8] |= 1 << (position % 8);
         lastCheckDate = curDate.getTime();
         return position;
@@ -151,14 +153,11 @@ public class Mission{
         Date lastCheck = new Date(lastCheckDate);
         if (curDate.before(lastCheck)){
             Log.e(TAG, "current position is before last check day");
-        }
-        else if (curDate == lastCheck){
             return false;
+        } else {
+            return !curDate.toString().equals(lastCheck.toString());
         }
-        //updateProgress();
         //TODO ++ longestStreak;
-        //lastCheckDate = curDate.getTime();
-        return true;
     }
 
     public void addTweet(Tweet tweet) throws IOException {

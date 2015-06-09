@@ -200,5 +200,4 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
         String[] whereClause = {mission.getId() + ""};
         getWritableDatabase().update(TABLE_NAME, cv, "id" + " = ?", whereClause);
     }
-
 }
