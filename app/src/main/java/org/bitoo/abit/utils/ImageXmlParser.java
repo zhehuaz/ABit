@@ -22,7 +22,7 @@ import javax.xml.parsers.ParserConfigurationException;
 /**
  * Parse {@link org.bitoo.abit.mission.image.BitMapImage} from a xml file.
  */
-public class XmlImageParser {
+public class ImageXmlParser {
     private List<Pixel> bitmap;
     private int height = 0;
     private int width = 0;

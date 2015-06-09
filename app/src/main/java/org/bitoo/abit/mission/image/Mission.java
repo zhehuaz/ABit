@@ -3,10 +3,11 @@ package org.bitoo.abit.mission.image;
 import android.content.Context;
 import android.util.Log;
 
-import org.bitoo.abit.storage.MissionStorage;
+import org.bitoo.abit.utils.TweetXmlParser;
 
 import java.io.FileNotFoundException;
-import java.util.Date;
+import java.io.IOException;
+import java.sql.Date;
 
 /**
  * A Mission is a progress memoir that marks your progress
@@ -18,6 +19,7 @@ public class Mission{
     public final static long MILLIS_OF_ONE_DAY = 86400000;
     protected final static int MAX_MARK_CONTAIN = 50;
     protected ProgressImage progressImage;
+    protected TweetXmlParser tweetXmlParser;
 
     /**
      * Misssion's local id doesn't have to be identical to that of remote.
@@ -26,15 +28,25 @@ public class Mission{
      * and local database update it.
      */
     protected long id;
+
     /**
      * Marks if the mission is done of each day.
      *
      * The progress is stored in this array as a BITMAP, which means
-     * one Bit marks one day.Thus, a 50-byte-sized array contains progresss
+     * one Bit marks one day.Thus, a 50-byte-sized array contains progress
      * information of 400 days.
-     * To obtain info of progress, call {@link #updateProgress()}
+     * To obtain info of progress, call {@link #updateProgress(Date)}
      */
     protected byte[] progressMask;
+
+    /**
+     * The path that the progress tweet is stored in as an XML file.
+     * Only file path of tweets is stored but the whole tweets, in consider of
+     * storage pressure of memory and efficiency.
+     * Tweets would be loaded and parsed when the item is selected individually
+     * from XML file using {@link #loadTweet(int)}
+     */
+    protected String tweetFilePath;
 
     /** Progress of the mission.How many day passed by since the mission is created.*/
     protected int progressDayNum;
@@ -45,17 +57,50 @@ public class Mission{
 
     protected long createDate;
     protected String title;
+    protected String motto;
     protected Context context;
 
     /**
-     * Initialize a mission, called when create a new mission,
-     * or load a mission object from database.
-     * Load image when mission is created.
+     * Initialize a mission, called when create a new mission and store it in database.
      * The image's pixel is of {@link BitColor}.
      * @param context to access local storage
      * @param imageName find this resource XML file
-     * @param progress Current progress.
      * @throws FileNotFoundException when image is not found.
+     */
+    public Mission(Context context,
+                   String title,
+                   long createDate,
+                   String imageName,
+                   String motto)
+            throws FileNotFoundException {
+        this(context, 0, title, createDate, createDate - MILLIS_OF_ONE_DAY, motto);
+        this.progressImage = new BitMapImage(imageName);
+        this.progressMask = new byte[MAX_MARK_CONTAIN];
+    }
+
+    /**
+     * Initialize a mission only for display its primary information.
+     * Used in {@link @MainAcitivity} to generate a mission list to show.
+     * @param context prepared to future usage.
+     */
+    public Mission(Context context, long id, String title, long createDate, long lastCheckDate, String motto) {
+        this.context = context;
+        this.id = id;
+        this.title = title;
+        this.createDate = createDate;
+        this.lastCheckDate = lastCheckDate;
+        this.motto = motto;
+    }
+
+    /**
+     * Initialize a mission for all detail information.
+     * Called in order to show detailed mission.
+     *
+     * @param context to access local storage.
+     * @param imageName to load {@link #progressImage}
+     * @param progressMask to show progress
+     * @param tweetFilePath to show tweet of each day
+     * @throws FileNotFoundException
      */
     public Mission(Context context,
                    long id,
@@ -63,25 +108,16 @@ public class Mission{
                    long createDate,
                    long lastCheckDate,
                    String imageName,
-                   byte[] progress)
-            throws FileNotFoundException {
-        this(context, id, title, createDate, lastCheckDate);
+                   byte[] progressMask,
+                   String tweetFilePath,
+                   String motto) throws FileNotFoundException {
+        this(context, id, title, createDate, lastCheckDate, motto);
         progressImage = new BitMapImage(imageName);
         progressImage.loadImage(context, imageName);
-        this.progressMask = progress;
-    }
-
-    /**
-     * Initialize a mission only for display its general information.
-     * Used in {@link @MainAcitivity} to generate a minssion list to show.
-     * @param context prepared to future usage.
-     */
-    public Mission(Context context, long id, String title, long createDate, long lastCheckDate) {
-        this.context = context;
-        this.id = id;
-        this.title = title;
-        this.createDate = createDate;
-        this.lastCheckDate = lastCheckDate;
+        this.progressMask = progressMask;
+        this.tweetFilePath = tweetFilePath;
+        this.motto = motto;
+        tweetXmlParser = new TweetXmlParser(context, tweetFilePath);
     }
 
     public void setProgressImage(ProgressImage image){
@@ -93,11 +129,19 @@ public class Mission{
     }
 
     /**
-     * Add 1 to current progress.
+     * Add 1 to current progress, and not add tweet.
+     * So be careful to keep consistant of progress and tweet.
+     *
+     * ATTENTION : this method only update progress info in this object,
+     * and not for SQLite.
      */
-    public void updateProgress() {
-        // TODO : store mission info in SQLite.
-
+    public int updateProgress(Date curDate) {
+        int position = (int)(curDate.getTime() / MILLIS_OF_ONE_DAY - lastCheckDate / MILLIS_OF_ONE_DAY);
+        if(position < 0)
+            return position;
+        progressMask[position / 8] |= 1 << (position % 8);
+        lastCheckDate = curDate.getTime();
+        return position;
     }
 
     /**
@@ -108,15 +152,20 @@ public class Mission{
         Date curDate = new Date(System.currentTimeMillis());
         Date lastCheck = new Date(lastCheckDate);
         if (curDate.before(lastCheck)){
-            Log.e(TAG, "current date is before last check day");
-        }
-        else if (curDate == lastCheck){
+            Log.e(TAG, "current position is before last check day");
             return false;
+        } else {
+            return !curDate.toString().equals(lastCheck.toString());
         }
-        updateProgress();
-        ++ longestStreak;
-        lastCheckDate = curDate.getTime();
-        return true;
+        //TODO ++ longestStreak;
+    }
+
+    public void addTweet(Tweet tweet) throws IOException {
+        tweetXmlParser.addTweet(tweet);
+    }
+
+    public Tweet loadTweet(int position) throws FileNotFoundException {
+        return tweetXmlParser.quary(position);
     }
 
     /**
@@ -162,7 +211,13 @@ public class Mission{
         return createDate;
     }
 
+    public String getMotto() {
+        return motto;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
+
+
 }

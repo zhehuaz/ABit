@@ -15,7 +15,6 @@
         android:id="@+id/tb_main"
         app:title="Hello"
         app:subtitle="A bit matters."
-
         />
     <GridView
         android:layout_below="@id/tb_main"

@@ -5,7 +5,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 /**
- * Created by langley on 5/31/15.
+ * To Scroll toolbar in {@link org.bitoo.abit.ui.MainActivity}.
+ *
  */
 public abstract class HidingScrollListener extends RecyclerView.OnScrollListener {
     private final static String TAG = "HidingScrollListener";
@@ -15,21 +16,7 @@ public abstract class HidingScrollListener extends RecyclerView.OnScrollListener
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-//
-//        if (scrolledDistance > HIDE_THRESHOLD && controlVisible) {
-//            onHide(dy);
-//            controlVisible = false;
-//            scrolledDistance = 0;
-//        } else if (scrolledDistance < -HIDE_THRESHOLD) {
-//            onShow();
-//            controlVisible = true;
-//            scrolledDistance = 0;
-//        }
-//
-//        if((controlVisible && dy > 0) ||  dy < 0) {
-//            scrolledDistance += dy;
-//        }
-
+        /* TODO : show toolbar when back to list and less than two were left.*/
         if(dy < 0) {
             scrolledDistance += dy;
         }

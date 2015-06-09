@@ -19,6 +19,7 @@ import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.ui.DetailedMissionActivity;
 import org.bitoo.abit.ui.MainActivity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -101,6 +102,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
     @Override
     public void onBindViewHolder(MissionListAdapter.ViewHolder holder, int position) {
         holder.mTitleText.setText(missions.get(position).getTitle());
+        holder.mDateText.setText(new Date(missions.get(position).getCreateDate()).toString());
     }
 
     @Override
