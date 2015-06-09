@@ -68,19 +68,13 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        byte[] progress = new byte[50];
-        for(int i = 0;i < 50;i ++){
-            if(i % 30 != 0)
-                progress[i] = ~0;
-        }
         Mission mission = null;
         try {
             mission = new Mission(getActivity(),
-                    1, "减肥 测试",
-                    System.currentTimeMillis(),
+                    "减肥 测试",
                     System.currentTimeMillis(),
                     "mario.xml",
-                    progress);
+                    "别让今天的自己成为昨天厌恶的那个人");
             mission.setId(sqLiteHelper.addMission(mission));
             missions.add(mission);
             adapter.notifyDataSetChanged();
@@ -93,7 +87,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
+        switch (resultCode) {
             case MainActivity.REQUEST_IS_DELETE :
                 if(data.getBooleanExtra(MainActivity.ACTION_IS_DELETE, false)) {
                     long id = data.getLongExtra(MainActivity.ACTION_ID_DELETED, -1);
@@ -106,6 +100,8 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                         }
                     }
                 }
+                break;
+            default:
                 break;
         }
     }

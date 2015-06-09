@@ -12,12 +12,17 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.ButtonFloatSmall;
+
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.mission.image.Tweet;
 import org.bitoo.abit.ui.custom.BitMapAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Date;
 
 
 /**
@@ -31,8 +36,10 @@ public class DetailedMissionActivityFragment extends Fragment {
     private static final String TAG = "ImageFramentDemo";
     private MissionSQLiteHelper sqlHelper;
     private GridView mGridView;
+    private ButtonFloatSmall checkButton;
     private OnItemSelectedListener mListener;
     private Mission mission;
+    private BitMapAdapter bitmapAdapter;
     Toolbar toolbar;
 
 
@@ -79,21 +86,47 @@ public class DetailedMissionActivityFragment extends Fragment {
         toolbar = (Toolbar) getActivity().findViewById(R.id.tb_main);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        checkButton = (ButtonFloatSmall) getActivity().findViewById(R.id.bt_check);
 
         try {
             long id = getActivity().getIntent().getLongExtra(MainActivity.MISSION_ID, 0);
-            mission = sqlHelper.loadMission(getActivity(), id);
+            mission = sqlHelper.loadMission(id);
             if(mission == null)
                 throw new FileNotFoundException();
-            BitMapAdapter adapter = new BitMapAdapter(getActivity(), mission);
-            mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
 
+            toolbar.setSubtitle(mission.getMotto());
+
+            bitmapAdapter = new BitMapAdapter(getActivity(), mission);
+            mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
             mGridView.setNumColumns(mission.getProgressImage().getWidth());
-            mGridView.setAdapter(adapter);
+            mGridView.setAdapter(bitmapAdapter);
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), "Load Image source error.", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Load Image source error.");
             e.printStackTrace();
+        }
+
+        if(mission.check()) {
+            checkButton.setClickable(true);
+            checkButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mission.check()) {
+                        int position = mission.updateProgress(new Date(System.currentTimeMillis()));
+                        if(position >= 0) {
+                            sqlHelper.updateProgress(mission);
+                            try {
+                                mission.addTweet(new Tweet(position, "Hello"));
+                                bitmapAdapter.notifyDataSetChanged();
+                                checkButton.setClickable(false);
+                            } catch (IOException e) {
+                                Toast.makeText(getActivity(), "Error when add Tweet", Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -126,7 +159,7 @@ public class DetailedMissionActivityFragment extends Fragment {
     }
 
     public void deleteMission() {
-        sqlHelper.deleteMission(getActivity().getApplicationContext(), mission.getId());
+        sqlHelper.deleteMission(mission.getId());
     }
 
     public long getMissionId() {

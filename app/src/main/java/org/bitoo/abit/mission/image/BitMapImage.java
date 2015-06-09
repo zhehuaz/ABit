@@ -2,7 +2,7 @@ package org.bitoo.abit.mission.image;
 
 import android.content.Context;
 
-import org.bitoo.abit.utils.XmlImageParser;
+import org.bitoo.abit.utils.ImageXmlParser;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ import java.util.List;
 public class BitMapImage extends ProgressImage {
     private final static String TAG = "BitMapImage";
 
-    private XmlImageParser imageParser = new XmlImageParser();
+    private ImageXmlParser imageParser = new ImageXmlParser();
 
     BitMapImage() {
     }
