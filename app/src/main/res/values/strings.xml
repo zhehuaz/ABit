@@ -5,11 +5,11 @@
     <string name="title_activity_main">MainActivity</string>
 
     <string name="title_null">(null)</string>
-    <string name="action_settings"></string>
     <string name="title_activity_detailed_mission">DetailedMissionActivity</string>
     <string name="bt_share">SHARE</string>
     <string name="bt_delete">DELETE</string>
     <string name="title_activity_add_mission">AddMissionActivity</string>
     <string name="positive">OK</string>
     <string name="negative">Cancel</string>
+    <string name="hint_tweet">What is your achievement today?\nMemorize it.</string>
 </resources>

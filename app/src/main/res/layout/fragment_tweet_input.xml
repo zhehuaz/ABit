@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/et_tweet"
-        android:hint="What did you do today?"/>
+        android:hint="@string/hint_tweet"
+        android:gravity="top|left"/>
 
 </LinearLayout>

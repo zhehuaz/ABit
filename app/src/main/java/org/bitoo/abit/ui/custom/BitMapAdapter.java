@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Pixel;
+import org.bitoo.abit.utils.TweetXmlParser;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -56,16 +59,28 @@ public class BitMapAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.grid_pixel, null);
         }
         ImageView imageView = (ImageView) convertView.findViewById(R.id.img_pixel);
         if(mission.getProgressMask(position)) {
             imageView.setBackgroundColor((int) bitmap.get(position).getPixel());
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        Toast.makeText(context,position + " : " + mission.loadTweet(position).getText(), Toast.LENGTH_SHORT).show();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } else {
             imageView.setBackgroundColor(Color.GRAY);
         }
+
+
         return convertView;
     }
 }
