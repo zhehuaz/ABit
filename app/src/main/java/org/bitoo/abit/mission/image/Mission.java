@@ -136,7 +136,7 @@ public class Mission{
      * and not for SQLite.
      */
     public int updateProgress(Date curDate) {
-        int position = (int)(curDate.getTime() / MILLIS_OF_ONE_DAY - lastCheckDate / MILLIS_OF_ONE_DAY);
+        int position = (int)(curDate.getTime() / MILLIS_OF_ONE_DAY - createDate / MILLIS_OF_ONE_DAY);
         if(position < 0)
             return position;
         progressMask[position / 8] |= 1 << (position % 8);

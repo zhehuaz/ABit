@@ -3,6 +3,7 @@ package org.bitoo.abit.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -10,7 +11,7 @@ import android.widget.Toast;
 import org.bitoo.abit.R;
 
 
-public class DetailedMissionActivity extends AppCompatActivity implements DetailedMissionActivityFragment.OnItemSelectedListener{
+public class DetailedMissionActivity extends AppCompatActivity implements TweetInputFragment.OnTweetInputListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class DetailedMissionActivity extends AppCompatActivity implements Detail
     }
 
     @Override
-    public void onItemSelected(int position) {
-
+    public void onTweetInput(Editable input) {
+        ((DetailedMissionActivityFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment)).onAddTweet(input);
     }
 }

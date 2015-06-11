@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,20 +25,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Date;
 
-
-/**
- * Activities that contain this fragment must implement the
- * {@link DetailedMissionActivityFragment.OnItemSelectedListener} interface
- * to handle interaction events.
- * Use the {@link DetailedMissionActivityFragment#getInstance} factory method to
- * create an instance of this fragment.
- */
 public class DetailedMissionActivityFragment extends Fragment {
     private static final String TAG = "ImageFramentDemo";
     private MissionSQLiteHelper sqlHelper;
     private GridView mGridView;
     private ButtonFloatSmall checkButton;
-    private OnItemSelectedListener mListener;
     private Mission mission;
     private BitMapAdapter bitmapAdapter;
     Toolbar toolbar;
@@ -111,51 +103,32 @@ public class DetailedMissionActivityFragment extends Fragment {
             checkButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mission.check()) {
-                        int position = mission.updateProgress(new Date(System.currentTimeMillis()));
-                        if(position >= 0) {
-                            sqlHelper.updateProgress(mission);
-                            try {
-                                mission.addTweet(new Tweet(position, "Hello"));
-                                bitmapAdapter.notifyDataSetChanged();
-                                checkButton.setClickable(false);
-                            } catch (IOException e) {
-                                Toast.makeText(getActivity(), "Error when add Tweet", Toast.LENGTH_SHORT).show();
-                                e.printStackTrace();
-                            }
-                        }
-                    }
+                    TweetInputFragment input = TweetInputFragment.newInstance(1, 3.6f, true);
+                    input.show(getActivity().getFragmentManager(), "hello");
                 }
             });
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnItemSelectedListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
+     * To communicate with
+     * @param tweet
      */
-    public interface OnItemSelectedListener {
-        // TODO: Update argument type and name
-        public void onItemSelected(int position);
+    public void onAddTweet(Editable tweet) {
+        if (mission.check()) {
+            int position = mission.updateProgress(new Date(System.currentTimeMillis()));
+            if(position >= 0) {
+                sqlHelper.updateProgress(mission);
+                try {
+                    mission.addTweet(new Tweet(position, tweet.toString()));
+                    bitmapAdapter.notifyDataSetChanged();
+                    checkButton.setClickable(false);
+                } catch (IOException e) {
+                    Toast.makeText(getActivity(), "Error when add Tweet", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void deleteMission() {

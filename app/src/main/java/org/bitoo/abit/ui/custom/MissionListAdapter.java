@@ -1,6 +1,5 @@
 package org.bitoo.abit.ui.custom;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +18,7 @@ import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.ui.DetailedMissionActivity;
 import org.bitoo.abit.ui.MainActivity;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**

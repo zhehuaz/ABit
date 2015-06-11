@@ -29,7 +29,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<Mission> missions;
-    private Intent intent;
 
     public MainActivityFragment() {
     }

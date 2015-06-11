@@ -6,4 +6,6 @@
     <string name="title_activity_main">主页面</string>
     <string name="bt_share">分享</string>
     <string name="bt_delete">删除</string>
+    <string name="negative"> 取消</string>
+    <string name="positive">确定</string>
 </resources>

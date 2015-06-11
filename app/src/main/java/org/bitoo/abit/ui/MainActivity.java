@@ -1,11 +1,11 @@
 package org.bitoo.abit.ui;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.DecelerateInterpolator;
@@ -17,14 +17,7 @@ import org.bitoo.abit.ui.custom.ViewPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *  MainActivity holds a fragment, {@link MainActivityFragment}
- *  to show a list of missions created.Besides, when a mission
- *  item in list is selected, a {@link DetailedMissionActivityFragment} is created
- *  with detailed information of the item.
- *  This activity doesn't have a visible view, is used as a container instead.
- */
-public class MainActivity extends AppCompatActivity implements DetailedMissionActivityFragment.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final String MISSION_ID = "MissoinId";
     public static final String ACTION_IS_DELETE = "IsDelete";
@@ -54,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements DetailedMissionAc
         pagerAdapter= new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);
     }
-
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -96,10 +88,5 @@ public class MainActivity extends AppCompatActivity implements DetailedMissionAc
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onItemSelected(int position) {
-
     }
 }
