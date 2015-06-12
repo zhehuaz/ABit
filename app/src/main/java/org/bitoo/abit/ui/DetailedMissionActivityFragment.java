@@ -33,7 +33,6 @@ public class DetailedMissionActivityFragment extends Fragment {
     private BitMapAdapter bitmapAdapter;
     Toolbar toolbar;
 
-
     private static final String COLOR_KEY = "img_pixel";
 
     /**
@@ -104,6 +103,13 @@ public class DetailedMissionActivityFragment extends Fragment {
                 public void onClick(View view) {
                     TweetInputFragment input = TweetInputFragment.newInstance(1, 3.6f, true);
                     input.show(getActivity().getFragmentManager(), "hello");
+                }
+            });
+        } else {
+            checkButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getActivity(), "今天已经打过卡啦～", Toast.LENGTH_SHORT).show();
                 }
             });
         }

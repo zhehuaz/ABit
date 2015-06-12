@@ -20,6 +20,9 @@ public abstract class ProgressImage implements ImageStorage {
     protected int height;
     protected int width;
 
+    /** Amount of Pixels*/
+    protected int amount;
+
     protected List<Pixel> bitmap;
 
     public int getHeight() {
@@ -28,6 +31,10 @@ public abstract class ProgressImage implements ImageStorage {
 
     public int getWidth() {
         return width;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 
     public abstract List<Pixel> getBitmap();

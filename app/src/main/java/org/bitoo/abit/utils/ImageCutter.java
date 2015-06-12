@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by langley on 5/24/15.
+ * To be implemented.
  */
 public class ImageCutter {
     public static List<BitColor> cut(Bitmap bitmap) {

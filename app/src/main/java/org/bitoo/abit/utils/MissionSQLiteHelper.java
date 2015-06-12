@@ -15,13 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Mission saves settings in SQLite database, and this class
- * is a helper to help operate mission's data.
- * Most functions are called by Mission, I mean, Mission handles
- * data subjectively.
+ * Missions are stored in SQLite database, and this class
+ * is a helper to help operate missions' data.
+ * Most functions in this class are almost called by Mission, I mean,
+ * Mission handles data subjectively.So if you want to control data of
+ * mission, use functions in {@link Mission} itself.
  */
 public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStorage{
-    private static final String TAG = "MissoinSQLiteHelper";
+    private static final String TAG = "MissionSQLiteHelper";
     public static final String DATABASE_NAME = "ABit";
     public static final String TABLE_NAME = "progressData";
     public static final int VERSION = 1;
@@ -29,7 +30,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
 
     /**
      * Constructor.
-     * @param context ATTENTION, context here must be {@link android.app.Application}
+     * @param context ATTENTION, context here must be as a {@link android.app.Application}
      * @param name of database, use {@link #DATABASE_NAME}
      * @param factory is usually null
      * @param version of database, use {@link #VERSION}
@@ -61,7 +62,10 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
          * progress_mask BLOB NOT NULL,
          * first_day DATE NOT NULL,
          * last_day DATE NOT NULL,
-         * tweet_path TEXT NOT NULL
+         * tweet_path VARCHAR(100) NOT NULL,
+         * motto VARCHAR(70) NOT NULL,
+         * is_done BOOLEAN NOT NULL CHECK (is_done IN (0,1)),
+         * theme_image_path VARCHAR(100) # if null, use default image
          * );
          */
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(\n" +
@@ -72,7 +76,10 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
                 " first_day LONG NOT NULL,\n" +
                 " last_day LONG NOT NULL,\n" +
                 " tweet_path TEXT NOT NULL,\n" +
-                " motto VARCHAR(30) NOT NULL);");
+                " motto VARCHAR(70) NOT NULL,\n" +
+                " is_done INT NOT NULL CHECK (is_done IN (0,1)),\n" +
+                " theme_image_path VARCHAR(100)" +
+                ");");
     }
 
     @Override
@@ -89,11 +96,11 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
      * to care for it, and the file is created in non-sense.
      */
     public long addMission(Mission mission) {
-        String sqlStatment = "INSERT INTO " + TABLE_NAME +
-                " (id, title, image_name, progress_mask, first_day, last_day, tweet_path, motto)" +
-                        " VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlStatement = "INSERT INTO " + TABLE_NAME +
+                " (id, title, image_name, progress_mask, first_day, last_day, tweet_path, motto, is_done, theme_image_path)" +
+                        " VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String fileName = mission.getTitle() + "_" + mission.getCreateDate();
-        Log.v(TAG, "Executing :\n" + sqlStatment);
+        Log.v(TAG, "Executing :\n" + sqlStatement);
         Object[] args = new Object[]{
                 mission.getTitle(),
                 mission.getProgressImage().getName(),
@@ -101,11 +108,13 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
                 mission.getCreateDate(),
                 mission.getLastCheckDate(),
                 fileName,
-                mission.getMotto()
+                mission.getMotto(),
+                mission.isDone(),
+                mission.getThemeImagePath()
         };
 
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL(sqlStatment, args);
+        db.execSQL(sqlStatement, args);
         long id;
         Cursor cursor = db.rawQuery("SELECT last_insert_rowid()", null);
         cursor.moveToFirst();
@@ -127,8 +136,8 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
      */
     public Mission loadMission(long id) throws FileNotFoundException {
         Mission mission = null;
-        String sqlStatment = "SELECT * FROM " + TABLE_NAME + " WHERE id=" + id;
-        Cursor cursor = getReadableDatabase().rawQuery(sqlStatment, null);
+        String sqlStatement = "SELECT * FROM " + TABLE_NAME + " WHERE id=" + id;
+        Cursor cursor = getReadableDatabase().rawQuery(sqlStatement, null);
 
         if(cursor.moveToFirst()) {
             mission = new Mission(
@@ -140,7 +149,9 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
                     cursor.getString(cursor.getColumnIndex("image_name")),
                     cursor.getBlob(cursor.getColumnIndex("progress_mask")),
                     cursor.getString(cursor.getColumnIndex("tweet_path")),
-                    cursor.getString(cursor.getColumnIndex("motto"))
+                    cursor.getString(cursor.getColumnIndex("motto")),
+                    cursor.getInt(cursor.getColumnIndex("is_done")) > 0,
+                    cursor.getString(cursor.getColumnIndex("theme_image_path"))
             );
         }
         cursor.close();
@@ -151,11 +162,13 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
      * List fundamental information of missions, to show them in a list.
      * Information of missions is not complete.Image and progress is not to be returned.
      * @return list of missions
+     * @param isDone
      */
-    public List<Mission> loadMissions() {
+    public List<Mission> loadMissions(boolean isDone) {
         List<Mission> missionList = new ArrayList<>();
-        String sqlStatment =  "SELECT id,title,first_day,last_day,motto FROM " + TABLE_NAME;
-        Cursor cursor = getReadableDatabase().rawQuery(sqlStatment, null);
+        String whereClause = " where is_done " + (isDone ? ">" : "<=") + " 0";
+        String sqlStatement =  "SELECT id,title,first_day,last_day,motto,theme_image_path FROM " + TABLE_NAME + whereClause;
+        Cursor cursor = getReadableDatabase().rawQuery(sqlStatement, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             missionList.add(new Mission(context,
@@ -163,7 +176,9 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
                     cursor.getString(cursor.getColumnIndex("title")),
                     cursor.getLong(cursor.getColumnIndex("first_day")),
                     cursor.getLong(cursor.getColumnIndex("last_day")),
-                    cursor.getString(cursor.getColumnIndex("motto"))
+                    cursor.getString(cursor.getColumnIndex("motto")),
+                    isDone,
+                    cursor.getString(cursor.getColumnIndex("theme_image_path"))
             ));
             cursor.moveToNext();
         }
@@ -178,8 +193,8 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
      */
     public void deleteMission(long id) {
         String deleteSqlStatement = "DELETE FROM " + TABLE_NAME + " WHERE id=" + id;
-        String quarySqlStatement = "SELECT tweet_path FROM " + TABLE_NAME + " WHERE id=" + id;
-        Cursor cursor = getReadableDatabase().rawQuery(quarySqlStatement, null);
+        String querySqlStatement = "SELECT tweet_path FROM " + TABLE_NAME + " WHERE id=" + id;
+        Cursor cursor = getReadableDatabase().rawQuery(querySqlStatement, null);
         cursor.moveToFirst();
         context.deleteFile(cursor.getString(cursor.getColumnIndex("tweet_path")));
         Log.d(TAG, "tweet file is deleted");

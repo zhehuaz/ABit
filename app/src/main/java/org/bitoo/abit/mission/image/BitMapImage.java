@@ -25,9 +25,10 @@ public class BitMapImage extends ProgressImage {
     BitMapImage(String imageName) {
         name = imageName;
     }
-    BitMapImage(int height, int width) {
+    BitMapImage(int height, int width, int amount) {
         this.height = height;
         this.width = width;
+        this.amount = amount;
     }
 
     @Override
@@ -36,6 +37,7 @@ public class BitMapImage extends ProgressImage {
         bitmap = imageParser.getBitmap();
         height = imageParser.getHeight();
         width = imageParser.getWidth();
+        amount = imageParser.getAmount();
     }
 
     /**

@@ -60,21 +60,25 @@ public class Mission{
     protected String motto;
     protected Context context;
 
+    protected boolean isDone;
+    protected String themeImagePath;
+
     /**
      * Initialize a mission, called when create a new mission and store it in database.
      * The image's pixel is of {@link BitColor}.
      * @param context to access local storage
-     * @param imageName find this resource XML file
+     * @param XmlBitmapPath find this resource XML file
      * @throws FileNotFoundException when image is not found.
      */
     public Mission(Context context,
                    String title,
                    long createDate,
-                   String imageName,
-                   String motto)
+                   String XmlBitmapPath,
+                   String motto,
+                   String themeImagePath)
             throws FileNotFoundException {
-        this(context, 0, title, createDate, createDate - MILLIS_OF_ONE_DAY, motto);
-        this.progressImage = new BitMapImage(imageName);
+        this(context, 0, title, createDate, createDate - MILLIS_OF_ONE_DAY, motto, false, themeImagePath);
+        this.progressImage = new BitMapImage(XmlBitmapPath);
         this.progressMask = new byte[MAX_MARK_CONTAIN];
     }
 
@@ -82,14 +86,24 @@ public class Mission{
      * Initialize a mission only for display its primary information.
      * Used in {@link @MainAcitivity} to generate a mission list to show.
      * @param context prepared to future usage.
+     * @param isDone
      */
-    public Mission(Context context, long id, String title, long createDate, long lastCheckDate, String motto) {
+    public Mission(Context context,
+                   long id,
+                   String title,
+                   long createDate,
+                   long lastCheckDate,
+                   String motto,
+                   boolean isDone,
+                   String themeImagePath ) {
         this.context = context;
         this.id = id;
         this.title = title;
         this.createDate = createDate;
         this.lastCheckDate = lastCheckDate;
         this.motto = motto;
+        this.themeImagePath = themeImagePath;
+        this.isDone = isDone;
     }
 
     /**
@@ -97,7 +111,7 @@ public class Mission{
      * Called in order to show detailed mission.
      *
      * @param context to access local storage.
-     * @param imageName to load {@link #progressImage}
+     * @param XmlBitmapPath to load {@link #progressImage}
      * @param progressMask to show progress
      * @param tweetFilePath to show tweet of each day
      * @throws FileNotFoundException
@@ -107,13 +121,15 @@ public class Mission{
                    String title,
                    long createDate,
                    long lastCheckDate,
-                   String imageName,
+                   String XmlBitmapPath,
                    byte[] progressMask,
                    String tweetFilePath,
-                   String motto) throws FileNotFoundException {
-        this(context, id, title, createDate, lastCheckDate, motto);
-        progressImage = new BitMapImage(imageName);
-        progressImage.loadImage(context, imageName);
+                   String motto,
+                   boolean isDone,
+                   String themeImagePath) throws FileNotFoundException {
+        this(context, id, title, createDate, lastCheckDate, motto, isDone, themeImagePath);
+        progressImage = new BitMapImage(XmlBitmapPath);
+        progressImage.loadImage(context, XmlBitmapPath);
         this.progressMask = progressMask;
         this.tweetFilePath = tweetFilePath;
         this.motto = motto;
@@ -165,7 +181,7 @@ public class Mission{
     }
 
     public Tweet loadTweet(int position) throws FileNotFoundException {
-        return tweetXmlParser.quary(position);
+        return tweetXmlParser.query(position);
     }
 
     /**
@@ -214,6 +230,15 @@ public class Mission{
     public String getMotto() {
         return motto;
     }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String getThemeImagePath() {
+        return themeImagePath;
+    }
+
 
     public void setId(long id) {
         this.id = id;

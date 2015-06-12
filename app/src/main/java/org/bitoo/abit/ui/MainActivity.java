@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.vp_main);
         mainFragment = new MainActivityFragment();
         fragments.add(mainFragment);
-        fragments.add(new AddMissionActivityFragment());
+        fragments.add(GalleryFragment.newInstance());
         pagerAdapter= new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);
     }

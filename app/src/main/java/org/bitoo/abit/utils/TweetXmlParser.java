@@ -27,6 +27,11 @@ public class TweetXmlParser {
         this.filePath = filePath;
     }
 
+    /**
+     * Add a tweet in a specific day to xml file.
+     * @param tweet that is about to store.
+     * @throws IOException in XML file.
+     */
     public void addTweet(Tweet tweet) throws IOException {
         SAXReader reader = new SAXReader();
         try {
@@ -49,7 +54,14 @@ public class TweetXmlParser {
         }
     }
 
-    public Tweet quary(int position) throws FileNotFoundException {
+    /**
+     * Get ad tweet with index of position.
+     * You can translate the Date into position.
+     * @param position of the tweet you want, in {@link org.bitoo.abit.mission.image.BitMapImage}.
+     * @return the tweet get
+     * @throws FileNotFoundException
+     */
+    public Tweet query(int position) throws FileNotFoundException {
         SAXReader reader = new SAXReader();
         Document document;
         String tweetText;
@@ -73,9 +85,13 @@ public class TweetXmlParser {
         return null;
     }
 
+    /**
+     * To create a new empty xml file to store tweets.
+     * The root tag is <tweets></tweets>.
+     */
     public void generateXmlFile() {
         Document document = DocumentHelper.createDocument();
-        Element rootElement = document.addElement("tweets");
+        document.addElement("tweets");
 
         try {
             XMLWriter output = new XMLWriter(context.openFileOutput(filePath, Context.MODE_PRIVATE));
