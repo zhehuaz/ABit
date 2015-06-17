@@ -96,23 +96,19 @@ public class DetailedMissionActivityFragment extends Fragment {
             e.printStackTrace();
         }
 
-        if(mission.check()) {
-            checkButton.setClickable(true);
-            checkButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        checkButton.setClickable(true);
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mission.check()) {
                     TweetInputFragment input = TweetInputFragment.newInstance(1, 3.6f, true);
                     input.show(getActivity().getFragmentManager(), "hello");
-                }
-            });
-        } else {
-            checkButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+                } else {
                     Toast.makeText(getActivity(), "今天已经打过卡啦～", Toast.LENGTH_SHORT).show();
                 }
-            });
-        }
+            }
+        });
+
     }
 
     /**

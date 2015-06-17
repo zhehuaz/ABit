@@ -162,7 +162,7 @@ public class MissionSQLiteHelper extends SQLiteOpenHelper implements MissionStor
      * List fundamental information of missions, to show them in a list.
      * Information of missions is not complete.Image and progress is not to be returned.
      * @return list of missions
-     * @param isDone
+     * @param isDone To load done or non-done missions for gallery or mission list.
      */
     public List<Mission> loadMissions(boolean isDone) {
         List<Mission> missionList = new ArrayList<>();

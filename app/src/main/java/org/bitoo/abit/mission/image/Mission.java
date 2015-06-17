@@ -17,6 +17,7 @@ public class Mission{
 
     private final static String TAG = "Mission";
     public final static long MILLIS_OF_ONE_DAY = 86400000;
+    public final static long MILLIS_OF_EIGHT_HOURS = 28800000;
     protected final static int MAX_MARK_CONTAIN = 50;
     protected ProgressImage progressImage;
     protected TweetXmlParser tweetXmlParser;
@@ -152,7 +153,8 @@ public class Mission{
      * and not for SQLite.
      */
     public int updateProgress(Date curDate) {
-        int position = (int)(curDate.getTime() / MILLIS_OF_ONE_DAY - createDate / MILLIS_OF_ONE_DAY);
+        // FIXME : deal with jet lag
+        int position = (int)((curDate.getTime() + MILLIS_OF_EIGHT_HOURS) / MILLIS_OF_ONE_DAY - (createDate + MILLIS_OF_EIGHT_HOURS) / MILLIS_OF_ONE_DAY);
         if(position < 0)
             return position;
         progressMask[position / 8] |= 1 << (position % 8);
