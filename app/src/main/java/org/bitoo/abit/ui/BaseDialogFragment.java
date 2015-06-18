@@ -19,12 +19,12 @@ public class BaseDialogFragment extends BlurDialogFragment {
 
     @Override
     protected boolean isActionBarBlurred() {
-        return super.isActionBarBlurred();
+        return true;
     }
 
     @Override
     protected boolean isDimmingEnable() {
-        return true;
+        return false;
     }
 
     @Override

@@ -20,44 +20,11 @@ import fr.tvbarthel.lib.blurdialogfragment.BlurDialogFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TweetInputFragment extends BlurDialogFragment {
+public class TweetInputFragment extends BaseDialogFragment {
     private OnTweetInputListener mListener;
-    private int mRadius;
-    private float mDownScaleFactor;
-    private boolean mDimming;
-    private boolean mDebug;
 
-    /**
-     * Bundle key used to start the blur dialog with a given scale factor (float).
-     */
-    private static final String BUNDLE_KEY_DOWN_SCALE_FACTOR = "bundle_key_down_scale_factor";
-
-    /**
-     * Bundle key used to start the blur dialog with a given blur radius (int).
-     */
-    private static final String BUNDLE_KEY_BLUR_RADIUS = "bundle_key_blur_radius";
-
-    /**
-     * Bundle key used to start the blur dialog with a given dimming effect policy.
-     */
-    private static final String BUNDLE_KEY_DIMMING = "bundle_key_dimming_effect";
-
-    /**
-     * Bundle key used to start the blur dialog with a given debug policy.
-     */
-    private static final String BUNDLE_KEY_DEBUG = "bundle_key_debug_effect";
-
-    public static TweetInputFragment newInstance(int radius,
-                                                 float downScaleFactor,
-                                                 boolean dimming) {
-        TweetInputFragment tweetInputFragment = new TweetInputFragment();
-        Bundle args = new Bundle();
-        args.putInt(BUNDLE_KEY_BLUR_RADIUS, radius);
-        args.putFloat(BUNDLE_KEY_DOWN_SCALE_FACTOR, downScaleFactor);
-        args.putBoolean(BUNDLE_KEY_DIMMING, dimming);
-
-        tweetInputFragment.setArguments(args);
-        return tweetInputFragment;
+    public static TweetInputFragment newInstance() {
+        return new TweetInputFragment();
     }
 
     @Override
@@ -87,13 +54,6 @@ public class TweetInputFragment extends BlurDialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
-        Bundle args = getArguments();
-        mRadius = args.getInt(BUNDLE_KEY_BLUR_RADIUS);
-        mDownScaleFactor = args.getFloat(BUNDLE_KEY_DOWN_SCALE_FACTOR);
-        mDimming = args.getBoolean(BUNDLE_KEY_DIMMING);
-        mDebug = args.getBoolean(BUNDLE_KEY_DEBUG);
-
         try {
             mListener = (OnTweetInputListener) activity;
         } catch (ClassCastException e) {

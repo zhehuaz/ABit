@@ -17,7 +17,7 @@ import org.bitoo.abit.R;
 
 import fr.tvbarthel.lib.blurdialogfragment.BlurDialogFragment;
 
-public class ShareFragment extends BlurDialogFragment {
+public class ShareFragment extends BaseDialogFragment {
     private ImageView screenshotView;
 
     /**
@@ -27,10 +27,7 @@ public class ShareFragment extends BlurDialogFragment {
      * @return A new instance of fragment ShareFragment.
      */
     public static ShareFragment newInstance() {
-        ShareFragment fragment = new ShareFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new ShareFragment();
     }
 
     public ShareFragment() {
