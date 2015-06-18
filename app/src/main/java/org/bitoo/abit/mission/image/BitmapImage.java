@@ -15,19 +15,20 @@ import java.util.List;
  *
  * Pixel in this class is {@link BitColor}.
  */
-public class BitMapImage extends ProgressImage {
-    private final static String TAG = "BitMapImage";
+public class BitmapImage extends ProgressImage {
+    private final static String TAG = "BitmapImage";
 
     private ImageXmlParser imageParser = new ImageXmlParser();
 
-    BitMapImage() {
+    BitmapImage() {
     }
-    BitMapImage(String imageName) {
+    BitmapImage(String imageName) {
         name = imageName;
     }
-    BitMapImage(int height, int width) {
+    BitmapImage(int height, int width, int amount) {
         this.height = height;
         this.width = width;
+        this.amount = amount;
     }
 
     @Override
@@ -36,6 +37,7 @@ public class BitMapImage extends ProgressImage {
         bitmap = imageParser.getBitmap();
         height = imageParser.getHeight();
         width = imageParser.getWidth();
+        amount = imageParser.getAmount();
     }
 
     /**

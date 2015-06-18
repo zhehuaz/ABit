@@ -1,10 +1,10 @@
 package org.bitoo.abit.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,24 +24,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Date;
 
-
-/**
- * Activities that contain this fragment must implement the
- * {@link DetailedMissionActivityFragment.OnItemSelectedListener} interface
- * to handle interaction events.
- * Use the {@link DetailedMissionActivityFragment#getInstance} factory method to
- * create an instance of this fragment.
- */
 public class DetailedMissionActivityFragment extends Fragment {
     private static final String TAG = "ImageFramentDemo";
     private MissionSQLiteHelper sqlHelper;
     private GridView mGridView;
     private ButtonFloatSmall checkButton;
-    private OnItemSelectedListener mListener;
     private Mission mission;
     private BitMapAdapter bitmapAdapter;
     Toolbar toolbar;
-
 
     private static final String COLOR_KEY = "img_pixel";
 
@@ -51,7 +41,7 @@ public class DetailedMissionActivityFragment extends Fragment {
      *
      * @return A new instance of fragment DetailedMissionActivityFragment.
      */
-    public static DetailedMissionActivityFragment getInstance() {
+    public static DetailedMissionActivityFragment newInstance() {
         DetailedMissionActivityFragment fragment = new DetailedMissionActivityFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -76,7 +66,6 @@ public class DetailedMissionActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_image_display, container, false);
     }
 
@@ -106,56 +95,40 @@ public class DetailedMissionActivityFragment extends Fragment {
             e.printStackTrace();
         }
 
-        if(mission.check()) {
-            checkButton.setClickable(true);
-            checkButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mission.check()) {
-                        int position = mission.updateProgress(new Date(System.currentTimeMillis()));
-                        if(position >= 0) {
-                            sqlHelper.updateProgress(mission);
-                            try {
-                                mission.addTweet(new Tweet(position, "Hello"));
-                                bitmapAdapter.notifyDataSetChanged();
-                                checkButton.setClickable(false);
-                            } catch (IOException e) {
-                                Toast.makeText(getActivity(), "Error when add Tweet", Toast.LENGTH_SHORT).show();
-                                e.printStackTrace();
-                            }
-                        }
-                    }
+        checkButton.setClickable(true);
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mission.check()) {
+                    TweetInputFragment input = TweetInputFragment.newInstance();
+                    input.show(getActivity().getFragmentManager(), "hello");
+                } else {
+                    Toast.makeText(getActivity(), "今天已经打过卡啦～", Toast.LENGTH_SHORT).show();
                 }
-            });
-        }
-    }
+            }
+        });
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnItemSelectedListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
+     * To communicate with
+     * @param tweet
      */
-    public interface OnItemSelectedListener {
-        // TODO: Update argument type and name
-        public void onItemSelected(int position);
+    public void onAddTweet(Editable tweet) {
+        if (mission.check()) {
+            int position = mission.updateProgress(new Date(System.currentTimeMillis()));
+            if(position >= 0) {
+                sqlHelper.updateProgress(mission);
+                try {
+                    mission.addTweet(new Tweet(position, tweet.toString()));
+                    bitmapAdapter.notifyDataSetChanged();
+                    checkButton.setClickable(false);
+                } catch (IOException e) {
+                    Toast.makeText(getActivity(), "Error when adding Tweet", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void deleteMission() {

@@ -3,6 +3,7 @@ package org.bitoo.abit.utils;
 import android.graphics.Color;
 
 import org.bitoo.abit.mission.image.BitColor;
+import org.bitoo.abit.mission.image.BitmapImage;
 import org.bitoo.abit.mission.image.Pixel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,12 +21,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 /**
- * Parse {@link org.bitoo.abit.mission.image.BitMapImage} from a xml file.
+ * Parse {@link BitmapImage} from a xml file.
  */
 public class ImageXmlParser {
     private List<Pixel> bitmap;
     private int height = 0;
     private int width = 0;
+    private int amount = 0;
 
     /**
      * Parse XML file into Document.
@@ -66,6 +68,7 @@ public class ImageXmlParser {
         //id = Integer.parseInt(rootElement.getAttribute("id"));
         height = Integer.parseInt(rootElement.getAttribute("height"));
         width = Integer.parseInt(rootElement.getAttribute("width"));
+        amount = Integer.parseInt(rootElement.getAttribute("amount"));
         //bitmap = new BitColor[height * width];
         bitmap = new ArrayList<Pixel>();
 
@@ -100,5 +103,9 @@ public class ImageXmlParser {
 
     public int getWidth() {
         return width;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }

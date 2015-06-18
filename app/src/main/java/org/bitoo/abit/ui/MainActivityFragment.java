@@ -18,7 +18,6 @@ import org.bitoo.abit.ui.custom.MissionListAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
 import java.io.FileNotFoundException;
-import java.util.Iterator;
 import java.util.List;
 
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
@@ -29,7 +28,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<Mission> missions;
-    private Intent intent;
 
     public MainActivityFragment() {
     }
@@ -50,7 +48,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         sqLiteHelper = new MissionSQLiteHelper(getActivity().getApplication());
-        missions = sqLiteHelper.loadMissions();
+        missions = sqLiteHelper.loadMissions(false);
         adapter = new MissionListAdapter(getActivity(), missions);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new HidingScrollListener() {
@@ -74,7 +72,8 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                     "减肥 测试",
                     System.currentTimeMillis(),
                     "mario.xml",
-                    "别让今天的自己成为昨天厌恶的那个人");
+                    "别让今天的自己成为昨天厌恶的那个人",
+                    null);// TODO Temporarily
             mission.setId(sqLiteHelper.addMission(mission));
             missions.add(mission);
             adapter.notifyDataSetChanged();

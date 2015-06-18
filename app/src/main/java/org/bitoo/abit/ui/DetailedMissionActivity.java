@@ -1,16 +1,23 @@
 package org.bitoo.abit.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import org.bitoo.abit.R;
 
 
-public class DetailedMissionActivity extends AppCompatActivity implements DetailedMissionActivityFragment.OnItemSelectedListener{
+public class DetailedMissionActivity extends AppCompatActivity implements TweetInputFragment.OnTweetInputListener{
+    Bitmap screenshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,18 @@ public class DetailedMissionActivity extends AppCompatActivity implements Detail
         switch (id) {
             case R.id.action_share :
                 Toast.makeText(this, "SHARE ", Toast.LENGTH_SHORT).show();
+                View view = this.getWindow().getDecorView();
+                view.setDrawingCacheEnabled(true);
+                view.buildDrawingCache();
+
+                screenshot = Bitmap.createBitmap(view.getDrawingCache(),
+                        0,
+                        610,// FIXME calculate it!
+                        getResources().getDisplayMetrics().widthPixels,
+                        getResources().getDisplayMetrics().widthPixels);
+                ShareFragment shareFragment = ShareFragment.newInstance();
+                shareFragment.show(this.getFragmentManager(), "share");
+                view.destroyDrawingCache();
                 break;
             case R.id.action_delete :
                 DetailedMissionActivityFragment fragment =
@@ -54,7 +73,11 @@ public class DetailedMissionActivity extends AppCompatActivity implements Detail
     }
 
     @Override
-    public void onItemSelected(int position) {
+    public void onTweetInput(Editable input) {
+        ((DetailedMissionActivityFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment)).onAddTweet(input);
+    }
 
+    public Bitmap getScreen() {
+        return screenshot;
     }
 }
