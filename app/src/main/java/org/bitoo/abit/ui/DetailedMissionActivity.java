@@ -42,8 +42,7 @@ public class DetailedMissionActivity extends AppCompatActivity implements TweetI
                 View view = this.getWindow().getDecorView();
                 view.setDrawingCacheEnabled(true);
                 view.buildDrawingCache();
-                screenshot = view.getDrawingCache();
-
+                screenshot = Bitmap.createBitmap(view.getDrawingCache());
                 ShareFragment shareFragment = ShareFragment.newInstance();
                 shareFragment.show(this.getFragmentManager(), "share");
                 view.destroyDrawingCache();
