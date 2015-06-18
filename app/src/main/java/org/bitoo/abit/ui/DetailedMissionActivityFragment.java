@@ -41,7 +41,7 @@ public class DetailedMissionActivityFragment extends Fragment {
      *
      * @return A new instance of fragment DetailedMissionActivityFragment.
      */
-    public static DetailedMissionActivityFragment getInstance() {
+    public static DetailedMissionActivityFragment newInstance() {
         DetailedMissionActivityFragment fragment = new DetailedMissionActivityFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -66,7 +66,6 @@ public class DetailedMissionActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_image_display, container, false);
     }
 
@@ -125,7 +124,7 @@ public class DetailedMissionActivityFragment extends Fragment {
                     bitmapAdapter.notifyDataSetChanged();
                     checkButton.setClickable(false);
                 } catch (IOException e) {
-                    Toast.makeText(getActivity(), "Error when add Tweet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Error when adding Tweet", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }

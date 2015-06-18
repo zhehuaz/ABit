@@ -3,6 +3,7 @@ package org.bitoo.abit.utils;
 import android.graphics.Color;
 
 import org.bitoo.abit.mission.image.BitColor;
+import org.bitoo.abit.mission.image.BitmapImage;
 import org.bitoo.abit.mission.image.Pixel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,7 +21,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 /**
- * Parse {@link org.bitoo.abit.mission.image.BitMapImage} from a xml file.
+ * Parse {@link BitmapImage} from a xml file.
  */
 public class ImageXmlParser {
     private List<Pixel> bitmap;

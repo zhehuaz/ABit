@@ -2,6 +2,7 @@ package org.bitoo.abit.mission.image;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.bitoo.abit.utils.TweetXmlParser;
 
@@ -79,7 +80,7 @@ public class Mission{
                    String themeImagePath)
             throws FileNotFoundException {
         this(context, 0, title, createDate, createDate - MILLIS_OF_ONE_DAY, motto, false, themeImagePath);
-        this.progressImage = new BitMapImage(XmlBitmapPath);
+        this.progressImage = new BitmapImage(XmlBitmapPath);
         this.progressMask = new byte[MAX_MARK_CONTAIN];
     }
 
@@ -129,7 +130,7 @@ public class Mission{
                    boolean isDone,
                    String themeImagePath) throws FileNotFoundException {
         this(context, id, title, createDate, lastCheckDate, motto, isDone, themeImagePath);
-        progressImage = new BitMapImage(XmlBitmapPath);
+        progressImage = new BitmapImage(XmlBitmapPath);
         progressImage.loadImage(context, XmlBitmapPath);
         this.progressMask = progressMask;
         this.tweetFilePath = tweetFilePath;
@@ -171,6 +172,7 @@ public class Mission{
         Date lastCheck = new Date(lastCheckDate);
         if (curDate.before(lastCheck)){
             Log.e(TAG, "current position is before last check day");
+            Toast.makeText(context, "时间是无法倒流的", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return !curDate.toString().equals(lastCheck.toString());
