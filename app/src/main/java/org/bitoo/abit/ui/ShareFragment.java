@@ -3,11 +3,14 @@ package org.bitoo.abit.ui;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +48,20 @@ public class ShareFragment extends BaseDialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_share, null);
         screenshotView = (ImageView) view.findViewById(R.id.iv_screenshot);
         if(screenshotView != null) {
-            Bitmap screenshot = ((DetailedMissionActivity)getActivity()).getScreen();
-            if(!screenshot.isRecycled())
+            final Bitmap screenshot = ((DetailedMissionActivity)getActivity()).getScreen();
+            if(!screenshot.isRecycled()) {
                 screenshotView.setImageBitmap(screenshot);
+                builder.setPositiveButton("Share", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), screenshot, null, null));
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("image/*");
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                        startActivity(Intent.createChooser(shareIntent, "Choose"));
+                    }
+                });
+            }
         }
         builder.setView(view);
         return builder.create();

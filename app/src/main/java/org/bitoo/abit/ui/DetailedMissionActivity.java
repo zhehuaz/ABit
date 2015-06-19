@@ -48,9 +48,9 @@ public class DetailedMissionActivity extends AppCompatActivity implements TweetI
 
                 screenshot = Bitmap.createBitmap(view.getDrawingCache(),
                         0,
-                        610,// FIXME calculate it!
+                        215,// FIXME calculate it!
                         getResources().getDisplayMetrics().widthPixels,
-                        getResources().getDisplayMetrics().widthPixels);
+                        getResources().getDisplayMetrics().widthPixels + 400);
                 ShareFragment shareFragment = ShareFragment.newInstance();
                 shareFragment.show(this.getFragmentManager(), "share");
                 view.destroyDrawingCache();
