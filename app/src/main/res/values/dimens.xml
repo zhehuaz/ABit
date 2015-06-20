@@ -9,4 +9,5 @@
     <dimen name="card_top_margin">2dp</dimen>
     <dimen name="card_right_margin">5dp</dimen>
     <dimen name="card_title_left_margin">15dp</dimen>
+    <dimen name="tabs_height">11dp</dimen>
 </resources>

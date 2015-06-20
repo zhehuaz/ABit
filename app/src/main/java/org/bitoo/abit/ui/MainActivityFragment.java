@@ -51,15 +51,20 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         missions = sqLiteHelper.loadMissions(false);
         adapter = new MissionListAdapter(getActivity(), missions);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new HidingScrollListener() {
+        recyclerView.addOnScrollListener(new HidingScrollListener(getActivity()) {
             @Override
-            public void onHide(int dy) {
-                ((MainActivity) getActivity()).moveUpToolBar(dy);
+            public void onMoved(int d) {
+                ((MainActivity) getActivity()).moveToolbar(d);
             }
 
             @Override
             public void onShow() {
-                ((MainActivity) getActivity()).moveDownToolBar();
+                ((MainActivity) getActivity()).showToolbar();
+            }
+
+            @Override
+            public void onHide() {
+                ((MainActivity) getActivity()).hideToolbar();
             }
         });
     }
@@ -72,7 +77,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                     "减肥 测试",
                     System.currentTimeMillis(),
                     "mario.xml",
-                    "别让今天的自己成为昨天厌恶的那个人",
+                    "别成为昨天厌恶的自己",
                     null);// TODO Temporarily
             mission.setId(sqLiteHelper.addMission(mission));
             missions.add(mission);

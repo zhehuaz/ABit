@@ -11,9 +11,11 @@ import android.text.Editable;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 
 import org.bitoo.abit.R;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     public MainActivityFragment mainFragment;
     private ImageView tab;
+    private RelativeLayout toolbarContainer;
 
 
     @Override
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.tb_main);
         setSupportActionBar(toolbar);
+        toolbarContainer = (RelativeLayout) findViewById(R.id.rl_toolbar_container);
 
         // ViewPager and tabs
         fragments = new ArrayList<>();
@@ -99,15 +103,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void moveUpToolBar(int dy) {
-        dy /= 2;
-        float d = toolbar.getTranslationY() - dy;
-        if(d > -toolbar.getHeight())
-            toolbar.setTranslationY(d);
+    public void moveToolbar(int d) {
+        toolbarContainer.setTranslationY(- d);
     }
 
-    public void moveDownToolBar() {
-        toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+    public void showToolbar() {
+        toolbarContainer.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+    }
+
+    public void hideToolbar() {
+        toolbarContainer.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
     }
 
     @Override
@@ -122,5 +127,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showToolbar();
     }
 }

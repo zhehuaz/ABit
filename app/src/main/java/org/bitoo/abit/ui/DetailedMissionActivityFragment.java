@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -72,10 +73,14 @@ public class DetailedMissionActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initToolbarAndGridView();
+        initCheckButton();
+    }
+
+    private void initToolbarAndGridView() {
         toolbar = (Toolbar) getActivity().findViewById(R.id.tb_main);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        checkButton = (ButtonFloatSmall) getActivity().findViewById(R.id.bt_check);
 
         try {
             long id = getActivity().getIntent().getLongExtra(MainActivity.MISSION_ID, 0);
@@ -89,12 +94,26 @@ public class DetailedMissionActivityFragment extends Fragment {
             mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
             mGridView.setNumColumns(mission.getProgressImage().getWidth());
             mGridView.setAdapter(bitmapAdapter);
+            mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView absListView, int i) {
+                    Log.d(TAG, "Scroll State Changed : " + i);
+                }
+
+                @Override
+                public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                    Log.d(TAG, "Scroll Statge : " + i + " " + i1 + " " + i2);
+                }
+            });
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), "Load Image source error.", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Load Image source error.");
             e.printStackTrace();
         }
+    }
 
+    private void initCheckButton() {
+        checkButton = (ButtonFloatSmall) getActivity().findViewById(R.id.bt_check);
         checkButton.setClickable(true);
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +126,6 @@ public class DetailedMissionActivityFragment extends Fragment {
                 }
             }
         });
-
     }
 
     /**

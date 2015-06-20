@@ -17,21 +17,28 @@
         android:layout_marginTop="0dp"
         />
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tb_main"
-        app:title="@string/app_name"
-        />
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:layout_below="@+id/tb_main"
-        android:id="@+id/ll_tabs"
-        android:orientation="horizontal"
-        android:background="@color/dark_primary_color">
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_toolbar_container">
 
+        <android.support.v7.widget.Toolbar
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tb_main"
+            app:title="@string/app_name"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="11dp"
+            android:id="@+id/ll_tabs"
+            android:orientation="horizontal"
+            android:background="@color/dark_primary_color"
+            android:layout_below="@id/tb_main"
+            >
         <ImageView
             android:id="@+id/iv_tab"
             android:layout_width="wrap_content"
@@ -61,5 +68,6 @@
             android:layout_weight="1"
             android:background="@color/highlight_color"
             />
-    </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
