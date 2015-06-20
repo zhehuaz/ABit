@@ -74,7 +74,7 @@ public class DetailedMissionActivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         toolbar = (Toolbar) getActivity().findViewById(R.id.tb_main);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         checkButton = (ButtonFloatSmall) getActivity().findViewById(R.id.bt_check);
 
         try {

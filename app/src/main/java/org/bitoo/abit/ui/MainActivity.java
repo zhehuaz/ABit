@@ -1,14 +1,19 @@
 package org.bitoo.abit.ui;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 
 import org.bitoo.abit.R;
@@ -28,8 +33,10 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPagerAdapter pagerAdapter;
     private List<Fragment> fragments;
-    public Toolbar toolbar;
+    private Toolbar toolbar;
     public MainActivityFragment mainFragment;
+    private ImageView tab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +46,40 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tb_main);
         setSupportActionBar(toolbar);
 
+        // ViewPager and tabs
         fragments = new ArrayList<>();
         viewPager = (ViewPager) findViewById(R.id.vp_main);
         mainFragment = new MainActivityFragment();
         fragments.add(mainFragment);
         fragments.add(GalleryFragment.newInstance());
+        initTabs();
         pagerAdapter= new ViewPagerAdapter(getSupportFragmentManager(), fragments);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         viewPager.setAdapter(pagerAdapter);
+
+    }
+
+    protected void initTabs()
+    {
+        LinearLayout tabLayout = (LinearLayout) findViewById(R.id.ll_tabs);
+
+        tab = (ImageView) tabLayout.findViewById(R.id.iv_tab);
+        //tab.setBackgroundColor(Color.parseColor("#FF00FF"));
     }
 
     @Override
