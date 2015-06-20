@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 
 import com.gc.materialdesign.views.Button;
 
@@ -43,6 +44,12 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         super.onActivityCreated(savedInstanceState);
         Button addButton = (Button) getActivity().findViewById(R.id.bt_add);
         addButton.setOnClickListener(this);
+        addButton.setTranslationY(250);
+        addButton.animate()
+                .translationY(0)
+                .setDuration(400)
+                .setInterpolator(new DecelerateInterpolator(1.f))
+                .setStartDelay(400);
 
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.rv_mission_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

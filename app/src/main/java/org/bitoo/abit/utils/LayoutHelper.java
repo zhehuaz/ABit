@@ -1,7 +1,9 @@
 package org.bitoo.abit.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.util.DisplayMetrics;
 
 import org.bitoo.abit.R;
 
@@ -21,5 +23,13 @@ public class LayoutHelper {
 
     public static int getTabsHeight(Context context) {
         return (int) context.getResources().getDimension(R.dimen.tabs_height);
+    }
+
+    public static int getScreenHeight(Activity activity) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        return metrics.heightPixels;
+
     }
 }

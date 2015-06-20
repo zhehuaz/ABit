@@ -1,5 +1,6 @@
 package org.bitoo.abit.ui.custom;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,9 +8,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +20,7 @@ import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.ui.DetailedMissionActivity;
 import org.bitoo.abit.ui.MainActivity;
+import org.bitoo.abit.utils.LayoutHelper;
 
 import java.sql.Date;
 import java.util.List;
@@ -25,6 +29,10 @@ import java.util.List;
  * Adapter to mission list in {@link org.bitoo.abit.ui.MainActivityFragment} using CardView.
  */
 public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.ViewHolder> {
+    private static final int ANIMATED_ITEMS_COUNT = 4;
+    private int lastAnimatedPosition = -1;
+
+
     List<Mission> missions;
     public Context context;
 
@@ -100,8 +108,27 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
 
     @Override
     public void onBindViewHolder(MissionListAdapter.ViewHolder holder, int position) {
+        runEnterAnimation(holder.itemView, position);
         holder.mTitleText.setText(missions.get(position).getTitle());
         holder.mDateText.setText(new Date(missions.get(position).getCreateDate()).toString());
+
+    }
+
+    private void runEnterAnimation(View view, int position) {
+        if (position >= ANIMATED_ITEMS_COUNT - 1) {
+            return;
+        }
+
+        if (position > lastAnimatedPosition) {
+            lastAnimatedPosition = position;
+            view.setTranslationY(LayoutHelper.getScreenHeight((Activity) context));
+            view.animate()
+                    .translationY(0)
+                    .setInterpolator(new DecelerateInterpolator(3.f))
+                    .setDuration(700 + position * 120)
+                    .setStartDelay(400 + position * 20)
+                    .start();
+        }
     }
 
     @Override

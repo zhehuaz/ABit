@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        showToolbarAnimation();
         return true;
     }
 
@@ -113,6 +114,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void hideToolbar() {
         toolbarContainer.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+    }
+
+    private void showToolbarAnimation() {
+
+        toolbarContainer.setTranslationY(- toolbar.getHeight());
+        toolbarContainer.animate()
+                .translationY(0)
+                .setDuration(500)
+                .setInterpolator(new DecelerateInterpolator(3.f))
+                .setStartDelay(50);
     }
 
     @Override
