@@ -16,7 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.facebook.share.ShareApi;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
+
 import org.bitoo.abit.R;
+
+import java.net.URL;
 
 import fr.tvbarthel.lib.blurdialogfragment.BlurDialogFragment;
 
@@ -54,11 +61,18 @@ public class ShareFragment extends BaseDialogFragment {
                 builder.setPositiveButton("Share", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), screenshot, null, null));
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("image/*");
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                        startActivity(Intent.createChooser(shareIntent, "Choose"));
+//                        Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), screenshot, null, null));
+//                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//                        shareIntent.setType("image/*");
+//                        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+//                        startActivity(Intent.createChooser(shareIntent, "Choose"));
+                        SharePhoto sharedShot = new SharePhoto.Builder()
+                                .setBitmap(screenshot)
+                                .build();
+                        SharePhotoContent content = new SharePhotoContent.Builder()
+                                .addPhoto(sharedShot)
+                                .build();
+                        ShareDialog.show(getActivity(), content);
                     }
                 });
             }

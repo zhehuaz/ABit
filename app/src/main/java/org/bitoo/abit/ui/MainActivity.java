@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 
+import com.facebook.appevents.AppEventsLogger;
+
 import org.bitoo.abit.R;
 import org.bitoo.abit.ui.custom.ViewPagerAdapter;
 
@@ -144,5 +146,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         showToolbar();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 }
