@@ -16,12 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.facebook.FacebookRequestError;
 import com.facebook.share.ShareApi;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
 
 import org.bitoo.abit.R;
+import org.bitoo.abit.mission.image.Mission;
 
 import java.net.URL;
 
@@ -29,6 +31,7 @@ import fr.tvbarthel.lib.blurdialogfragment.BlurDialogFragment;
 
 public class ShareFragment extends BaseDialogFragment {
     private ImageView screenshotView;
+    private Mission mission;
 
     /**
      * Use this factory method to create a new instance of
@@ -36,8 +39,11 @@ public class ShareFragment extends BaseDialogFragment {
      *
      * @return A new instance of fragment ShareFragment.
      */
-    public static ShareFragment newInstance() {
-        return new ShareFragment();
+    public static ShareFragment newInstance(Mission mission) {
+
+        ShareFragment fragment = new ShareFragment();
+        fragment.setMission(mission);
+        return fragment;
     }
 
     public ShareFragment() {
@@ -92,4 +98,8 @@ public class ShareFragment extends BaseDialogFragment {
         super.onDetach();
     }
 
+
+    public void setMission(Mission mission) {
+        this.mission = mission;
+    }
 }

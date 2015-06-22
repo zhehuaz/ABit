@@ -3,9 +3,11 @@ package org.bitoo.abit.ui.custom;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Pixel;
+import org.bitoo.abit.utils.ColorPalette;
 import org.bitoo.abit.utils.TweetXmlParser;
 
 import java.io.FileNotFoundException;
@@ -64,6 +67,7 @@ public class BitMapAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.grid_pixel, null);
         }
         ImageView imageView = (ImageView) convertView.findViewById(R.id.img_pixel);
+
         if(mission.getProgressMask(position)) {
             imageView.setBackgroundColor((int) bitmap.get(position).getPixel());
             convertView.setOnClickListener(new View.OnClickListener() {
@@ -76,11 +80,15 @@ public class BitMapAdapter extends BaseAdapter {
                     }
                 }
             });
-        } else {
-            imageView.setBackgroundColor(Color.GRAY);
+
         }
+        else
+            imageView.setBackgroundColor(ColorPalette.grayer((int) bitmap.get(position).getPixel()));
 
-
+        AlphaAnimation animation = new AlphaAnimation(0, 1.f);
+        animation.setDuration(350);
+        animation.setStartOffset((position * 2));
+        imageView.startAnimation(animation);
         return convertView;
     }
 }

@@ -1,5 +1,6 @@
 package org.bitoo.abit.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class DetailedMissionActivityFragment extends Fragment {
     private Mission mission;
     private BitMapAdapter bitmapAdapter;
     Toolbar toolbar;
+    private OnMissionCreatedListener mListener = null;
 
     private static final String COLOR_KEY = "img_pixel";
 
@@ -77,6 +79,16 @@ public class DetailedMissionActivityFragment extends Fragment {
         initCheckButton();
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (DetailedMissionActivity) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnMissionCreatedListener");
+        }
+    }
+
     private void initToolbarAndGridView() {
         toolbar = (Toolbar) getActivity().findViewById(R.id.tb_main);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -87,7 +99,10 @@ public class DetailedMissionActivityFragment extends Fragment {
             mission = sqlHelper.loadMission(id);
             if(mission == null)
                 throw new FileNotFoundException();
+            else
+                mListener.onMissionCreated(mission);
 
+            toolbar.setTitle(mission.getTitle());
             toolbar.setSubtitle(mission.getMotto());
 
             bitmapAdapter = new BitMapAdapter(getActivity(), mission);
@@ -157,4 +172,7 @@ public class DetailedMissionActivityFragment extends Fragment {
         return mission.getId();
     }
 
+    public interface OnMissionCreatedListener {
+        public void onMissionCreated(Mission mission);
+    }
 }

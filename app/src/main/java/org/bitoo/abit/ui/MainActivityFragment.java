@@ -81,10 +81,10 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         Mission mission = null;
         try {
             mission = new Mission(getActivity(),
-                    "减肥 测试",
+                    "离开QQ",
                     System.currentTimeMillis(),
-                    "mario.xml",
-                    "别成为昨天厌恶的自己",
+                    "pacmonster.xml",
+                    "拒绝低头！",
                     null);// TODO Temporarily
             mission.setId(sqLiteHelper.addMission(mission));
             missions.add(mission);
