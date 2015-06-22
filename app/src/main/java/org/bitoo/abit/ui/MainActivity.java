@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.AccelerateInterpolator;
@@ -22,7 +23,9 @@ import com.facebook.appevents.AppEventsLogger;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.ui.custom.ViewPagerAdapter;
+import org.bitoo.abit.utils.FileHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

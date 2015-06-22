@@ -14,7 +14,10 @@ public class ColorPalette {
         color >>= 8;
         int red = color & 0xff;
 
-        int gray = (red * 38 + green * 75 + blue * 15) >> 7;
+        int gray = ((red * 38 + green * 75 + blue * 15) >> 7) + 35;
+        if(gray > 0xff)
+            gray = 0xff;
+
 
         return (gray << 16) | (gray << 8) | gray | 0xcc000000;
     }

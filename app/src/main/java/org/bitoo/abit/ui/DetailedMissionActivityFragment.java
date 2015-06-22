@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -104,6 +105,9 @@ public class DetailedMissionActivityFragment extends Fragment {
 
             toolbar.setTitle(mission.getTitle());
             toolbar.setSubtitle(mission.getMotto());
+
+            // TODO change into theme image path
+            toolbar.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_cardtest));
 
             bitmapAdapter = new BitMapAdapter(getActivity(), mission);
             mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);

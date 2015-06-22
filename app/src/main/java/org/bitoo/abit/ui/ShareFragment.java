@@ -18,6 +18,9 @@ import android.widget.ImageView;
 
 import com.facebook.FacebookRequestError;
 import com.facebook.share.ShareApi;
+import com.facebook.share.model.ShareOpenGraphAction;
+import com.facebook.share.model.ShareOpenGraphContent;
+import com.facebook.share.model.ShareOpenGraphObject;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
@@ -74,7 +77,23 @@ public class ShareFragment extends BaseDialogFragment {
 //                        startActivity(Intent.createChooser(shareIntent, "Choose"));
                         SharePhoto sharedShot = new SharePhoto.Builder()
                                 .setBitmap(screenshot)
+                                .setUserGenerated(true)
                                 .build();
+//                        ShareOpenGraphObject object = new ShareOpenGraphObject.Builder()
+//                                .putString("og:type", "games.achievement")
+//                                .putString("og:title", mission.getTitle())
+//                                .putString("og:description", mission.getMotto())
+//                                .putPhoto("og:image", sharedShot)
+//                                .putInt("game.points", 12)
+//                                .build();
+//                        ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
+//                                .setActionType("games.achieves")
+//                                .putObject("achievement", object)
+//                                .build();
+//                        ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
+//                                .setPreviewPropertyName("achievement")
+//                                .setAction(action)
+//                                .build();
                         SharePhotoContent content = new SharePhotoContent.Builder()
                                 .addPhoto(sharedShot)
                                 .build();
