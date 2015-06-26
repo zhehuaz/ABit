@@ -118,13 +118,14 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
             return;
         }
 
+        /** Mission list animation.*/
         if (position > lastAnimatedPosition) {
             lastAnimatedPosition = position;
             view.setTranslationY(LayoutHelper.getScreenHeight((Activity) context));
             view.animate()
                     .translationY(0)
                     .setInterpolator(new DecelerateInterpolator(3.f))
-                    .setDuration(700 + position * 120)
+                    .setDuration(1000 + position * 120)
                     .setStartDelay(400 + position * 20)
                     .start();
         }

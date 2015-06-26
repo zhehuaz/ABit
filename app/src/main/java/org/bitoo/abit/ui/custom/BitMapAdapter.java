@@ -1,14 +1,10 @@
 package org.bitoo.abit.ui.custom;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -17,7 +13,6 @@ import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Pixel;
 import org.bitoo.abit.utils.ColorPalette;
-import org.bitoo.abit.utils.TweetXmlParser;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -37,7 +32,7 @@ public class BitMapAdapter extends BaseAdapter {
 
     /**
      * Necessary information to paint the bitmap grid.
-     * @param context is to get {@link java.util.zip.Inflater}.
+     * @param context is to get {@link LayoutInflater}.
      * @param mission Data of a mission.
      */
     public BitMapAdapter(Context context, Mission mission) {

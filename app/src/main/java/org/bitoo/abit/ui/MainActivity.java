@@ -114,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showToolbar() {
-        toolbarContainer.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+        toolbarContainer.animate().translationY(0).setInterpolator(new DecelerateInterpolator(5f)).start();
     }
 
     public void hideToolbar() {
-        toolbarContainer.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+        toolbarContainer.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(5f)).start();
     }
 
     private void showToolbarAnimation() {
@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
         toolbarContainer.setTranslationY(- toolbar.getHeight());
         toolbarContainer.animate()
                 .translationY(0)
-                .setDuration(500)
-                .setInterpolator(new DecelerateInterpolator(3.f))
+                .setDuration(700)
+                .setInterpolator(new DecelerateInterpolator(6.f))
                 .setStartDelay(50);
     }
 
