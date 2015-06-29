@@ -1,11 +1,16 @@
 package org.bitoo.abit.utils;
 
 /**
- * Created by langley on 6/22/15.
+ * Utils of dealing with colors.
  */
 public class ColorPalette {
     private static final String TAG = "ColorPalette";
 
+    /**
+     * To get gray version of a BitmapImage.
+     * @param color The original color in ARGB.
+     * @return The gray version.
+     */
     public static int grayer(int color) {
 
         int blue = color & 0xff;

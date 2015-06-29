@@ -4,8 +4,13 @@ package org.bitoo.abit.mission.image;
  * A Bit in a BitMap Image contains its position and color.
  */
 public class BitColor implements Pixel<Integer>{
+    /** X-axis of the pixel square.*/
     int x;
+
+    /** Y-axis of the pixel square.*/
     int y;
+
+    /** Color of the pixel square.*/
     int color;
 
     public BitColor(int x,int y,int color){
