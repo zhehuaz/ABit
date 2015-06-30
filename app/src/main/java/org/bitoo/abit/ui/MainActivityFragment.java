@@ -24,6 +24,7 @@ import java.util.List;
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
     private final static String TAG = "MainActivityFragment";
 
+    private final static String tempFilePath = "/storage/emulated/0/DCIM/bg_cardtest.jpg";
 
     private MissionSQLiteHelper sqLiteHelper;
     private RecyclerView recyclerView;
@@ -85,7 +86,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                     System.currentTimeMillis(),
                     "pacmonster.xml",
                     "拒绝低头！",
-                    null);// TODO Temporarily
+                    tempFilePath);// TODO Temporarily
             mission.setId(sqLiteHelper.addMission(mission));
             missions.add(mission);
             adapter.notifyDataSetChanged();

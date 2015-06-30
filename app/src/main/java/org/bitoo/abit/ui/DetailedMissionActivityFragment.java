@@ -1,6 +1,8 @@
 package org.bitoo.abit.ui;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -105,9 +107,7 @@ public class DetailedMissionActivityFragment extends Fragment {
 
             toolbar.setTitle(mission.getTitle());
             toolbar.setSubtitle(mission.getMotto());
-
-            // TODO change into theme image path
-            toolbar.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_cardtest));
+            toolbar.setBackground(new BitmapDrawable(getActivity().getResources(),BitmapFactory.decodeFile(mission.getThemeImagePath())));
 
             bitmapAdapter = new BitMapAdapter(getActivity(), mission);
             mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
