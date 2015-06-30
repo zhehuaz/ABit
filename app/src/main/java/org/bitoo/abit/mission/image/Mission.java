@@ -86,7 +86,7 @@ public class Mission{
 
     /**
      * Initialize a mission only for display its primary information.
-     * Used in {@link @MainAcitivity} to generate a mission list to show.
+     * Used in {@link org.bitoo.abit.ui.MainActivity} to generate a mission list to show.
      * @param context prepared to future usage.
      * @param isDone
      */

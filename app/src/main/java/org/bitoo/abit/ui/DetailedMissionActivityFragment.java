@@ -1,5 +1,8 @@
 package org.bitoo.abit.ui;
 
+import android.app.Activity;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -32,6 +37,7 @@ public class DetailedMissionActivityFragment extends Fragment {
     private Mission mission;
     private BitMapAdapter bitmapAdapter;
     Toolbar toolbar;
+    private OnMissionCreatedListener mListener = null;
 
     private static final String COLOR_KEY = "img_pixel";
 
@@ -72,29 +78,61 @@ public class DetailedMissionActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initToolbarAndGridView();
+        initCheckButton();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (DetailedMissionActivity) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnMissionCreatedListener");
+        }
+    }
+
+    private void initToolbarAndGridView() {
         toolbar = (Toolbar) getActivity().findViewById(R.id.tb_main);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        checkButton = (ButtonFloatSmall) getActivity().findViewById(R.id.bt_check);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         try {
             long id = getActivity().getIntent().getLongExtra(MainActivity.MISSION_ID, 0);
             mission = sqlHelper.loadMission(id);
             if(mission == null)
                 throw new FileNotFoundException();
+            else
+                mListener.onMissionCreated(mission);
 
+            toolbar.setTitle(mission.getTitle());
             toolbar.setSubtitle(mission.getMotto());
+            toolbar.setBackground(new BitmapDrawable(getActivity().getResources(),BitmapFactory.decodeFile(mission.getThemeImagePath())));
 
             bitmapAdapter = new BitMapAdapter(getActivity(), mission);
             mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
             mGridView.setNumColumns(mission.getProgressImage().getWidth());
             mGridView.setAdapter(bitmapAdapter);
+            mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView absListView, int i) {
+                    Log.d(TAG, "Scroll State Changed : " + i);
+                }
+
+                @Override
+                public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                    Log.d(TAG, "Scroll Statge : " + i + " " + i1 + " " + i2);
+                }
+            });
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), "Load Image source error.", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Load Image source error.");
             e.printStackTrace();
         }
+    }
 
+    private void initCheckButton() {
+        checkButton = (ButtonFloatSmall) getActivity().findViewById(R.id.bt_check);
         checkButton.setClickable(true);
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +145,6 @@ public class DetailedMissionActivityFragment extends Fragment {
                 }
             }
         });
-
     }
 
     /**
@@ -139,4 +176,7 @@ public class DetailedMissionActivityFragment extends Fragment {
         return mission.getId();
     }
 
+    public interface OnMissionCreatedListener {
+        public void onMissionCreated(Mission mission);
+    }
 }

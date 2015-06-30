@@ -17,15 +17,10 @@
         <item name="android:background">?attr/colorPrimary</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="titleTextAppearance">@style/DefaultToolbarTextAppearance</item>
-        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
     
     <style name="DefaultToolbarTextAppearance">
         <item name="android:textSize">@dimen/abc_text_size_title_material_toolbar</item>
-        <item name="android:textColor">@color/title_text_color</item>
-    </style>
-
-    <style name="my_actionbar_text_style" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/title_text_color</item>
     </style>
 

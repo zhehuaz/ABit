@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 
 import com.gc.materialdesign.views.Button;
 
@@ -23,6 +24,7 @@ import java.util.List;
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
     private final static String TAG = "MainActivityFragment";
 
+    private final static String tempFilePath = "/storage/emulated/0/DCIM/bg_cardtest.jpg";
 
     private MissionSQLiteHelper sqLiteHelper;
     private RecyclerView recyclerView;
@@ -43,6 +45,12 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         super.onActivityCreated(savedInstanceState);
         Button addButton = (Button) getActivity().findViewById(R.id.bt_add);
         addButton.setOnClickListener(this);
+        addButton.setTranslationY(250);
+        addButton.animate()
+                .translationY(0)
+                .setDuration(400)
+                .setInterpolator(new DecelerateInterpolator(1.f))
+                .setStartDelay(400);
 
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.rv_mission_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -51,15 +59,20 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         missions = sqLiteHelper.loadMissions(false);
         adapter = new MissionListAdapter(getActivity(), missions);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new HidingScrollListener() {
+        recyclerView.addOnScrollListener(new HidingScrollListener(getActivity()) {
             @Override
-            public void onHide(int dy) {
-                ((MainActivity) getActivity()).moveUpToolBar(dy);
+            public void onMoved(int d) {
+                ((MainActivity) getActivity()).moveToolbar(d);
             }
 
             @Override
             public void onShow() {
-                ((MainActivity) getActivity()).moveDownToolBar();
+                ((MainActivity) getActivity()).showToolbar();
+            }
+
+            @Override
+            public void onHide() {
+                ((MainActivity) getActivity()).hideToolbar();
             }
         });
     }
@@ -69,11 +82,11 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         Mission mission = null;
         try {
             mission = new Mission(getActivity(),
-                    "减肥 测试",
+                    "离开QQ",
                     System.currentTimeMillis(),
-                    "mario.xml",
-                    "别让今天的自己成为昨天厌恶的那个人",
-                    null);// TODO Temporarily
+                    "pacmonster.xml",
+                    "拒绝低头！",
+                    tempFilePath);// TODO Temporarily
             mission.setId(sqLiteHelper.addMission(mission));
             missions.add(mission);
             adapter.notifyDataSetChanged();

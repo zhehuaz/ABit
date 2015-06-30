@@ -19,10 +19,9 @@
             android:layout_height="170dp">
             <ImageView
                 android:id="@+id/iv_mission_preview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:src="@drawable/bg_cardtest"
-                android:scaleType="centerCrop"/>
+                />
             <FrameLayout
                 android:id="@+id/ly_card_panel"
                 android:layout_width="match_parent"

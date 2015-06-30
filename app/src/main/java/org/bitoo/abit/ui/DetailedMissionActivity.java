@@ -14,10 +14,12 @@ import android.view.Window;
 import android.widget.Toast;
 
 import org.bitoo.abit.R;
+import org.bitoo.abit.mission.image.Mission;
 
 
-public class DetailedMissionActivity extends AppCompatActivity implements TweetInputFragment.OnTweetInputListener{
+public class DetailedMissionActivity extends AppCompatActivity implements TweetInputFragment.OnTweetInputListener, DetailedMissionActivityFragment.OnMissionCreatedListener{
     Bitmap screenshot;
+    Mission mission = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +50,13 @@ public class DetailedMissionActivity extends AppCompatActivity implements TweetI
 
                 screenshot = Bitmap.createBitmap(view.getDrawingCache(),
                         0,
-                        610,// FIXME calculate it!
+                        215,// FIXME calculate it!
                         getResources().getDisplayMetrics().widthPixels,
-                        getResources().getDisplayMetrics().widthPixels);
-                ShareFragment shareFragment = ShareFragment.newInstance();
-                shareFragment.show(this.getFragmentManager(), "share");
+                        getResources().getDisplayMetrics().widthPixels + 400);
+                if(mission != null) {
+                    ShareFragment shareFragment = ShareFragment.newInstance(mission);
+                    shareFragment.show(this.getFragmentManager(), "share");
+                }
                 view.destroyDrawingCache();
                 break;
             case R.id.action_delete :
@@ -79,5 +83,10 @@ public class DetailedMissionActivity extends AppCompatActivity implements TweetI
 
     public Bitmap getScreen() {
         return screenshot;
+    }
+
+    @Override
+    public void onMissionCreated(Mission mission) {
+        this.mission = mission;
     }
 }
