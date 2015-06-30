@@ -1,114 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<image id="2" name="Pacmonster" height="16" width="16">
+<image id="2" name="Pacmonster" height="16" width="16" amount="256">
     <bitcolor>
         <x>0</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>1</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>2</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>3</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>4</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>5</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>6</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>7</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>8</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>9</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>10</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>11</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>12</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>13</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>14</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>0</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>1</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>2</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>3</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>4</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>5</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
@@ -133,52 +133,52 @@
     <bitcolor>
         <x>1</x>
         <y>10</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>11</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>12</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>13</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>14</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>1</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>2</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>2</x>
         <y>1</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>2</x>
         <y>2</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>2</x>
         <y>3</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>2</x>
@@ -223,37 +223,37 @@
     <bitcolor>
         <x>2</x>
         <y>12</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>2</x>
         <y>13</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>2</x>
         <y>14</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>2</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>1</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>2</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
@@ -308,27 +308,27 @@
     <bitcolor>
         <x>3</x>
         <y>13</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>14</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>3</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>4</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>4</x>
         <y>1</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>4</x>
@@ -393,22 +393,22 @@
     <bitcolor>
         <x>4</x>
         <y>14</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>4</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>5</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>5</x>
         <y>1</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>5</x>
@@ -473,109 +473,109 @@
     <bitcolor>
         <x>5</x>
         <y>14</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>5</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>6</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>6</x>
         <y>1</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>6</x>
-        <y>2</y>
-        <color>#0000FF</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>3</y>
-        <color>#0000FF</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>4</y>
-        <color>#FFFFFF</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>5</y>
-        <color>#FFFFFF</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>6</y>
-        <color>#FF0000</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>7</y>
-        <color>#FF0000</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>8</y>
-        <color>#0000FF</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>9</y>
-        <color>#0000FF</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>10</y>
-        <color>#FFFFFF</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>11</y>
-        <color>#FFFFFF</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>12</y>
-        <color>#FF0000</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>13</y>
-        <color>#FF0000</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>14</y>
-        <color>#000000</color>
-    </bitcolor>
-    <bitcolor>
-        <x>6</x>
-        <y>15</y>
-        <color>#000000</color>
-    </bitcolor>
-    <bitcolor>
-        <x>7</x>
-        <y>0</y>
-        <color>#000000</color>
-    </bitcolor>
-    <bitcolor>
-        <x>7</x>
-        <y>1</y>
-        <color>#FF0000</color>
-    </bitcolor>
-    <bitcolor>
-        <x>7</x>
         <y>2</y>
         <color>#0000FF</color>
     </bitcolor>
     <bitcolor>
+        <x>6</x>
+        <y>3</y>
+        <color>#0000FF</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>4</y>
+        <color>#FFFFFF</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>5</y>
+        <color>#FFFFFF</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>6</y>
+        <color>#FF0000</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>7</y>
+        <color>#FF0000</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>8</y>
+        <color>#0000FF</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>9</y>
+        <color>#0000FF</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>10</y>
+        <color>#FFFFFF</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>11</y>
+        <color>#FFFFFF</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>12</y>
+        <color>#FF0000</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>13</y>
+        <color>#FF0000</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>14</y>
+        <color>#008080</color>
+    </bitcolor>
+    <bitcolor>
+        <x>6</x>
+        <y>15</y>
+        <color>#008080</color>
+    </bitcolor>
+    <bitcolor>
+        <x>7</x>
+        <y>0</y>
+        <color>#008080</color>
+    </bitcolor>
+    <bitcolor>
+        <x>7</x>
+        <y>1</y>
+        <color>#FF0000</color>
+    </bitcolor>
+    <bitcolor>
+        <x>7</x>
+        <y>2</y>
+        <color>#0000FF</color>
+    </bitcolor>
+    <bitcolor>
         <x>7</x>
         <y>3</y>
         <color>#0000FF</color>
@@ -638,12 +638,12 @@
     <bitcolor>
         <x>7</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>8</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>8</x>
@@ -718,12 +718,12 @@
     <bitcolor>
         <x>8</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>9</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>9</x>
@@ -798,12 +798,12 @@
     <bitcolor>
         <x>9</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>10</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>10</x>
@@ -878,12 +878,12 @@
     <bitcolor>
         <x>10</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>11</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>11</x>
@@ -958,12 +958,12 @@
     <bitcolor>
         <x>11</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>12</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>12</x>
@@ -1038,12 +1038,12 @@
     <bitcolor>
         <x>12</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
@@ -1063,7 +1063,7 @@
     <bitcolor>
         <x>13</x>
         <y>4</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
@@ -1078,12 +1078,12 @@
     <bitcolor>
         <x>13</x>
         <y>7</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
         <y>8</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
@@ -1108,7 +1108,7 @@
     <bitcolor>
         <x>13</x>
         <y>13</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>13</x>
@@ -1118,12 +1118,12 @@
     <bitcolor>
         <x>13</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>
@@ -1133,17 +1133,17 @@
     <bitcolor>
         <x>14</x>
         <y>2</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>
         <y>3</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>
         <y>4</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>
@@ -1158,17 +1158,17 @@
     <bitcolor>
         <x>14</x>
         <y>7</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>
         <y>8</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>
         <y>9</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>
@@ -1183,12 +1183,12 @@
     <bitcolor>
         <x>14</x>
         <y>12</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>
         <y>13</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>14</x>
@@ -1198,86 +1198,86 @@
     <bitcolor>
         <x>14</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>0</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>1</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>2</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>3</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>4</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>5</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>6</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>7</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>8</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>9</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>10</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>11</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>12</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>13</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>14</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
     <bitcolor>
         <x>15</x>
         <y>15</y>
-        <color>#000000</color>
+        <color>#008080</color>
     </bitcolor>
 </image>

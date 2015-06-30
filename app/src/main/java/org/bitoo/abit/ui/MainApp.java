@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.facebook.FacebookSdk;
+
 import org.bitoo.abit.R;
 import org.bitoo.abit.utils.FileHandler;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
@@ -22,6 +24,7 @@ public class MainApp extends Application {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "In MainApp onCreate()");
+        FacebookSdk.sdkInitialize(getApplicationContext());
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int checkNum = preferences.getInt(VERSION_KEY, 0);
         Log.i(TAG, "checkNum is " + checkNum);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<image id="1" name="Mario" height="20" width="20">
+<image id="1" name="Mario" height="20" width="20" amount="400">
     <bitcolor>
         <x>0</x>
         <y>0</y>
