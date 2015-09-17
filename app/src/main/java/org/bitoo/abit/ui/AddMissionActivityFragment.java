@@ -19,6 +19,8 @@ import java.util.List;
 public class AddMissionActivityFragment extends Fragment {
     private ViewPager viewPager;
     private List<String> xmlPaths;
+
+    int currentPage = 0;
     public AddMissionActivityFragment() {
     }
 
@@ -33,6 +35,23 @@ public class AddMissionActivityFragment extends Fragment {
         xmlPaths.add("mario.xml");
         xmlPaths.add("pacmonster.xml");
         viewPager.setAdapter(new BitmapViewPagerAdapter(getActivity(), xmlPaths));
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         return view;
     }
 

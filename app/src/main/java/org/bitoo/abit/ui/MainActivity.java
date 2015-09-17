@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            viewPager.setCurrentItem(index);
+            viewPager.setCurrentItem(index, true);
         }
     }
 }

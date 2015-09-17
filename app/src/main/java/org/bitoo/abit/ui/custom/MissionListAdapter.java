@@ -134,7 +134,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                     //.alpha((float) 1.0)
                     .setInterpolator(new DecelerateInterpolator(3.f))
                     .setDuration(1000 + position * 120)
-                    .setStartDelay(200 + position * 50)
+                    .setStartDelay(150 + position * 50)
                     .start();
         }
     }

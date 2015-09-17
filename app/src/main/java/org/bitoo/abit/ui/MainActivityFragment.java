@@ -36,13 +36,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mission_list, container, false);
-    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Button addButton = (Button) getActivity().findViewById(R.id.bt_add);
+        View view = inflater.inflate(R.layout.fragment_mission_list, container, false);
+        Button addButton = (Button) view.findViewById(R.id.bt_add);
         addButton.setOnClickListener(this);
         addButton.setTranslationY(250);
         addButton.animate()
@@ -51,7 +47,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 .setInterpolator(new DecelerateInterpolator(1.f))
                 .setStartDelay(400);
 
-        recyclerView = (RecyclerView) getActivity().findViewById(R.id.rv_mission_list);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_mission_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         sqLiteHelper = new MissionSQLiteHelper(getActivity().getApplication());
@@ -74,6 +70,12 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 ((MainActivity) getActivity()).hideToolbar();
             }
         });
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
