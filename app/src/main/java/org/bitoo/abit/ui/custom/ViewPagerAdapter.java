@@ -3,6 +3,7 @@ package org.bitoo.abit.ui.custom;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
@@ -33,7 +34,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return super.instantiateItem(container, position);
     }
 
-
-
-
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+        return super.isViewFromObject(view, object);
+    }
 }

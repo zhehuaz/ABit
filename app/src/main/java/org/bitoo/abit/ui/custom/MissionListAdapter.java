@@ -1,6 +1,5 @@
 package org.bitoo.abit.ui.custom;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,9 +19,7 @@ import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.ui.DetailedMissionActivity;
 import org.bitoo.abit.ui.MainActivity;
-import org.bitoo.abit.utils.LayoutHelper;
 
-import java.io.File;
 import java.sql.Date;
 import java.util.List;
 
@@ -122,12 +119,12 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
         /** Mission list animation.*/
         if (position > lastAnimatedPosition) {
             lastAnimatedPosition = position;
-            view.setTranslationY(LayoutHelper.getScreenHeight((Activity) context));
+            view.setTranslationY(500 + position * 100);
             view.animate()
                     .translationY(0)
                     .setInterpolator(new DecelerateInterpolator(3.f))
                     .setDuration(1000 + position * 120)
-                    .setStartDelay(400 + position * 20)
+                    .setStartDelay(position * 50)
                     .start();
         }
     }

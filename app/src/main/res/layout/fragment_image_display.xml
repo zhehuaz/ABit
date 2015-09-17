@@ -21,9 +21,8 @@
         android:id="@+id/gv_prog_image"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        >
+        />
 
-    </GridView>
     <com.gc.materialdesign.views.ButtonFloatSmall
         android:layout_width="55dp"
         android:layout_height="55dp"

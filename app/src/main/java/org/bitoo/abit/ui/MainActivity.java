@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
@@ -36,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPagerAdapter pagerAdapter;
     private List<Fragment> fragments;
+    private ImageView[] tabs;
     private Toolbar toolbar;
     public MainActivityFragment mainFragment;
-    private ImageView[] tabs;
     private RelativeLayout toolbarContainer;
 
 
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         mainFragment = new MainActivityFragment();
         fragments.add(mainFragment);
         fragments.add(GalleryFragment.newInstance());
+        fragments.add(ReservedFragment.newInstance());
+        fragments.add(ProfileFragment.newInstance());
         initTabs();
         pagerAdapter= new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);
@@ -73,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         tabs[2] = (ImageView) tabLayout.findViewById(R.id.iv_tab2);
         tabs[3] = (ImageView) tabLayout.findViewById(R.id.iv_tab3);
 
+        for(int i = 0; i < tabs.length; i ++) {
+            tabs[i].setOnClickListener(new OnTabClickListener(i));
+        }
     }
 
     @Override
@@ -92,29 +98,19 @@ public class MainActivity extends AppCompatActivity {
             params[i] = tabs[i].getLayoutParams();
         }
 
-        params[0].width = screenWidth / 8 * 3;
-        params[1].width = screenWidth / 8 * 2;
-        params[2].width = screenWidth / 8 * 2;
-        params[3].width = screenWidth / 8 * 2;
-
-        for(int i = 0;i < tabs.length;i ++)
-        {
-            tabs[i].setLayoutParams(params[i]);
-        }
-
         //tab.setBackgroundColor(Color.parseColor("#FF00FF"));
 
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 Log.d(TAG, "position :" + position + "  positionOffset :" + positionOffset + "  positionOffsetPixels :" + positionOffsetPixels);
-                if (position == 0) {
-                    params[0].width = wideWidth - (int) (delta * positionOffset);
-                    params[1].width = thinWidth + (int) (delta * positionOffset);
-                }
 
-                tabs[0].setLayoutParams(params[0]);
-                tabs[1].setLayoutParams(params[1]);
+                params[position].width = wideWidth - (int) (delta * positionOffset);
+                tabs[position].setLayoutParams(params[position]);
+                if(position < 3) {
+                    params[position + 1].width = thinWidth + (int) (delta * positionOffset);
+                    tabs[position + 1].setLayoutParams(params[position + 1]);
+                }
             }
 
             @Override
@@ -194,5 +190,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         AppEventsLogger.deactivateApp(this);
+    }
+
+    class OnTabClickListener implements View.OnClickListener{
+        int index;
+        OnTabClickListener(int index)
+        {
+            this.index = index;
+        }
+
+        @Override
+        public void onClick(View v) {
+            viewPager.setCurrentItem(index);
+        }
     }
 }
