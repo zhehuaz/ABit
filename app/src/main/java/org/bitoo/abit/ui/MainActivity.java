@@ -1,31 +1,27 @@
 package org.bitoo.abit.ui;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
 
 import com.facebook.appevents.AppEventsLogger;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.ui.custom.ViewPagerAdapter;
-import org.bitoo.abit.utils.FileHandler;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Fragment> fragments;
     private Toolbar toolbar;
     public MainActivityFragment mainFragment;
-    private ImageView tab;
+    private ImageView[] tabs;
     private RelativeLayout toolbarContainer;
 
 
@@ -63,10 +59,62 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(GalleryFragment.newInstance());
         initTabs();
         pagerAdapter= new ViewPagerAdapter(getSupportFragmentManager(), fragments);
+        viewPager.setAdapter(pagerAdapter);
+
+    }
+
+    protected void initTabs()
+    {
+        RelativeLayout tabLayout = (RelativeLayout) findViewById(R.id.rl_tabs);
+
+        tabs = new ImageView[4];
+        tabs[0] = (ImageView) tabLayout.findViewById(R.id.iv_tab0);
+        tabs[1] = (ImageView) tabLayout.findViewById(R.id.iv_tab1);
+        tabs[2] = (ImageView) tabLayout.findViewById(R.id.iv_tab2);
+        tabs[3] = (ImageView) tabLayout.findViewById(R.id.iv_tab3);
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        Point size = new Point();
+        ((WindowManager) this.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(size);
+        final int screenWidth = size.x;
+
+        final int wideWidth = tabs[0].getWidth();
+        final int thinWidth = tabs[1].getWidth();
+        final int delta = wideWidth - thinWidth;
+        final ViewGroup.LayoutParams params[] = new ViewGroup.LayoutParams[4];
+        for(int i = 0;i < tabs.length;i ++)
+        {
+            params[i] = tabs[i].getLayoutParams();
+        }
+
+        params[0].width = screenWidth / 8 * 3;
+        params[1].width = screenWidth / 8 * 2;
+        params[2].width = screenWidth / 8 * 2;
+        params[3].width = screenWidth / 8 * 2;
+
+        for(int i = 0;i < tabs.length;i ++)
+        {
+            tabs[i].setLayoutParams(params[i]);
+        }
+
+        //tab.setBackgroundColor(Color.parseColor("#FF00FF"));
+
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.d(TAG, "position :" + position + "  positionOffset :" + positionOffset + "  positionOffsetPixels :" + positionOffsetPixels);
+                if (position == 0) {
+                    params[0].width = wideWidth - (int) (delta * positionOffset);
+                    params[1].width = thinWidth + (int) (delta * positionOffset);
+                }
 
+                tabs[0].setLayoutParams(params[0]);
+                tabs[1].setLayoutParams(params[1]);
             }
 
             @Override
@@ -79,16 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        viewPager.setAdapter(pagerAdapter);
-
-    }
-
-    protected void initTabs()
-    {
-        LinearLayout tabLayout = (LinearLayout) findViewById(R.id.ll_tabs);
-
-        tab = (ImageView) tabLayout.findViewById(R.id.iv_tab);
-        //tab.setBackgroundColor(Color.parseColor("#FF00FF"));
     }
 
     @Override

@@ -88,7 +88,7 @@ public class Mission{
      * Initialize a mission only for display its primary information.
      * Used in {@link org.bitoo.abit.ui.MainActivity} to generate a mission list to show.
      * @param context prepared to future usage.
-     * @param isDone
+     * @param isDone Mark if this mission is finished.If so, this mission would set in Gallery.
      */
     public Mission(Context context,
                    long id,
