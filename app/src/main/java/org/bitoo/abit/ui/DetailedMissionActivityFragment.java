@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -22,7 +21,7 @@ import com.gc.materialdesign.views.ButtonFloatSmall;
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Tweet;
-import org.bitoo.abit.ui.custom.BitMapAdapter;
+import org.bitoo.abit.ui.custom.ProgressBitMapAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
 import java.io.FileNotFoundException;
@@ -35,7 +34,7 @@ public class DetailedMissionActivityFragment extends Fragment {
     private GridView mGridView;
     private ButtonFloatSmall checkButton;
     private Mission mission;
-    private BitMapAdapter bitmapAdapter;
+    private ProgressBitMapAdapter bitmapAdapterProgress;
     Toolbar toolbar;
     private OnMissionCreatedListener mListener = null;
 
@@ -109,10 +108,10 @@ public class DetailedMissionActivityFragment extends Fragment {
             toolbar.setSubtitle(mission.getMotto());
             toolbar.setBackground(new BitmapDrawable(getActivity().getResources(),BitmapFactory.decodeFile(mission.getThemeImagePath())));
 
-            bitmapAdapter = new BitMapAdapter(getActivity(), mission);
+            bitmapAdapterProgress = new ProgressBitMapAdapter(getActivity(), mission);
             mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
             mGridView.setNumColumns(mission.getProgressImage().getWidth());
-            mGridView.setAdapter(bitmapAdapter);
+            mGridView.setAdapter(bitmapAdapterProgress);
             mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(AbsListView absListView, int i) {
@@ -158,7 +157,7 @@ public class DetailedMissionActivityFragment extends Fragment {
                 sqlHelper.updateProgress(mission);
                 try {
                     mission.addTweet(new Tweet(position, tweet.toString()));
-                    bitmapAdapter.notifyDataSetChanged();
+                    bitmapAdapterProgress.notifyDataSetChanged();
                     checkButton.setClickable(false);
                 } catch (IOException e) {
                     Toast.makeText(getActivity(), "Error when adding Tweet", Toast.LENGTH_SHORT).show();

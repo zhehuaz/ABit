@@ -120,11 +120,21 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
         if (position > lastAnimatedPosition) {
             lastAnimatedPosition = position;
             view.setTranslationY(500 + position * 100);
+            //view.setAlpha((float) 0.5);
+//            AnimationSet animationSet = new AnimationSet(true);
+//
+//            TranslateAnimation trans = new TranslateAnimation(0,0,500 + position * 100, 0);
+//
+//            animationSet.addAnimation(trans);
+//            animationSet.setDuration(2000);
+//            view.setAnimation(animationSet);
+//            animationSet.start();
             view.animate()
                     .translationY(0)
+                    //.alpha((float) 1.0)
                     .setInterpolator(new DecelerateInterpolator(3.f))
                     .setDuration(1000 + position * 120)
-                    .setStartDelay(position * 50)
+                    .setStartDelay(200 + position * 50)
                     .start();
         }
     }

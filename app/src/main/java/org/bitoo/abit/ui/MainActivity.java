@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 import com.facebook.appevents.AppEventsLogger;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.ui.custom.ViewPagerAdapter;
+import org.bitoo.abit.ui.custom.MainViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_IS_DELETE = 0x1;
 
     private ViewPager viewPager;
-    private ViewPagerAdapter pagerAdapter;
+    private MainViewPagerAdapter pagerAdapter;
     private List<Fragment> fragments;
     private ImageView[] tabs;
     private Toolbar toolbar;
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(ReservedFragment.newInstance());
         fragments.add(ProfileFragment.newInstance());
         initTabs();
-        pagerAdapter= new ViewPagerAdapter(getSupportFragmentManager(), fragments);
+        pagerAdapter= new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);
 
     }

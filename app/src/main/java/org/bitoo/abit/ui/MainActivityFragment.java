@@ -18,7 +18,6 @@ import org.bitoo.abit.ui.custom.HidingScrollListener;
 import org.bitoo.abit.ui.custom.MissionListAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
@@ -79,21 +78,23 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        Mission mission = null;
-        try {
-            mission = new Mission(getActivity(),
-                    "离开QQ",
-                    System.currentTimeMillis(),
-                    "pacmonster.xml",
-                    "拒绝低头！",
-                    tempFilePath);// TODO Temporarily
-            mission.setId(sqLiteHelper.addMission(mission));
-            missions.add(mission);
-            adapter.notifyDataSetChanged();
-            recyclerView.scrollToPosition(recyclerView.getChildCount() - 1);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+//        Mission mission = null;
+//        try {
+//            mission = new Mission(getActivity(),
+//                    "离开QQ",
+//                    System.currentTimeMillis(),
+//                    "pacmonster.xml",
+//                    "拒绝低头！",
+//                    tempFilePath);// TODO Temporarily
+//            mission.setId(sqLiteHelper.addMission(mission));
+//            missions.add(mission);
+//            adapter.notifyDataSetChanged();
+//            recyclerView.scrollToPosition(recyclerView.getChildCount() - 1);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+        Intent intent = new Intent(getActivity(), AddMissionActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -8,11 +8,13 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="org.bitoo.abit.ui.AddMissionActivityFragment">
 
-    <GridView
+
+    <android.support.v4.view.ViewPager
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/gv_prev"/>
+        android:id="@+id/vp_prev">
 
+    </android.support.v4.view.ViewPager>
 
 
 </RelativeLayout>
