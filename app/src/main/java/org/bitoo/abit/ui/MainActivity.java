@@ -29,10 +29,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final String MISSION_ID = "MissoinId";
-    public static final String ACTION_IS_DELETE = "IsDelete";
     public static final String ACTION_ID_DELETED = "IdDeleted";
+    public static final String ACTION_NEW_MISSION = "NewMission";
 
     public static final int REQUEST_IS_DELETE = 0x1;
+    public static final int REQUEST_IS_NEW = 0x2;
 
     private ViewPager viewPager;
     private MainViewPagerAdapter pagerAdapter;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.tb_main);
         setSupportActionBar(toolbar);
+        //setActionBar(toolbar);
         toolbarContainer = (RelativeLayout) findViewById(R.id.rl_toolbar_container);
 
         // ViewPager and tabs
@@ -98,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
             params[i] = tabs[i].getLayoutParams();
         }
 
-        //tab.setBackgroundColor(Color.parseColor("#FF00FF"));
-
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+                Log.d(TAG, "selected :" + position);
             }
 
             @Override
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 .translationY(0)
                 .setDuration(700)
                 .setInterpolator(new DecelerateInterpolator(6.f))
-                .setStartDelay(50);
+                .setStartDelay(100);
     }
 
     @Override
@@ -204,4 +204,6 @@ public class MainActivity extends AppCompatActivity {
             viewPager.setCurrentItem(index, true);
         }
     }
+
+
 }

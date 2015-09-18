@@ -16,19 +16,46 @@
 
     </android.support.v4.view.ViewPager>
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/et_ms_title"
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/vp_prev"
-        android:inputType="text"/>
+        >
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/ll_ets">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_ms_title"
+                android:inputType="text"/>
 
-    <EditText
-        android:layout_width="fill_parent"
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_ms_second_title"
+                android:inputType="text"/>
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_selc"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/et_ms_second_title"
-        android:layout_below="@+id/et_ms_title"
-        android:inputType="text" />
+        android:text="select"
+        android:layout_toRightOf="@+id/ll_ets"
+        android:layout_toEndOf="@+id/ll_ets"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
 
+    </RelativeLayout>
+    <Button
+        android:id="@+id/bt_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="save"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

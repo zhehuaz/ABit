@@ -2,15 +2,12 @@ package org.bitoo.abit.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 
 import org.bitoo.abit.R;
@@ -64,9 +61,8 @@ public class DetailedMissionActivity extends AppCompatActivity implements TweetI
                         (DetailedMissionActivityFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment);
                 fragment.deleteMission();
                 Intent intent = new Intent();
-                intent.putExtra(MainActivity.ACTION_IS_DELETE, true);
                 intent.putExtra(MainActivity.ACTION_ID_DELETED, fragment.getMissionId());
-                setResult(MainActivity.REQUEST_IS_DELETE, intent);
+                setResult(RESULT_OK, intent);
                 finish();
                 break;
             default:

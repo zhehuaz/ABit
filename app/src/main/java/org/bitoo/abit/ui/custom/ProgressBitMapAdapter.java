@@ -17,8 +17,8 @@ import java.io.FileNotFoundException;
 /**
  * The adapter of bitmap gridView.
  */
-public class ProgressBitMapAdapter extends BitMapAdapter {
-    private final static String TAG = "ProgressBitMapAdapter";
+public class ProgressBitmapAdapter extends BitmapAdapter {
+    private final static String TAG = "ProgressBitmapAdapter";
 
     /**
      * Necessary information to paint the bitmap grid.
@@ -26,7 +26,7 @@ public class ProgressBitMapAdapter extends BitMapAdapter {
      * @param context is to get {@link LayoutInflater}.
      * @param mission Data of a mission.
      */
-    public ProgressBitMapAdapter(Context context, Mission mission) {
+    public ProgressBitmapAdapter(Context context, Mission mission) {
         super(context, mission);
     }
 

@@ -9,6 +9,7 @@ import org.bitoo.abit.R;
 
 public class AddMissionActivity extends AppCompatActivity {
 
+    public final static int REQUEST_SELECT_THEME_IMAGE = 0x1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

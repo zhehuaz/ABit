@@ -1,0 +1,110 @@
+TASK org.bitoo.abit id=102
+  ACTIVITY org.bitoo.abit/.ui.MainActivity 3d03b39a pid=19892
+    Local FragmentActivity e7a12d State:
+      mCreated=truemResumed=true mStopped=false mReallyStopped=false
+      mLoadersStarted=true
+    Active Fragments in 27fd76c7:
+      #0: MainActivityFragment{260664f4 #0 id=0x7f0d0062 android:switcher:2131558498:0}
+        mFragmentId=#7f0d0062 mContainerId=#7f0d0062 mTag=android:switcher:2131558498:0
+        mState=5 mIndex=0 mWho=android:fragment:0 mBackStackNesting=0
+        mAdded=true mRemoving=false mResumed=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=true
+        mFragmentManager=FragmentManager{27fd76c7 in MainActivity{e7a12d}}
+        mActivity=org.bitoo.abit.ui.MainActivity@e7a12d
+        mContainer=android.support.v4.view.ViewPager{185712d6 VFED.... ........ 0,0-1080,1845 #7f0d0062 app:id/vp_main}
+        mView=android.widget.RelativeLayout{182ec2e6 V.E..... ........ 0,0-1080,1845}
+        mInnerView=android.widget.RelativeLayout{182ec2e6 V.E..... ........ 0,0-1080,1845}
+        Child FragmentManager{2c33841d in MainActivityFragment{260664f4}}:
+          FragmentManager misc state:
+            mActivity=org.bitoo.abit.ui.MainActivity@e7a12d
+            mContainer=android.support.v4.app.Fragment$1@f9e4692
+            mParent=MainActivityFragment{260664f4 #0 id=0x7f0d0062 android:switcher:2131558498:0}
+            mCurState=5 mStateSaved=false mDestroyed=false
+      #1: GalleryFragment{6d0b863 #1 id=0x7f0d0062 android:switcher:2131558498:1}
+        mFragmentId=#7f0d0062 mContainerId=#7f0d0062 mTag=android:switcher:2131558498:1
+        mState=5 mIndex=1 mWho=android:fragment:1 mBackStackNesting=0
+        mAdded=true mRemoving=false mResumed=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{27fd76c7 in MainActivity{e7a12d}}
+        mActivity=org.bitoo.abit.ui.MainActivity@e7a12d
+        mContainer=android.support.v4.view.ViewPager{185712d6 VFED.... ........ 0,0-1080,1845 #7f0d0062 app:id/vp_main}
+        mView=android.widget.FrameLayout{3aba39c5 V.E..... ........ 1080,0-2160,1845}
+        mInnerView=android.widget.FrameLayout{3aba39c5 V.E..... ........ 1080,0-2160,1845}
+        Child FragmentManager{3e9edc60 in GalleryFragment{6d0b863}}:
+          FragmentManager misc state:
+            mActivity=org.bitoo.abit.ui.MainActivity@e7a12d
+            mContainer=android.support.v4.app.Fragment$1@23094519
+            mParent=GalleryFragment{6d0b863 #1 id=0x7f0d0062 android:switcher:2131558498:1}
+            mCurState=5 mStateSaved=false mDestroyed=false
+      #2: ReservedFragment{85639de #2 id=0x7f0d0062 android:switcher:2131558498:2}
+        mFragmentId=#7f0d0062 mContainerId=#7f0d0062 mTag=android:switcher:2131558498:2
+        mState=1 mIndex=2 mWho=android:fragment:2 mBackStackNesting=0
+        mAdded=false mRemoving=false mResumed=false mFromLayout=false mInLayout=false
+        mHidden=false mDetached=true mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{27fd76c7 in MainActivity{e7a12d}}
+        mActivity=org.bitoo.abit.ui.MainActivity@e7a12d
+        Child FragmentManager{320c77bf in ReservedFragment{85639de}}:
+          FragmentManager misc state:
+            mActivity=org.bitoo.abit.ui.MainActivity@e7a12d
+            mContainer=android.support.v4.app.Fragment$1@38855e8c
+            mParent=ReservedFragment{85639de #2 id=0x7f0d0062 android:switcher:2131558498:2}
+            mCurState=1 mStateSaved=true mDestroyed=false
+      #3: ProfileFragment{1fe019d5 #3 id=0x7f0d0062 android:switcher:2131558498:3}
+        mFragmentId=#7f0d0062 mContainerId=#7f0d0062 mTag=android:switcher:2131558498:3
+        mState=1 mIndex=3 mWho=android:fragment:3 mBackStackNesting=0
+        mAdded=false mRemoving=false mResumed=false mFromLayout=false mInLayout=false
+        mHidden=false mDetached=true mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{27fd76c7 in MainActivity{e7a12d}}
+        mActivity=org.bitoo.abit.ui.MainActivity@e7a12d
+        Child FragmentManager{2a0815ea in ProfileFragment{1fe019d5}}:
+          FragmentManager misc state:
+            mActivity=org.bitoo.abit.ui.MainActivity@e7a12d
+            mContainer=android.support.v4.app.Fragment$1@391ad0db
+            mParent=ProfileFragment{1fe019d5 #3 id=0x7f0d0062 android:switcher:2131558498:3}
+            mCurState=1 mStateSaved=true mDestroyed=false
+    Added Fragments:
+      #0: GalleryFragment{6d0b863 #1 id=0x7f0d0062 android:switcher:2131558498:1}
+      #1: MainActivityFragment{260664f4 #0 id=0x7f0d0062 android:switcher:2131558498:0}
+    FragmentManager misc state:
+      mActivity=org.bitoo.abit.ui.MainActivity@e7a12d
+      mContainer=android.support.v4.app.FragmentActivity$2@206fd778
+      mCurState=5 mStateSaved=false mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{387b5426 V.E..... ... 0,0-1080,1920}
+        android.widget.LinearLayout{12388cb2 V.E..... ... 0,0-1080,1920}
+          android.view.ViewStub{9e5403 G.E..... ... 0,0-0,0 #1020373}
+          android.widget.FrameLayout{3e54df80 V.E..... ... 0,75-1080,1920}
+            android.support.v7.internal.widget.FitWindowsLinearLayout{11e873ac V.E..... ... 0,0-1080,1845 #7f0d004c app:id/action_bar_root}
+              android.support.v7.internal.widget.ViewStubCompat{163fd875 G.E..... ... 0,0-0,0 #7f0d004d app:id/action_mode_bar_stub}
+              android.support.v7.internal.widget.NativeActionModeAwareLayout{4c407b V.E..... ... 0,0-1080,1845 #1020002 android:id/content}
+                android.widget.RelativeLayout{15c286f1 V.E..... ... 0,0-1080,1845}
+                  android.support.v4.view.ViewPager{185712d6 VFED.... ... 0,0-1080,1845 #7f0d0062 app:id/vp_main}
+                    android.widget.FrameLayout{3aba39c5 V.E..... ... 1080,0-2160,1845}
+                      android.support.v7.widget.AppCompatTextView{3242cf1a V.ED.... ... 0,0-1080,1845}
+                    android.widget.RelativeLayout{182ec2e6 V.E..... ... 0,0-1080,1845}
+                      android.support.v7.widget.RecyclerView{2f2f4027 VFED.V.. F.. 0,0-1080,1845 #7f0d0085 app:id/rv_mission_list}
+                        android.support.v7.widget.CardView{217948be V.E...C. ... 15,258-1065,907 #7f0d006a app:id/cd_layout}
+                          android.widget.LinearLayout{35c20d1f V.E..... ... 0,0-1050,649}
+                            android.widget.RelativeLayout{899386c V.E..... ... 0,0-1050,510}
+                              android.widget.ImageView{27f61e35 V.ED.... ... 0,0-1050,510 #7f0d006b app:id/iv_mission_preview}
+                              android.widget.FrameLayout{12fd32ca V.E..... ... 0,332-1050,510 #7f0d006c app:id/ly_card_panel}
+                                android.support.v7.widget.AppCompatTextView{d845c3b V.ED.... ... 45,45-1005,133 #7f0d006d app:id/tv_mission_title}
+                            android.widget.RelativeLayout{26176f58 V.E..... ... 0,510-1050,649}
+                              android.support.v7.widget.AppCompatTextView{11f768b1 V.ED.... ... 45,45-225,94 #7f0d006e app:id/tv_mission_date}
+                      com.gc.materialdesign.views.ButtonFloat{1d462d4 V.E..... ... 855,1620-1035,1800 #7f0d0086 app:id/bt_add}
+                        android.widget.ImageView{182dc7d V.ED.... ... 54,54-126,126}
+                  android.widget.RelativeLayout{c546957 V.E..... ... 0,0-1080,201 #7f0d0063 app:id/rl_toolbar_container}
+                    android.support.v7.widget.Toolbar{8538c44 V.E..... ... 0,0-1080,168 #7f0d0064 app:id/tb_main}
+                      android.widget.TextView{181f28b0 V.ED.... ... 48,43-154,124}
+                      android.support.v7.widget.ActionMenuView{233ee779 V.E..... ... 960,0-1080,168}
+                        android.support.v7.widget.ActionMenuPresenter$OverflowMenuButton{2ce59cbe VFED..C. ... 0,12-120,156}
+                    android.widget.RelativeLayout{34dd2c4f V.E..... ... 0,168-1080,201 #7f0d0065 app:id/rl_tabs}
+                      android.widget.ImageView{39c61fdc V.ED..C. ... 0,0-870,33 #7f0d0066 app:id/iv_tab0}
+                      android.widget.ImageView{3738c8e5 V.ED..C. ... 870,0-945,33 #7f0d0067 app:id/iv_tab1}
+                      android.widget.ImageView{16817fba V.ED..C. ... 945,0-1027,33 #7f0d0068 app:id/iv_tab2}
+                      android.widget.ImageView{dea3e6b V.ED..C. ... 1027,0-1080,33 #7f0d0069 app:id/iv_tab3}
+        android.view.View{687c73f V.ED.... ... 0,0-1080,75 #102002f android:id/statusBarBackground}

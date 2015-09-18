@@ -1,5 +1,6 @@
 package org.bitoo.abit.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<Mission> missions;
+    private Button addButton;
 
     public MainActivityFragment() {
     }
@@ -38,7 +40,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_mission_list, container, false);
-        Button addButton = (Button) view.findViewById(R.id.bt_add);
+        addButton = (Button) view.findViewById(R.id.bt_add);
         addButton.setOnClickListener(this);
         addButton.setTranslationY(250);
         addButton.animate()
@@ -96,15 +98,15 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 //            e.printStackTrace();
 //        }
         Intent intent = new Intent(getActivity(), AddMissionActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, MainActivity.REQUEST_IS_NEW);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
+        switch (requestCode) {
             case MainActivity.REQUEST_IS_DELETE :
-                if(data.getBooleanExtra(MainActivity.ACTION_IS_DELETE, false)) {
+                if(resultCode == Activity.RESULT_OK) {
                     long id = data.getLongExtra(MainActivity.ACTION_ID_DELETED, -1);
                     if(id != -1) {
                         for(Mission mission : missions) {
@@ -114,6 +116,21 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                             }
                         }
                     }
+                }
+                break;
+            case MainActivity.REQUEST_IS_NEW :
+                if(resultCode == Activity.RESULT_FIRST_USER) {
+                    Mission newMission = (Mission) data.getSerializableExtra(MainActivity.ACTION_NEW_MISSION);
+                    newMission.setId(sqLiteHelper.addMission(newMission));
+                    //adapter.notifyDataSetChanged();
+
+//                        missions.add(new Mission(getActivity(),
+//                                newMission.getTitle(),
+//                                newMission.getCreateDate(),
+//                                null,
+//                                newMission.getMotto(),
+//                                newMission.getThemeImagePath()));
+                    missions.add(newMission);
                 }
                 break;
             default:

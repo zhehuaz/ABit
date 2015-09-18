@@ -42,7 +42,7 @@ public class BitmapViewPagerAdapter extends PagerAdapter{
         try {
             Mission mission = new Mission(context, null, 0, xmlPathList.get(position), null, null);
             mission.getProgressImage().loadImage(context);
-            gridView.setAdapter(new BitMapAdapter(context, mission));
+            gridView.setAdapter(new BitmapAdapter(context, mission));
             gridView.setNumColumns(mission.getProgressImage().getWidth());
         } catch (FileNotFoundException e) {
             e.printStackTrace();

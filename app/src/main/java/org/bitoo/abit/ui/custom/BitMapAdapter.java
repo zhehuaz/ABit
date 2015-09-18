@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * Created by admin on 2015/9/17.
  */
-public class BitMapAdapter extends BaseAdapter {
-    private final static String TAG = "ProgressBitMapAdapter";
+public class BitmapAdapter extends BaseAdapter {
+    private final static String TAG = "ProgressBitmapAdapter";
     Context context;
 
     /** I can get {@link Mission#progressMask} here.*/
@@ -31,7 +31,7 @@ public class BitMapAdapter extends BaseAdapter {
      * @param context is to get {@link LayoutInflater}.
      * @param mission Data of a mission.
      */
-    public BitMapAdapter(Context context, Mission mission) {
+    public BitmapAdapter(Context context, Mission mission) {
         this.context = context;
         this.mission = mission;
         bitmap = mission.getProgressImage().getBitmap();

@@ -21,7 +21,7 @@ import com.gc.materialdesign.views.ButtonFloatSmall;
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Tweet;
-import org.bitoo.abit.ui.custom.ProgressBitMapAdapter;
+import org.bitoo.abit.ui.custom.ProgressBitmapAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
 import java.io.FileNotFoundException;
@@ -34,7 +34,7 @@ public class DetailedMissionActivityFragment extends Fragment {
     private GridView mGridView;
     private ButtonFloatSmall checkButton;
     private Mission mission;
-    private ProgressBitMapAdapter bitmapAdapterProgress;
+    private ProgressBitmapAdapter bitmapAdapterProgress;
     Toolbar toolbar;
     private OnMissionCreatedListener mListener = null;
 
@@ -108,7 +108,7 @@ public class DetailedMissionActivityFragment extends Fragment {
             toolbar.setSubtitle(mission.getMotto());
             toolbar.setBackground(new BitmapDrawable(getActivity().getResources(),BitmapFactory.decodeFile(mission.getThemeImagePath())));
 
-            bitmapAdapterProgress = new ProgressBitMapAdapter(getActivity(), mission);
+            bitmapAdapterProgress = new ProgressBitmapAdapter(getActivity(), mission);
             mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
             mGridView.setNumColumns(mission.getProgressImage().getWidth());
             mGridView.setAdapter(bitmapAdapterProgress);
@@ -167,7 +167,7 @@ public class DetailedMissionActivityFragment extends Fragment {
         }
     }
 
-    public void deleteMission() {
+    void deleteMission() {
         sqlHelper.deleteMission(mission.getId());
     }
 
@@ -176,6 +176,6 @@ public class DetailedMissionActivityFragment extends Fragment {
     }
 
     public interface OnMissionCreatedListener {
-        public void onMissionCreated(Mission mission);
+        void onMissionCreated(Mission mission);
     }
 }
