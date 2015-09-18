@@ -30,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final String MISSION_ID = "MissoinId";
     public static final String ACTION_ID_DELETED = "IdDeleted";
-    public static final String ACTION_NEW_MISSION = "NewMission";
+    public static final String ACTION_NEW_MISSION_TITLE = "NewMissionTitle";
+    public static final String ACTION_NEW_MISSION_XMLPATH = "NewMissionXmlpath";
+    public static final String ACTION_NEW_MISSION_MOTTO = "NewMissionMotto";
+    public static final String ACTION_NEW_MISSION_THEME_IMGPATH = "NewMissionThemeImgpath";
 
     public static final int REQUEST_IS_DELETE = 0x1;
     public static final int REQUEST_IS_NEW = 0x2;

@@ -19,6 +19,7 @@ import org.bitoo.abit.ui.custom.HidingScrollListener;
 import org.bitoo.abit.ui.custom.MissionListAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
@@ -119,18 +120,26 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 }
                 break;
             case MainActivity.REQUEST_IS_NEW :
-                if(resultCode == Activity.RESULT_FIRST_USER) {
-                    Mission newMission = (Mission) data.getSerializableExtra(MainActivity.ACTION_NEW_MISSION);
-                    newMission.setId(sqLiteHelper.addMission(newMission));
+                if(resultCode == Activity.RESULT_OK) {
+
+                   // Mission newMission = (Mission) data.getLongExtra(MainActivity.ACTION_NEW_MISSION);
+                    //newMission.setId(sqLiteHelper.addMission(newMission));
                     //adapter.notifyDataSetChanged();
 
-//                        missions.add(new Mission(getActivity(),
-//                                newMission.getTitle(),
-//                                newMission.getCreateDate(),
-//                                null,
-//                                newMission.getMotto(),
-//                                newMission.getThemeImagePath()));
-                    missions.add(newMission);
+                    try {
+                        Mission newMission = new Mission(getActivity(),
+                                data.getStringExtra(MainActivity.ACTION_NEW_MISSION_TITLE),
+                                System.currentTimeMillis(),
+                                data.getStringExtra(MainActivity.ACTION_NEW_MISSION_XMLPATH),
+                                data.getStringExtra(MainActivity.ACTION_NEW_MISSION_MOTTO),
+                                data.getStringExtra(MainActivity.ACTION_NEW_MISSION_THEME_IMGPATH));
+                        newMission.setId(sqLiteHelper.addMission(newMission));
+                        missions.add(newMission);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    //missions.add(newMission);
                 }
                 break;
             default:

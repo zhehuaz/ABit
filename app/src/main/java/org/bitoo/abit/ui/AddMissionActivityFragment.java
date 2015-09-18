@@ -17,10 +17,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.ui.custom.BitmapViewPagerAdapter;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,21 +113,14 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
                 okayFlag = false;
             }
             if(okayFlag) {
-                try {
-                    Mission newMission = new Mission(getActivity(),
-                            title,
-                            System.currentTimeMillis(),
-                            xmlPaths.get(viewPager.getCurrentItem()),
-                            motto,
-                            themeImagePath);
+                Intent intent = new Intent();
+                intent.putExtra(MainActivity.ACTION_NEW_MISSION_TITLE, title);
+                intent.putExtra(MainActivity.ACTION_NEW_MISSION_XMLPATH, xmlPaths.get(viewPager.getCurrentItem()));
+                intent.putExtra(MainActivity.ACTION_NEW_MISSION_MOTTO, motto);
+                intent.putExtra(MainActivity.ACTION_NEW_MISSION_THEME_IMGPATH, themeImagePath);
 
-                    Intent intent = new Intent();
-                    intent.putExtra(MainActivity.ACTION_NEW_MISSION, newMission);
-                    getActivity().setResult(Activity.RESULT_FIRST_USER, intent);
-                    getActivity().finish();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                getActivity().setResult(Activity.RESULT_OK, intent);
+                getActivity().finish();
             }
         } else if(v.getId() == selcButton.getId()) {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

@@ -8,14 +8,13 @@ import org.bitoo.abit.utils.TweetXmlParser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * A Mission is a progress memoir that marks your progress
  * of a particular task.The progress displays as {@link ProgressImage}.
  */
-public class Mission implements Serializable{
+public class Mission{
 
     private final static String TAG = "Mission";
     public final static long MILLIS_OF_ONE_DAY = 86400000;
