@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +68,7 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
             @Override
             public void onPageSelected(int position) {
                 currentPage = position;
-                Log.d(TAG, String.valueOf(position));
+               // Log.d(TAG, String.valueOf(position));
             }
 
             @Override
@@ -105,7 +104,7 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
                 Toast.makeText(getActivity(), "Title is invalid", Toast.LENGTH_SHORT).show();
                 okayFlag = false;
             }
-            else if(motto.length() > 20 || motto.length() < 1) {
+            else if(motto.length() > 30 || motto.length() < 1) {
                 Toast.makeText(getActivity(), "Motto is invalid", Toast.LENGTH_SHORT).show();
                 okayFlag = false;
             } else if(themeImagePath == null) {

@@ -121,11 +121,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 break;
             case MainActivity.REQUEST_IS_NEW :
                 if(resultCode == Activity.RESULT_OK) {
-
-                   // Mission newMission = (Mission) data.getLongExtra(MainActivity.ACTION_NEW_MISSION);
-                    //newMission.setId(sqLiteHelper.addMission(newMission));
-                    //adapter.notifyDataSetChanged();
-
                     try {
                         Mission newMission = new Mission(getActivity(),
                                 data.getStringExtra(MainActivity.ACTION_NEW_MISSION_TITLE),
