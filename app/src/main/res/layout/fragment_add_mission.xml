@@ -13,14 +13,15 @@
         android:layout_width="fill_parent"
         android:layout_height="360dp"
         android:id="@+id/vp_prev">
-
     </android.support.v4.view.ViewPager>
 
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@id/vp_prev"
+        android:layout_below="@+id/vp_prev"
+        android:background="@drawable/blank"
+        android:id="@+id/rl_theme_prev"
         >
         <LinearLayout
             android:layout_width="320dp"
@@ -31,13 +32,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/et_ms_title"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:background="#80CDDC39"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/et_ms_second_title"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:background="#80CDDC39"/>
+
         </LinearLayout>
 
     <Button

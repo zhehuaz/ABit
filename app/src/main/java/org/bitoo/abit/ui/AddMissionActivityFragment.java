@@ -3,6 +3,8 @@ package org.bitoo.abit.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.bitoo.abit.R;
@@ -33,6 +36,7 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
     private EditText titleText;
     private EditText mottoText;
     private String themeImagePath = null;
+    private RelativeLayout themePreviewLayout;
 
 
     int currentPage = 0;
@@ -48,6 +52,7 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
         mottoText = (EditText) view.findViewById(R.id.et_ms_second_title);
         saveButton = (Button) view.findViewById(R.id.bt_save);
         selcButton = (Button) view.findViewById(R.id.bt_selc);
+        themePreviewLayout = (RelativeLayout) view.findViewById(R.id.rl_theme_prev);
         saveButton.setOnClickListener(this);
         selcButton.setOnClickListener(this);
 
@@ -143,6 +148,9 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
             themeImagePath = picturePath;
+
+            themePreviewLayout.setBackground(new BitmapDrawable(getResources(), BitmapFactory.decodeFile(picturePath)));
+
         }
     }
 }
