@@ -125,9 +125,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                         Mission newMission = new Mission(getActivity(),
                                 data.getStringExtra(MainActivity.ACTION_NEW_MISSION_TITLE),
                                 System.currentTimeMillis(),
-                                data.getStringExtra(MainActivity.ACTION_NEW_MISSION_XMLPATH),
+                                data.getStringExtra(MainActivity.ACTION_NEW_MISSION_XML_PATH),
                                 data.getStringExtra(MainActivity.ACTION_NEW_MISSION_MOTTO),
-                                data.getStringExtra(MainActivity.ACTION_NEW_MISSION_THEME_IMGPATH));
+                                data.getStringExtra(MainActivity.ACTION_NEW_MISSION_THEME_IMG_PATH));
                         newMission.setId(sqLiteHelper.addMission(newMission));
                         missions.add(newMission);
                     } catch (FileNotFoundException e) {

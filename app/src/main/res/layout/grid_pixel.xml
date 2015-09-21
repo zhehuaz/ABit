@@ -6,8 +6,8 @@
               android:padding="@dimen/pixel_little_margin">
     <ImageView
         android:id="@+id/img_pixel"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         />
 </org.bitoo.abit.ui.custom.SquareLayout>

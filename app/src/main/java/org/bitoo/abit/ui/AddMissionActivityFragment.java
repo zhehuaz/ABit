@@ -119,9 +119,9 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
             if(okayFlag) {
                 Intent intent = new Intent();
                 intent.putExtra(MainActivity.ACTION_NEW_MISSION_TITLE, title);
-                intent.putExtra(MainActivity.ACTION_NEW_MISSION_XMLPATH, xmlPaths.get(viewPager.getCurrentItem()));
+                intent.putExtra(MainActivity.ACTION_NEW_MISSION_XML_PATH, xmlPaths.get(viewPager.getCurrentItem()));
                 intent.putExtra(MainActivity.ACTION_NEW_MISSION_MOTTO, motto);
-                intent.putExtra(MainActivity.ACTION_NEW_MISSION_THEME_IMGPATH, themeImagePath);
+                intent.putExtra(MainActivity.ACTION_NEW_MISSION_THEME_IMG_PATH, themeImagePath);
 
                 getActivity().setResult(Activity.RESULT_OK, intent);
                 getActivity().finish();

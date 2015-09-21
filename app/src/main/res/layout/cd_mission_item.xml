@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/iv_mission_preview"
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 />
             <FrameLayout
                 android:id="@+id/ly_card_panel"
@@ -34,7 +34,7 @@
                 <TextView
                     android:id="@+id/tv_mission_title"
                     android:layout_margin="@dimen/card_title_left_margin"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="AAAA"
                     android:textSize="22sp"

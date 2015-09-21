@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String MISSION_ID = "MissoinId";
     public static final String ACTION_ID_DELETED = "IdDeleted";
     public static final String ACTION_NEW_MISSION_TITLE = "NewMissionTitle";
-    public static final String ACTION_NEW_MISSION_XMLPATH = "NewMissionXmlpath";
+    public static final String ACTION_NEW_MISSION_XML_PATH = "NewMissionXmlPath";
     public static final String ACTION_NEW_MISSION_MOTTO = "NewMissionMotto";
-    public static final String ACTION_NEW_MISSION_THEME_IMGPATH = "NewMissionThemeImgpath";
+    public static final String ACTION_NEW_MISSION_THEME_IMG_PATH = "NewMissionThemeImgPath";
 
     public static final int REQUEST_IS_DELETE = 0x1;
     public static final int REQUEST_IS_NEW = 0x2;
@@ -108,17 +108,24 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 Log.d(TAG, "position :" + position + "  positionOffset :" + positionOffset + "  positionOffsetPixels :" + positionOffsetPixels);
 
+                for(ViewGroup.LayoutParams param : params)
+                    param.width = 75;// TODO calculate it!
                 params[position].width = wideWidth - (int) (delta * positionOffset);
-                tabs[position].setLayoutParams(params[position]);
+                //tabs[position].setLayoutParams(params[position]);
                 if(position < 3) {
                     params[position + 1].width = thinWidth + (int) (delta * positionOffset);
-                    tabs[position + 1].setLayoutParams(params[position + 1]);
+                    //tabs[position + 1].setLayoutParams(params[position + 1]);
                 }
+                for(int i = 0;i < params.length;i ++)
+                    tabs[i].setLayoutParams(params[i]);
+
+
+                //Log.d(TAG, "tab0: " + params[0].width + " tab1: " + params[1].width + " tab2: " + params[2].width + " tab3: " + params[3].width);
             }
 
             @Override
             public void onPageSelected(int position) {
-                Log.d(TAG, "selected :" + position);
+                //Log.d(TAG, "selected :" + position);
             }
 
             @Override

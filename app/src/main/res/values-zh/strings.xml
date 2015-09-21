@@ -9,4 +9,6 @@
     <string name="negative"> 取消</string>
     <string name="positive">确定</string>
     <string name="hint_tweet">今天都做了什么？\n记录下来吧</string>
+    <string name="title">标题</string>
+    <string name="motto">格言</string>
 </resources>
