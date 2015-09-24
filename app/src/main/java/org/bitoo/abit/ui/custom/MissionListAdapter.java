@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,11 +17,15 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.ui.DetailedMissionActivity;
 import org.bitoo.abit.ui.MainActivity;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
@@ -36,7 +42,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitleText;
         public TextView mDateText;
-        public ImageView mImageView;
+        public SimpleDraweeView mImageView;
         public CardView card;
 
         /**
@@ -47,7 +53,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
             super(itemView);
             mDateText = (TextView) itemView.findViewById(R.id.tv_mission_date);
             mTitleText = (TextView) itemView.findViewById(R.id.tv_mission_title);
-            mImageView = (ImageView) itemView.findViewById(R.id.iv_mission_preview);
+            mImageView = (SimpleDraweeView) itemView.findViewById(R.id.dv_mission_preview);
             card = (CardView) itemView.findViewById(R.id.cd_layout);
 
             if(card != null) {
@@ -78,11 +84,13 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
         runEnterAnimation(holder.itemView, position);
         holder.mTitleText.setText(missions.get(position).getTitle());
         holder.mDateText.setText(new Date(missions.get(position).getCreateDate()).toString());
-        holder.mImageView.setImageBitmap(BitmapFactory.decodeFile(missions.get(position).getThemeImagePath()));
+        holder.mImageView.setImageURI(Uri.fromFile(new File(missions.get(position).getThemeImagePath())));
+        //holder.mImageView.setImageBitmap(BitmapFactory.decodeFile(missions.get(position).getThemeImagePath()));
         holder.mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         if(holder.mImageView != null) {
-            Bitmap bitmap = ((BitmapDrawable) holder.mImageView.getDrawable()).getBitmap();
+            // FIXME takes too long to load bitmap here, change to async task.
+            Bitmap bitmap = BitmapFactory.decodeFile(missions.get(position).getThemeImagePath());
             if (bitmap != null) {
                 Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                     @Override
@@ -108,6 +116,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                     }
                 });
             }
+            //Bitmap bitmap = ((BitmapDrawable) holder.mImageView.getDrawable()).getBitmap();
         }
     }
 
