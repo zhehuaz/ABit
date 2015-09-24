@@ -15,6 +15,7 @@
         android:clipToPadding="false"/>
 
     <com.gc.materialdesign.views.ButtonFloat
+        android:elevation="8dp"
         android:id="@+id/bt_add"
         android:layout_width="60dp"
         android:layout_height="60dp"

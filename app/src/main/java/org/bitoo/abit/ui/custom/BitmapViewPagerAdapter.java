@@ -39,6 +39,7 @@ public class BitmapViewPagerAdapter extends PagerAdapter{
     public Object instantiateItem(ViewGroup container, int position) {
 
         GridView gridView = (GridView)context.getLayoutInflater().inflate(R.layout.gv_preview, null);
+        //gridView.setStretchMode(GridView.NO_STRETCH);
         try {
             Mission mission = new Mission(context, null, 0, xmlPathList.get(position), null, null);
             mission.getProgressImage().loadImage(context);

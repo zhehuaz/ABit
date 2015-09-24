@@ -29,7 +29,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/tb_main"
             app:title="@string/app_name"
+            android:translationZ="10dp"
             />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -37,8 +39,8 @@
             android:id="@+id/rl_tabs"
             android:orientation="horizontal"
             android:background="@color/dark_primary_color"
-            android:layout_below="@id/tb_main"
-            >
+            android:layout_below="@+id/tb_main"
+            android:translationZ="12dp">
 
             <ImageView
                 android:id="@+id/iv_tab0"

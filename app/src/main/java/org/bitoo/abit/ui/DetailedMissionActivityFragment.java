@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,9 @@ public class DetailedMissionActivityFragment extends Fragment {
     private OnMissionCreatedListener mListener = null;
 
     private static final String COLOR_KEY = "img_pixel";
+
+    private GestureDetector mGestureDetector;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -71,7 +75,7 @@ public class DetailedMissionActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_image_display, container, false);
+        return inflater.inflate(R.layout.fragment_detailed_mission, container, false);
     }
 
     @Override
@@ -147,8 +151,8 @@ public class DetailedMissionActivityFragment extends Fragment {
     }
 
     /**
-     * To communicate with
-     * @param tweet
+     * To communicate with {@link TweetInputFragment}
+     * @param tweet Text from {@link TweetInputFragment}
      */
     public void onAddTweet(Editable tweet) {
         if (mission.check()) {

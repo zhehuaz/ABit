@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,15 +41,10 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_mission_list, container, false);
+        Log.v(TAG, "create view");
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
         addButton = (Button) view.findViewById(R.id.bt_add);
         addButton.setOnClickListener(this);
-        addButton.setTranslationY(250);
-        addButton.animate()
-                .translationY(0)
-                .setDuration(400)
-                .setInterpolator(new DecelerateInterpolator(1.f))
-                .setStartDelay(400);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_mission_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -79,6 +75,13 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.v(TAG, "activity created");
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.v(TAG, "create");
     }
 
     @Override
@@ -146,5 +149,13 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+        addButton.setTranslationY(250);
+        addButton.animate()
+                .translationY(0)
+                .setDuration(400)
+                .setInterpolator(new DecelerateInterpolator(1.f))
+                .setStartDelay(400);
+        Log.v(TAG, "resume");
+
     }
 }

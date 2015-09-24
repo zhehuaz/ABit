@@ -8,8 +8,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -46,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     public MainActivityFragment mainFragment;
     private RelativeLayout toolbarContainer;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         initTabs();
         pagerAdapter= new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);
-
     }
 
     protected void initTabs()
@@ -111,14 +111,12 @@ public class MainActivity extends AppCompatActivity {
                 for(ViewGroup.LayoutParams param : params)
                     param.width = 75;// TODO calculate it!
                 params[position].width = wideWidth - (int) (delta * positionOffset);
-                //tabs[position].setLayoutParams(params[position]);
                 if(position < 3) {
                     params[position + 1].width = thinWidth + (int) (delta * positionOffset);
                     //tabs[position + 1].setLayoutParams(params[position + 1]);
                 }
                 for(int i = 0;i < params.length;i ++)
                     tabs[i].setLayoutParams(params[i]);
-
 
                 //Log.d(TAG, "tab0: " + params[0].width + " tab1: " + params[1].width + " tab2: " + params[2].width + " tab3: " + params[3].width);
             }

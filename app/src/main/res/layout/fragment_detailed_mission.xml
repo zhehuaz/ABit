@@ -15,7 +15,10 @@
         android:id="@+id/tb_main"
         app:title="Hello"
         app:subtitle="A bit matters."
-        />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        </android.support.v7.widget.Toolbar>
     <GridView
         android:layout_below="@id/tb_main"
         android:id="@+id/gv_prog_image"
