@@ -18,9 +18,12 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import org.bitoo.abit.R;
 import org.bitoo.abit.ui.custom.BitmapViewPagerAdapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +39,7 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
     private EditText titleText;
     private EditText mottoText;
     private String themeImagePath = null;
-    private RelativeLayout themePreviewLayout;
+    private SimpleDraweeView themePreview;
 
 
     int currentPage = 0;
@@ -52,7 +55,7 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
         mottoText = (EditText) view.findViewById(R.id.et_ms_second_title);
         saveButton = (Button) view.findViewById(R.id.bt_save);
         selcButton = (Button) view.findViewById(R.id.bt_selc);
-        themePreviewLayout = (RelativeLayout) view.findViewById(R.id.rl_theme_prev);
+        themePreview = (SimpleDraweeView) view.findViewById(R.id.dv_theme_prev);
         saveButton.setOnClickListener(this);
         selcButton.setOnClickListener(this);
 
@@ -90,13 +93,6 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
 
     }
 
-
- //   new Mission(getActivity(),
-    //                    "离开QQ",
-//                    System.currentTimeMillis(),
-//                    "pacmonster.xml",
-//                    "拒绝低头！",
-//                    tempFilePath);
     @Override
     public void onClick(View v) {
 
@@ -149,7 +145,8 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
             cursor.close();
             themeImagePath = picturePath;
 
-            themePreviewLayout.setBackground(new BitmapDrawable(getResources(), BitmapFactory.decodeFile(picturePath)));
+            themePreview.setImageURI(Uri.fromFile(new File(picturePath)));
+            //themePreviewLayout.setBackground(new BitmapDrawable(getResources(), BitmapFactory.decodeFile(picturePath)));
 
         }
     }

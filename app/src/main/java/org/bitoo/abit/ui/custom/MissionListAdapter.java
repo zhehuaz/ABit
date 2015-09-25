@@ -94,13 +94,15 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
             new AsyncTask<String, Integer, Bitmap>() {
                 @Override
                 protected Bitmap doInBackground(String... params) {
-                    return BitmapFactory.decodeFile(params[0]);
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 5;// sample the image to acceleration
+                    return BitmapFactory.decodeFile(params[0], options);
                 }
 
                 @Override
                 protected void onPostExecute(Bitmap bitmap) {
                     if (bitmap != null) {
-                        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                        new Palette.Builder(bitmap).generate(new Palette.PaletteAsyncListener() {
                             @Override
                             public void onGenerated(Palette palette) {
                                 Palette.Swatch lightMuted = palette.getLightMutedSwatch();
