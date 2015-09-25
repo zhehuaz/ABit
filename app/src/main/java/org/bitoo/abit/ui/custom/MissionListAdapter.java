@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
@@ -89,35 +90,44 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
         holder.mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         if(holder.mImageView != null) {
-            // FIXME takes too long to load bitmap here, change to async task.
-            Bitmap bitmap = BitmapFactory.decodeFile(missions.get(position).getThemeImagePath());
-            if (bitmap != null) {
-                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(Palette palette) {
-                        Palette.Swatch lightMuted = palette.getLightMutedSwatch();
-                        Palette.Swatch darkMuted = palette.getDarkMutedSwatch();
-                        Palette.Swatch lightVibrant = palette.getLightVibrantSwatch();
-                        Palette.Swatch darkVibrant = palette.getDarkVibrantSwatch();
-                        if (holder.card != null) {
-                            if (lightVibrant != null) {
-                                holder.card.setCardBackgroundColor(lightVibrant.getRgb());
-                            } else if (lightMuted != null) {
-                                holder.card.setCardBackgroundColor(lightMuted.getRgb());
+            // decode image async or lag
+            new AsyncTask<String, Integer, Bitmap>() {
+                @Override
+                protected Bitmap doInBackground(String... params) {
+                    return BitmapFactory.decodeFile(params[0]);
+                }
+
+                @Override
+                protected void onPostExecute(Bitmap bitmap) {
+                    if (bitmap != null) {
+                        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                            @Override
+                            public void onGenerated(Palette palette) {
+                                Palette.Swatch lightMuted = palette.getLightMutedSwatch();
+                                Palette.Swatch darkMuted = palette.getDarkMutedSwatch();
+                                Palette.Swatch lightVibrant = palette.getLightVibrantSwatch();
+                                Palette.Swatch darkVibrant = palette.getDarkVibrantSwatch();
+                                if (holder.card != null) {
+                                    if (lightVibrant != null) {
+                                        holder.card.setCardBackgroundColor(lightVibrant.getRgb());
+                                    } else if (lightMuted != null) {
+                                        holder.card.setCardBackgroundColor(lightMuted.getRgb());
+                                    }
+                                }
+                                if (holder.mDateText != null) {
+                                    if (darkMuted != null) {
+                                        holder.mDateText.setTextColor(darkMuted.getTitleTextColor());
+                                    } else if (darkVibrant != null) {
+                                        holder.mDateText.setTextColor(darkVibrant.getTitleTextColor());
+                                    }
+                                }
                             }
-                        }
-                        if (holder.mDateText != null) {
-                            if (darkMuted != null) {
-                                holder.mDateText.setTextColor(darkMuted.getTitleTextColor());
-                            } else if (darkVibrant != null) {
-                                holder.mDateText.setTextColor(darkVibrant.getTitleTextColor());
-                            }
-                        }
+                        });
                     }
-                });
-            }
-            //Bitmap bitmap = ((BitmapDrawable) holder.mImageView.getDrawable()).getBitmap();
+                }
+            }.execute(missions.get(position).getThemeImagePath());
         }
+            //Bitmap bitmap = ((BitmapDrawable) holder.mImageView.getDrawable()).getBitmap();
     }
 
     private void runEnterAnimation(View view, int position) {

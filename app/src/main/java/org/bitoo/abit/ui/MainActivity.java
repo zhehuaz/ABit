@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //setActionBar(toolbar);
         toolbarContainer = (RelativeLayout) findViewById(R.id.rl_toolbar_container);
-
         // ViewPager and tabs
         fragments = new ArrayList<>();
         viewPager = (ViewPager) findViewById(R.id.vp_main);
