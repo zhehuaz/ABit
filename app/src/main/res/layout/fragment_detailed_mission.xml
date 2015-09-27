@@ -3,7 +3,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
                 android:paddingLeft="@dimen/no_margin"
                 android:paddingRight="@dimen/no_margin"
                 android:paddingTop="@dimen/no_margin"
@@ -26,7 +25,7 @@
         android:layout_height="match_parent"
         />
 
-    <com.gc.materialdesign.views.ButtonFloatSmall
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginTop="@dimen/button_align_toolbar"
@@ -35,6 +34,6 @@
         android:id="@+id/bt_check"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        materialdesign:iconDrawable="@drawable/ic_star_white_48dp"/>
+        android:src="@drawable/ic_star_white_48dp"/>
 
 </RelativeLayout>

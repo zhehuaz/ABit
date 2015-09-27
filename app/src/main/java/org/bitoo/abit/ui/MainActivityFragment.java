@@ -3,6 +3,7 @@ package org.bitoo.abit.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
-
-import com.gc.materialdesign.views.Button;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
@@ -32,7 +31,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<Mission> missions;
-    private Button addButton;
+    private FloatingActionButton addButton;
 
     public MainActivityFragment() {
     }
@@ -43,7 +42,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
         Log.v(TAG, "create view");
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        addButton = (Button) view.findViewById(R.id.bt_add);
+        addButton = (FloatingActionButton) view.findViewById(R.id.bt_add);
         addButton.setOnClickListener(this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_mission_list);

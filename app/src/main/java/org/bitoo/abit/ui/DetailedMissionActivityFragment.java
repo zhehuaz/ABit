@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,8 +20,6 @@ import android.view.animation.Animation;
 import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
-
-import com.gc.materialdesign.views.ButtonFloatSmall;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
@@ -36,7 +35,7 @@ public class DetailedMissionActivityFragment extends Fragment {
     private static final String TAG = "ImageFramentDemo";
     private MissionSQLiteHelper sqlHelper;
     private GridView mGridView;
-    private ButtonFloatSmall checkButton;
+    private FloatingActionButton checkButton;
     private Mission mission;
     private ProgressBitmapAdapter bitmapAdapterProgress;
     Toolbar toolbar;
@@ -150,7 +149,7 @@ public class DetailedMissionActivityFragment extends Fragment {
     }
 
     private void initCheckButton() {
-        checkButton = (ButtonFloatSmall) getActivity().findViewById(R.id.bt_check);
+        checkButton = (FloatingActionButton) getActivity().findViewById(R.id.bt_check);
         checkButton.setClickable(true);
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
