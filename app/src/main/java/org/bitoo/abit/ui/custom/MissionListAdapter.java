@@ -2,14 +2,11 @@ package org.bitoo.abit.ui.custom;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +25,6 @@ import org.bitoo.abit.ui.DetailedMissionActivity;
 import org.bitoo.abit.ui.MainActivity;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
@@ -45,22 +41,22 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitleText;
         public TextView mDateText;
-        public SimpleDraweeView mImageView;
-        public CardView card;
+        public SimpleDraweeView mDraweeView;
+        public CardView mCard;
 
         /**
-         * In card, text of date and bottom panel of card has a dynamic color
+         * In mCard, text of date and bottom panel of mCard has a dynamic color
          * determined by the color of picture you use.
          */
         public ViewHolder(View itemView) {
             super(itemView);
             mDateText = (TextView) itemView.findViewById(R.id.tv_mission_date);
             mTitleText = (TextView) itemView.findViewById(R.id.tv_mission_title);
-            mImageView = (SimpleDraweeView) itemView.findViewById(R.id.dv_mission_preview);
-            card = (CardView) itemView.findViewById(R.id.cd_layout);
+            mDraweeView = (SimpleDraweeView) itemView.findViewById(R.id.dv_mission_preview);
+            mCard = (CardView) itemView.findViewById(R.id.cd_layout);
 
-            if (card != null) {
-                card.setOnClickListener(new View.OnClickListener() {
+            if (mCard != null) {
+                mCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(context, DetailedMissionActivity.class);
@@ -87,11 +83,10 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
         runEnterAnimation(holder.itemView, position);
         holder.mTitleText.setText(missions.get(position).getTitle());
         holder.mDateText.setText(new Date(missions.get(position).getCreateDate()).toString());
-        holder.mImageView.setImageURI(Uri.fromFile(new File(missions.get(position).getThemeImagePath())));
-        //holder.mImageView.setImageBitmap(BitmapFactory.decodeFile(missions.get(position).getThemeImagePath()));
-        holder.mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        holder.mDraweeView.setImageURI(Uri.fromFile(new File(missions.get(position).getThemeImagePath())));
+        holder.mDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        if (holder.mImageView != null) {
+        if (holder.mDraweeView != null) {
             // decode image async or jank
             new AsyncTask<String, Integer, Bitmap>() {
                 @Override
@@ -109,13 +104,13 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                             public void onGenerated(Palette palette) {
                                 Palette.Swatch lightMuted = palette.getLightMutedSwatch();
                                 Palette.Swatch lightVibrant = palette.getLightVibrantSwatch();
-                                if (holder.card != null) {
+                                if (holder.mCard != null) {
                                     if (lightVibrant != null) {
-                                        holder.card.setCardBackgroundColor(lightVibrant.getRgb());
+                                        holder.mCard.setCardBackgroundColor(lightVibrant.getRgb());
                                     } else if (lightMuted != null) {
-                                        holder.card.setCardBackgroundColor(lightMuted.getRgb());
+                                        holder.mCard.setCardBackgroundColor(lightMuted.getRgb());
                                     } else {
-                                        holder.card.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
+                                        holder.mCard.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
                                     }
                                 }
                                 if (holder.mDateText != null) {
@@ -133,7 +128,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                 }
             }.execute(missions.get(position).getThemeImagePath());
         }
-        //Bitmap bitmap = ((BitmapDrawable) holder.mImageView.getDrawable()).getBitmap();
+        //Bitmap bitmap = ((BitmapDrawable) holder.mDraweeView.getDrawable()).getBitmap();
     }
 
     private void runEnterAnimation(View view, int position) {
@@ -146,14 +141,6 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
             lastAnimatedPosition = position;
             view.setTranslationY(300 + position * 100);
             view.setAlpha(.3f);
-//            AnimationSet animationSet = new AnimationSet(true);
-//
-//            TranslateAnimation trans = new TranslateAnimation(0,0,500 + position * 100, 0);
-//
-//            animationSet.addAnimation(trans);
-//            animationSet.setDuration(2000);
-//            view.setAnimation(animationSet);
-//            animationSet.start();
             view.animate()
                     .translationY(0)
                     .alpha((float) 1.0)

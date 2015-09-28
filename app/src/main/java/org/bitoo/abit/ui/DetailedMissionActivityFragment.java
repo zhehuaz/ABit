@@ -1,9 +1,12 @@
 package org.bitoo.abit.ui;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,38 +15,53 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.AbsListView;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Tweet;
 import org.bitoo.abit.ui.custom.ProgressBitmapAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
+import org.w3c.dom.Text;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Date;
 
-public class DetailedMissionActivityFragment extends Fragment {
-    private static final String TAG = "ImageFramentDemo";
+import in.srain.cube.views.GridViewWithHeaderAndFooter;
+
+public class DetailedMissionActivityFragment extends Fragment implements View.OnClickListener {
+    private static final String TAG = "DetailedMissionFragment";
     private MissionSQLiteHelper sqlHelper;
-    private GridView mGridView;
+    private GridViewWithHeaderAndFooter mGridView;
     private FloatingActionButton checkButton;
     private Mission mission;
     private ProgressBitmapAdapter bitmapAdapterProgress;
-    Toolbar toolbar;
+    //Toolbar toolbar;
     private OnMissionCreatedListener mListener = null;
 
     private static final String COLOR_KEY = "img_pixel";
 
-    private GestureDetector mGestureDetector;
+    private View header;
+    private SimpleDraweeView headerBg;
+    private TextView titleText;
+    private TextView mottoText;
+    private ImageButton backBtn;
+    private ImageButton shareBtn;
+    private ImageButton delBtn;
+
+    Bitmap screenshot;
 
 
     /**
@@ -77,7 +95,17 @@ public class DetailedMissionActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_detailed_mission, container, false);
+
+        View fragmentView = inflater.inflate(R.layout.fragment_detailed_mission, container, false);
+        mGridView = (GridViewWithHeaderAndFooter)fragmentView.findViewById(R.id.gv_prog_image);
+        header = inflater.inflate(R.layout.header_detailed_mission, mGridView, false);
+        headerBg = (SimpleDraweeView) header.findViewById(R.id.dv_header_bg);
+        titleText = (TextView) header.findViewById(R.id.tv_mission_title);
+        mottoText = (TextView) header.findViewById(R.id.tv_mission_motto);
+        backBtn = (ImageButton) header.findViewById(R.id.ibt_back);
+        shareBtn = (ImageButton) header.findViewById(R.id.ibt_share);
+        delBtn = (ImageButton) header.findViewById(R.id.ibt_del);
+        return fragmentView;
     }
 
     @Override
@@ -98,9 +126,9 @@ public class DetailedMissionActivityFragment extends Fragment {
     }
 
     private void initToolbarAndGridView() {
-        toolbar = (Toolbar) getActivity().findViewById(R.id.tb_main);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //toolbar = (Toolbar) getActivity().findViewById(R.id.tb_main);
+        //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         try {
             long id = getActivity().getIntent().getLongExtra(MainActivity.MISSION_ID, 0);
@@ -110,25 +138,20 @@ public class DetailedMissionActivityFragment extends Fragment {
             else
                 mListener.onMissionCreated(mission);
 
-            toolbar.setTitle(mission.getTitle());
-            toolbar.setSubtitle(mission.getMotto());
+            //toolbar.setTitle(mission.getTitle());
+            //toolbar.setSubtitle(mission.getMotto());
+            titleText.setText(mission.getTitle());
+            mottoText.setText(mission.getMotto());
 
-            new AsyncTask<String, Integer, Bitmap>() {
-                @Override
-                protected Bitmap doInBackground(String... params) {
-                    return BitmapFactory.decodeFile(params[0]);
-                }
+            headerBg.setImageURI(Uri.fromFile(new File(mission.getThemeImagePath())));
 
-                @Override
-                protected void onPostExecute(Bitmap bitmap) {
-                    toolbar.setBackground(new BitmapDrawable(getActivity().getResources(), bitmap));
-                    
-                }
-            }.execute(mission.getThemeImagePath());
+            backBtn.setOnClickListener(this);
+            shareBtn.setOnClickListener(this);
+            delBtn.setOnClickListener(this);
 
             bitmapAdapterProgress = new ProgressBitmapAdapter(getActivity(), mission);
-            mGridView = (GridView)getActivity().findViewById(R.id.gv_prog_image);
             mGridView.setNumColumns(mission.getProgressImage().getWidth());
+            mGridView.addHeaderView(header);
             mGridView.setAdapter(bitmapAdapterProgress);
             mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
                 @Override
@@ -141,6 +164,10 @@ public class DetailedMissionActivityFragment extends Fragment {
                     Log.d(TAG, "Scroll Statge : " + i + " " + i1 + " " + i2);
                 }
             });
+
+
+
+
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), "Load Image source error.", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Load Image source error.");
@@ -176,7 +203,7 @@ public class DetailedMissionActivityFragment extends Fragment {
                 try {
                     mission.addTweet(new Tweet(position, tweet.toString()));
                     bitmapAdapterProgress.notifyDataSetChanged();
-                    checkButton.setClickable(false);
+                    //checkButton.setClickable(false);
                 } catch (IOException e) {
                     Toast.makeText(getActivity(), "Error when adding Tweet", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
@@ -185,15 +212,51 @@ public class DetailedMissionActivityFragment extends Fragment {
         }
     }
 
-    void deleteMission() {
+    private void deleteMission() {
         sqlHelper.deleteMission(mission.getId());
     }
 
-    public long getMissionId() {
-        return mission.getId();
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.ibt_back:
+                getActivity().finish();
+                break;
+            case R.id.ibt_del:
+                Intent intent = new Intent();
+                intent.putExtra(MainActivity.ACTION_ID_DELETED, mission.getId());
+                getActivity().setResult(DetailedMissionActivity.RESULT_OK, intent);
+                deleteMission();
+                getActivity().finish();
+                break;
+            case R.id.ibt_share:
+                Toast.makeText(getActivity(), "SHARE ", Toast.LENGTH_SHORT).show();
+                View view = getActivity().getWindow().getDecorView();
+                view.setDrawingCacheEnabled(true);
+                view.buildDrawingCache();
+
+               screenshot = Bitmap.createBitmap(view.getDrawingCache(),
+                        0,
+                        215,// FIXME calculate it!
+                        getResources().getDisplayMetrics().widthPixels,
+                        getResources().getDisplayMetrics().widthPixels + 400);
+                if(mission != null) {
+                    ShareFragment shareFragment = ShareFragment.newInstance(mission);
+                    shareFragment.show(getActivity().getFragmentManager(), "share");
+                }
+                view.destroyDrawingCache();
+                break;
+            default:
+                break;
+        }
     }
 
     public interface OnMissionCreatedListener {
         void onMissionCreated(Mission mission);
+    }
+
+    public Bitmap getScreenshot() {
+        return screenshot;
     }
 }

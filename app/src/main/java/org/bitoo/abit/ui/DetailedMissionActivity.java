@@ -15,7 +15,6 @@ import org.bitoo.abit.mission.image.Mission;
 
 
 public class DetailedMissionActivity extends AppCompatActivity implements TweetInputFragment.OnTweetInputListener, DetailedMissionActivityFragment.OnMissionCreatedListener{
-    Bitmap screenshot;
     Mission mission = null;
 
     @Override
@@ -37,38 +36,6 @@ public class DetailedMissionActivity extends AppCompatActivity implements TweetI
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        switch (id) {
-            case R.id.action_share :
-                Toast.makeText(this, "SHARE ", Toast.LENGTH_SHORT).show();
-                View view = this.getWindow().getDecorView();
-                view.setDrawingCacheEnabled(true);
-                view.buildDrawingCache();
-
-                screenshot = Bitmap.createBitmap(view.getDrawingCache(),
-                        0,
-                        215,// FIXME calculate it!
-                        getResources().getDisplayMetrics().widthPixels,
-                        getResources().getDisplayMetrics().widthPixels + 400);
-                if(mission != null) {
-                    ShareFragment shareFragment = ShareFragment.newInstance(mission);
-                    shareFragment.show(this.getFragmentManager(), "share");
-                }
-                view.destroyDrawingCache();
-                break;
-            case R.id.action_delete :
-                DetailedMissionActivityFragment fragment =
-                        (DetailedMissionActivityFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment);
-                fragment.deleteMission();
-                Intent intent = new Intent();
-                intent.putExtra(MainActivity.ACTION_ID_DELETED, fragment.getMissionId());
-                setResult(RESULT_OK, intent);
-                finish();
-                break;
-            default:
-                this.finish();
-                break;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -78,7 +45,10 @@ public class DetailedMissionActivity extends AppCompatActivity implements TweetI
     }
 
     public Bitmap getScreen() {
-        return screenshot;
+        return ((DetailedMissionActivityFragment)
+                getSupportFragmentManager()
+                .findFragmentById(R.id.detailed_fragment))
+                .getScreenshot();
     }
 
     @Override

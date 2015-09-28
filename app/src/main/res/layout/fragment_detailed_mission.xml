@@ -8,17 +8,17 @@
                 android:paddingTop="@dimen/no_margin"
                 android:paddingBottom="@dimen/no_margin"
                 tools:context="org.bitoo.abit.ui.MainActivityFragment">
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height_detailed_mission"
-        android:id="@+id/tb_main"
-        app:title="Hello"
-        app:subtitle="A bit matters."
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-        </android.support.v7.widget.Toolbar>
-    <GridView
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/toolbar_height_detailed_mission"-->
+        <!--android:id="@+id/tb_main"-->
+        <!--app:title="Hello"-->
+        <!--app:subtitle="A bit matters."-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true">-->
+        <!--</android.support.v7.widget.Toolbar>-->
+    <in.srain.cube.views.GridViewWithHeaderAndFooter
         android:layout_below="@id/tb_main"
         android:id="@+id/gv_prog_image"
         android:layout_width="match_parent"
@@ -34,6 +34,7 @@
         android:id="@+id/bt_check"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_star_white_48dp"/>
+        android:src="@drawable/ic_star_white_48dp"
+        />
 
 </RelativeLayout>

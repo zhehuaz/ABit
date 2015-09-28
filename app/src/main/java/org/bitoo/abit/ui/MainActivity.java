@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             params[i] = tabs[i].getLayoutParams();
         }
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 Log.d(TAG, "position :" + position + "  positionOffset :" + positionOffset + "  positionOffsetPixels :" + positionOffsetPixels);
@@ -112,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 params[position].width = wideWidth - (int) (delta * positionOffset);
                 if(position < 3) {
                     params[position + 1].width = thinWidth + (int) (delta * positionOffset);
-                    //tabs[position + 1].setLayoutParams(params[position + 1]);
                 }
                 for(int i = 0;i < params.length;i ++)
                     tabs[i].setLayoutParams(params[i]);
