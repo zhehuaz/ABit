@@ -2,8 +2,10 @@ package org.bitoo.abit.ui.custom;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -57,7 +59,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
             mImageView = (SimpleDraweeView) itemView.findViewById(R.id.dv_mission_preview);
             card = (CardView) itemView.findViewById(R.id.cd_layout);
 
-            if(card != null) {
+            if (card != null) {
                 card.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -70,7 +72,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
         }
     }
 
-    public MissionListAdapter(Context context ,List<Mission> missions) {
+    public MissionListAdapter(Context context, List<Mission> missions) {
         this.context = context;
         this.missions = missions;
     }
@@ -89,8 +91,8 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
         //holder.mImageView.setImageBitmap(BitmapFactory.decodeFile(missions.get(position).getThemeImagePath()));
         holder.mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        if(holder.mImageView != null) {
-            // decode image async or lag
+        if (holder.mImageView != null) {
+            // decode image async or jank
             new AsyncTask<String, Integer, Bitmap>() {
                 @Override
                 protected Bitmap doInBackground(String... params) {
@@ -106,21 +108,23 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                             @Override
                             public void onGenerated(Palette palette) {
                                 Palette.Swatch lightMuted = palette.getLightMutedSwatch();
-                                Palette.Swatch darkMuted = palette.getDarkMutedSwatch();
                                 Palette.Swatch lightVibrant = palette.getLightVibrantSwatch();
-                                Palette.Swatch darkVibrant = palette.getDarkVibrantSwatch();
                                 if (holder.card != null) {
                                     if (lightVibrant != null) {
                                         holder.card.setCardBackgroundColor(lightVibrant.getRgb());
                                     } else if (lightMuted != null) {
                                         holder.card.setCardBackgroundColor(lightMuted.getRgb());
+                                    } else {
+                                        holder.card.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
                                     }
                                 }
                                 if (holder.mDateText != null) {
-                                    if (darkMuted != null) {
-                                        holder.mDateText.setTextColor(darkMuted.getTitleTextColor());
-                                    } else if (darkVibrant != null) {
-                                        holder.mDateText.setTextColor(darkVibrant.getTitleTextColor());
+                                    if (lightVibrant != null) {
+                                        holder.mDateText.setTextColor(lightVibrant.getTitleTextColor());
+                                    } else if (lightMuted != null) {
+                                        holder.mDateText.setTextColor(lightMuted.getTitleTextColor());
+                                    } else {
+                                        holder.mDateText.setTextColor(Color.parseColor("#DCDCDC"));
                                     }
                                 }
                             }
@@ -129,7 +133,7 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                 }
             }.execute(missions.get(position).getThemeImagePath());
         }
-            //Bitmap bitmap = ((BitmapDrawable) holder.mImageView.getDrawable()).getBitmap();
+        //Bitmap bitmap = ((BitmapDrawable) holder.mImageView.getDrawable()).getBitmap();
     }
 
     private void runEnterAnimation(View view, int position) {
