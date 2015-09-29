@@ -22,6 +22,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.ui.DetailedMissionActivity;
+import org.bitoo.abit.ui.HomeFragment;
 import org.bitoo.abit.ui.MainActivity;
 
 import java.io.File;
@@ -29,7 +30,7 @@ import java.sql.Date;
 import java.util.List;
 
 /**
- * Adapter to mission list in {@link org.bitoo.abit.ui.MainActivityFragment} using CardView.
+ * Adapter to mission list in {@link HomeFragment} using CardView.
  */
 public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.ViewHolder> {
     private static final int ANIMATED_ITEMS_COUNT = 4;
@@ -84,7 +85,6 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
         holder.mTitleText.setText(missions.get(position).getTitle());
         holder.mDateText.setText(new Date(missions.get(position).getCreateDate()).toString());
         holder.mDraweeView.setImageURI(Uri.fromFile(new File(missions.get(position).getThemeImagePath())));
-        holder.mDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         if (holder.mDraweeView != null) {
             // decode image async or jank
@@ -102,13 +102,13 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                         new Palette.Builder(bitmap).generate(new Palette.PaletteAsyncListener() {
                             @Override
                             public void onGenerated(Palette palette) {
-                                Palette.Swatch lightMuted = palette.getLightMutedSwatch();
                                 Palette.Swatch lightVibrant = palette.getLightVibrantSwatch();
+                                Palette.Swatch vibrant = palette.getVibrantSwatch();
                                 if (holder.mCard != null) {
                                     if (lightVibrant != null) {
                                         holder.mCard.setCardBackgroundColor(lightVibrant.getRgb());
-                                    } else if (lightMuted != null) {
-                                        holder.mCard.setCardBackgroundColor(lightMuted.getRgb());
+                                    } else if (vibrant != null) {
+                                        holder.mCard.setCardBackgroundColor(vibrant.getRgb());
                                     } else {
                                         holder.mCard.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
                                     }
@@ -116,8 +116,8 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                                 if (holder.mDateText != null) {
                                     if (lightVibrant != null) {
                                         holder.mDateText.setTextColor(lightVibrant.getTitleTextColor());
-                                    } else if (lightMuted != null) {
-                                        holder.mDateText.setTextColor(lightMuted.getTitleTextColor());
+                                    } else if (vibrant != null) {
+                                        holder.mDateText.setTextColor(vibrant.getTitleTextColor());
                                     } else {
                                         holder.mDateText.setTextColor(Color.parseColor("#DCDCDC"));
                                     }
@@ -128,7 +128,6 @@ public class MissionListAdapter extends RecyclerView.Adapter<MissionListAdapter.
                 }
             }.execute(missions.get(position).getThemeImagePath());
         }
-        //Bitmap bitmap = ((BitmapDrawable) holder.mDraweeView.getDrawable()).getBitmap();
     }
 
     private void runEnterAnimation(View view, int position) {

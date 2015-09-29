@@ -8,11 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.DragEvent;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -46,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Fragment> fragments;
     private ImageView[] tabs;
     private Toolbar toolbar;
-    public MainActivityFragment mainFragment;
+    public HomeFragment mainFragment;
     private RelativeLayout toolbarContainer;
 
     @Override
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // ViewPager and tabs
         fragments = new ArrayList<>();
         viewPager = (ViewPager) findViewById(R.id.vp_main);
-        mainFragment = new MainActivityFragment();
+        mainFragment = new HomeFragment();
         fragments.add(mainFragment);
         fragments.add(GalleryFragment.newInstance());
         fragments.add(ReservedFragment.newInstance());

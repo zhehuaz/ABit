@@ -1,20 +1,17 @@
 package org.bitoo.abit.ui;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 
 
-public class DetailedMissionActivity extends AppCompatActivity implements TweetInputFragment.OnTweetInputListener, DetailedMissionActivityFragment.OnMissionCreatedListener{
+public class DetailedMissionActivity extends AppCompatActivity implements TweetInputFragment.OnTweetInputListener, DetailedMissionFragment.OnMissionCreatedListener{
     Mission mission = null;
 
     @Override
@@ -41,11 +38,11 @@ public class DetailedMissionActivity extends AppCompatActivity implements TweetI
 
     @Override
     public void onTweetInput(Editable input) {
-        ((DetailedMissionActivityFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment)).onAddTweet(input);
+        ((DetailedMissionFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment)).onAddTweet(input);
     }
 
     public Bitmap getScreen() {
-        return ((DetailedMissionActivityFragment)
+        return ((DetailedMissionFragment)
                 getSupportFragmentManager()
                 .findFragmentById(R.id.detailed_fragment))
                 .getScreenshot();

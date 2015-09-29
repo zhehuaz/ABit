@@ -1,26 +1,19 @@
 package org.bitoo.abit.ui;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.AbsListView;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,28 +25,29 @@ import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Tweet;
 import org.bitoo.abit.ui.custom.ProgressBitmapAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 
-public class DetailedMissionActivityFragment extends Fragment implements View.OnClickListener {
+public class DetailedMissionFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "DetailedMissionFragment";
     private MissionSQLiteHelper sqlHelper;
     private GridViewWithHeaderAndFooter mGridView;
     private FloatingActionButton checkButton;
     private Mission mission;
     private ProgressBitmapAdapter bitmapAdapterProgress;
-    //Toolbar toolbar;
     private OnMissionCreatedListener mListener = null;
 
     private static final String COLOR_KEY = "img_pixel";
 
     private View header;
+    private RecyclerView footer;
     private SimpleDraweeView headerBg;
     private TextView titleText;
     private TextView mottoText;
@@ -68,16 +62,16 @@ public class DetailedMissionActivityFragment extends Fragment implements View.On
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment DetailedMissionActivityFragment.
+     * @return A new instance of fragment DetailedMissionFragment.
      */
-    public static DetailedMissionActivityFragment newInstance() {
-        DetailedMissionActivityFragment fragment = new DetailedMissionActivityFragment();
+    public static DetailedMissionFragment newInstance() {
+        DetailedMissionFragment fragment = new DetailedMissionFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public DetailedMissionActivityFragment() {
+    public DetailedMissionFragment() {
         // Required empty public constructor
     }
 
@@ -98,13 +92,15 @@ public class DetailedMissionActivityFragment extends Fragment implements View.On
 
         View fragmentView = inflater.inflate(R.layout.fragment_detailed_mission, container, false);
         mGridView = (GridViewWithHeaderAndFooter)fragmentView.findViewById(R.id.gv_prog_image);
-        header = inflater.inflate(R.layout.header_detailed_mission, mGridView, false);
+        header = inflater.inflate(R.layout.header_detailed_mission, container, false);
         headerBg = (SimpleDraweeView) header.findViewById(R.id.dv_header_bg);
         titleText = (TextView) header.findViewById(R.id.tv_mission_title);
         mottoText = (TextView) header.findViewById(R.id.tv_mission_motto);
         backBtn = (ImageButton) header.findViewById(R.id.ibt_back);
         shareBtn = (ImageButton) header.findViewById(R.id.ibt_share);
         delBtn = (ImageButton) header.findViewById(R.id.ibt_del);
+        footer = (RecyclerView) inflater.inflate(R.layout.footer_detailed_mission, container, false)
+                .findViewById(R.id.rv_history_list);
         return fragmentView;
     }
 
@@ -113,6 +109,7 @@ public class DetailedMissionActivityFragment extends Fragment implements View.On
         super.onActivityCreated(savedInstanceState);
         initToolbarAndGridView();
         initCheckButton();
+        initHistoryList();
     }
 
     @Override
@@ -152,22 +149,19 @@ public class DetailedMissionActivityFragment extends Fragment implements View.On
             bitmapAdapterProgress = new ProgressBitmapAdapter(getActivity(), mission);
             mGridView.setNumColumns(mission.getProgressImage().getWidth());
             mGridView.addHeaderView(header);
+            mGridView.addFooterView(footer);
             mGridView.setAdapter(bitmapAdapterProgress);
             mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(AbsListView absListView, int i) {
-                    Log.d(TAG, "Scroll State Changed : " + i);
+                    //Log.d(TAG, "Scroll State Changed : " + i);
                 }
 
                 @Override
-                public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-                    Log.d(TAG, "Scroll Statge : " + i + " " + i1 + " " + i2);
+                public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItem) {
+                    Log.d(TAG, "Scroll State : " + firstVisibleItem + " " + visibleItemCount + " " + totalItem);
                 }
             });
-
-
-
-
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), "Load Image source error.", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Load Image source error.");
@@ -189,6 +183,12 @@ public class DetailedMissionActivityFragment extends Fragment implements View.On
                 }
             }
         });
+    }
+
+    private void initHistoryList()
+    {
+        List<String> tweets = new ArrayList<>();
+        
     }
 
     /**

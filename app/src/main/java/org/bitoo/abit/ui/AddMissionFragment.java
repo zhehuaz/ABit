@@ -30,8 +30,8 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AddMissionActivityFragment extends Fragment implements View.OnClickListener{
-    private final static String TAG = "AddMissionActivityFragment";
+public class AddMissionFragment extends Fragment implements View.OnClickListener{
+    private final static String TAG = "AddMissionFragment";
     private ViewPager viewPager;
     private List<String> xmlPaths;
     private Button saveButton;
@@ -43,7 +43,7 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
 
 
     int currentPage = 0;
-    public AddMissionActivityFragment() {
+    public AddMissionFragment() {
 
     }
 

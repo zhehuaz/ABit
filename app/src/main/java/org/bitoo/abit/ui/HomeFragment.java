@@ -22,8 +22,8 @@ import org.bitoo.abit.utils.MissionSQLiteHelper;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class MainActivityFragment extends Fragment implements View.OnClickListener {
-    private final static String TAG = "MainActivityFragment";
+public class HomeFragment extends Fragment implements View.OnClickListener {
+    private final static String TAG = "HomeFragment";
 
     private final static String tempFilePath = "/storage/emulated/0/DCIM/bg_cardtest.jpg";
 
@@ -33,7 +33,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private List<Mission> missions;
     private FloatingActionButton addButton;
 
-    public MainActivityFragment() {
+    public HomeFragment() {
     }
 
     @Override
