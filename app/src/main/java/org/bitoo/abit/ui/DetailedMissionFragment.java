@@ -92,15 +92,15 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
 
         View fragmentView = inflater.inflate(R.layout.fragment_detailed_mission, container, false);
         mGridView = (GridViewWithHeaderAndFooter)fragmentView.findViewById(R.id.gv_prog_image);
-        header = inflater.inflate(R.layout.header_detailed_mission, container, false);
+        header = inflater.inflate(R.layout.header_detailed_mission, mGridView, false);
         headerBg = (SimpleDraweeView) header.findViewById(R.id.dv_header_bg);
         titleText = (TextView) header.findViewById(R.id.tv_mission_title);
         mottoText = (TextView) header.findViewById(R.id.tv_mission_motto);
         backBtn = (ImageButton) header.findViewById(R.id.ibt_back);
         shareBtn = (ImageButton) header.findViewById(R.id.ibt_share);
         delBtn = (ImageButton) header.findViewById(R.id.ibt_del);
-        footer = (RecyclerView) inflater.inflate(R.layout.footer_detailed_mission, container, false)
-                .findViewById(R.id.rv_history_list);
+        //footer = (RecyclerView) inflater.inflate(R.layout.footer_detailed_mission, mGridView, false)
+               // .findViewById(R.id.rv_history_list);
         return fragmentView;
     }
 
@@ -149,7 +149,7 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
             bitmapAdapterProgress = new ProgressBitmapAdapter(getActivity(), mission);
             mGridView.setNumColumns(mission.getProgressImage().getWidth());
             mGridView.addHeaderView(header);
-            mGridView.addFooterView(footer);
+            //mGridView.addFooterView(footer);
             mGridView.setAdapter(bitmapAdapterProgress);
             mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
                 @Override
@@ -188,7 +188,7 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
     private void initHistoryList()
     {
         List<String> tweets = new ArrayList<>();
-        
+
     }
 
     /**

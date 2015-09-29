@@ -2,9 +2,10 @@ package org.bitoo.abit.ui.custom;
 
 import android.app.Activity;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
@@ -38,19 +39,21 @@ public class BitmapViewPagerAdapter extends PagerAdapter{
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        GridView gridView = (GridView)context.getLayoutInflater().inflate(R.layout.gv_preview, null);
-        //gridView.setStretchMode(GridView.NO_STRETCH);
+        //GridView gridView = (GridView)context.getLayoutInflater().inflate(R.layout.gv_preview, null);
+        RecyclerView recyclerView = (RecyclerView) context.getLayoutInflater().inflate(R.layout.rv_progress, container, false);
         try {
             Mission mission = new Mission(context, null, 0, xmlPathList.get(position), null, null);
             mission.getProgressImage().loadImage(context);
-            gridView.setAdapter(new BitmapAdapter(context, mission));
-            gridView.setNumColumns(mission.getProgressImage().getWidth());
+            //gridView.setAdapter(new BitmapAdapter(context, mission));
+            //gridView.setNumColumns(mission.getProgressImage().getWidth());
+            recyclerView.setAdapter(new BitmapAdapter2(context, mission));
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mission.getProgressImage().getWidth()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        container.addView(gridView);
+        container.addView(recyclerView);
 
-        return gridView;
+        return recyclerView;
     }
 }

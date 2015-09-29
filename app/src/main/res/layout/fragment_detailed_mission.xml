@@ -25,6 +25,13 @@
         android:layout_height="match_parent"
         />
 
+    <!--<org.bitoo.abit.ui.custom.MissionGridView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/mgv_prog_image"-->
+        <!--/>-->
+
+
     <android.support.design.widget.FloatingActionButton
         android:layout_width="55dp"
         android:layout_height="55dp"
