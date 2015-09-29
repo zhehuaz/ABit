@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.util.Log;
@@ -23,6 +24,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Tweet;
+import org.bitoo.abit.ui.custom.BitmapAdapter2;
+import org.bitoo.abit.ui.custom.MissionGridView;
 import org.bitoo.abit.ui.custom.ProgressBitmapAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
@@ -38,7 +41,9 @@ import in.srain.cube.views.GridViewWithHeaderAndFooter;
 public class DetailedMissionFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "DetailedMissionFragment";
     private MissionSQLiteHelper sqlHelper;
+
     private GridViewWithHeaderAndFooter mGridView;
+    private MissionGridView missionGridView;
     private FloatingActionButton checkButton;
     private Mission mission;
     private ProgressBitmapAdapter bitmapAdapterProgress;
@@ -56,7 +61,6 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
     private ImageButton delBtn;
 
     Bitmap screenshot;
-
 
     /**
      * Use this factory method to create a new instance of
@@ -91,8 +95,12 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
                              Bundle savedInstanceState) {
 
         View fragmentView = inflater.inflate(R.layout.fragment_detailed_mission, container, false);
-        mGridView = (GridViewWithHeaderAndFooter)fragmentView.findViewById(R.id.gv_prog_image);
-        header = inflater.inflate(R.layout.header_detailed_mission, mGridView, false);
+//        mGridView = (GridViewWithHeaderAndFooter)fragmentView.findViewById(R.id.gv_prog_image);
+//        missionGridView = (RecyclerView) inflater.inflate(R.layout.rv_progress, container, false);
+          missionGridView = (MissionGridView) fragmentView.findViewById(R.id.mgv_prog_image);
+        header = inflater.inflate(R.layout.header_detailed_mission, container, false);
+
+
         headerBg = (SimpleDraweeView) header.findViewById(R.id.dv_header_bg);
         titleText = (TextView) header.findViewById(R.id.tv_mission_title);
         mottoText = (TextView) header.findViewById(R.id.tv_mission_motto);
@@ -146,22 +154,29 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
             shareBtn.setOnClickListener(this);
             delBtn.setOnClickListener(this);
 
-            bitmapAdapterProgress = new ProgressBitmapAdapter(getActivity(), mission);
-            mGridView.setNumColumns(mission.getProgressImage().getWidth());
-            mGridView.addHeaderView(header);
+//            bitmapAdapterProgress = new ProgressBitmapAdapter(getActivity(), mission);
+//            mGridView.setNumColumns(mission.getProgressImage().getWidth());
+//            mGridView.addHeaderView(header);
             //mGridView.addFooterView(footer);
-            mGridView.setAdapter(bitmapAdapterProgress);
-            mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(AbsListView absListView, int i) {
-                    //Log.d(TAG, "Scroll State Changed : " + i);
-                }
 
-                @Override
-                public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItem) {
-                    Log.d(TAG, "Scroll State : " + firstVisibleItem + " " + visibleItemCount + " " + totalItem);
-                }
-            });
+//            missionGridView.setAdapter(new BitmapAdapter2(getActivity(), mission));
+            missionGridView.setMission(mission);
+            missionGridView.setHeaderView(header);
+            missionGridView.build();
+//            missionGridView.setLayoutManager(new GridLayoutManager(getActivity(), mission.getProgressImage().getWidth()));
+
+//            mGridView.setAdapter(bitmapAdapterProgress);
+//            mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//                @Override
+//                public void onScrollStateChanged(AbsListView absListView, int i) {
+//                    //Log.d(TAG, "Scroll State Changed : " + i);
+//                }
+//
+//                @Override
+//                public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItem) {
+//                    Log.d(TAG, "Scroll State : " + firstVisibleItem + " " + visibleItemCount + " " + totalItem);
+//                }
+//            });
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), "Load Image source error.", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Load Image source error.");

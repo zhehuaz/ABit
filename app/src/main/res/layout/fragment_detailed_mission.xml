@@ -18,18 +18,18 @@
         <!--android:layout_alignParentLeft="true"-->
         <!--android:layout_alignParentStart="true">-->
         <!--</android.support.v7.widget.Toolbar>-->
-    <in.srain.cube.views.GridViewWithHeaderAndFooter
-        android:layout_below="@id/tb_main"
-        android:id="@+id/gv_prog_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
 
-    <!--<org.bitoo.abit.ui.custom.MissionGridView-->
+    <!--<in.srain.cube.views.GridViewWithHeaderAndFooter-->
+        <!--android:id="@+id/gv_prog_image"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/mgv_prog_image"-->
         <!--/>-->
+
+    <org.bitoo.abit.ui.custom.MissionGridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mgv_prog_image"
+        />
 
 
     <android.support.design.widget.FloatingActionButton

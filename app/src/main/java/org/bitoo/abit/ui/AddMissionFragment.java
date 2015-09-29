@@ -62,7 +62,7 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
         xmlPaths.add("pacmonster.xml");
         viewPager.setAdapter(new BitmapViewPagerAdapter(getActivity(), xmlPaths));
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
