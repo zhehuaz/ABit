@@ -117,7 +117,7 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
         super.onActivityCreated(savedInstanceState);
         initToolbarAndGridView();
         initCheckButton();
-        initHistoryList();
+        //initHistoryList();
     }
 
     @Override
@@ -154,7 +154,7 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
             shareBtn.setOnClickListener(this);
             delBtn.setOnClickListener(this);
 
-//            bitmapAdapterProgress = new ProgressBitmapAdapter(getActivity(), mission);
+            bitmapAdapterProgress = new ProgressBitmapAdapter(getActivity(), mission);
 //            mGridView.setNumColumns(mission.getProgressImage().getWidth());
 //            mGridView.addHeaderView(header);
             //mGridView.addFooterView(footer);

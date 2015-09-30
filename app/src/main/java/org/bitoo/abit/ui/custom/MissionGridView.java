@@ -1,6 +1,7 @@
 package org.bitoo.abit.ui.custom;
 
 import android.content.Context;
+import android.opengl.Visibility;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -59,5 +60,24 @@ public class MissionGridView extends RecyclerView{
         });
 
         this.setLayoutManager(manager);
+    }
+
+    private AdapterDataObserver emptyObserver = new AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+            if(adapter != null && !adapter.hasHeader()) {
+                adapter.setHeaderVisibility(GONE);
+            }
+        }
+    };
+
+    @Override
+    public void setAdapter(Adapter adapter) {
+        super.setAdapter(adapter);
+
+        if(adapter != null) {
+            adapter.registerAdapterDataObserver(emptyObserver);
+        }
+        emptyObserver.onChanged();
     }
 }

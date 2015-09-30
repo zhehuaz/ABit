@@ -2,6 +2,9 @@ package org.bitoo.abit.ui.custom;
 
 import android.content.Context;
 import android.content.pm.PermissionInfo;
+import android.graphics.Color;
+import android.opengl.Visibility;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.util.Log;
@@ -9,11 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Pixel;
+import org.bitoo.abit.utils.ColorPalette;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -34,7 +40,7 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Mission mission;
 
     /** Pixels of the bitmap grid.*/
-    private List<Pixel> bitmap;
+    private List<Pixel> bitmap = null;
 
     private View header;
     private View footer;
@@ -44,7 +50,8 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public BitmapAdapter2(Context context, Mission mission) {
         this.context = context;
         this.mission = mission;
-        bitmap = mission.getProgressImage().getBitmap();
+        if(mission != null)
+            bitmap = mission.getProgressImage().getBitmap();
         header = LayoutInflater.from(context).inflate(R.layout.empty, null);
         footer = LayoutInflater.from(context).inflate(R.layout.empty, null);
         hasHeader = false;
@@ -69,18 +76,27 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return hasFooter;
     }
 
+    public void setHeaderVisibility(int visibility) {
+        header.setVisibility(visibility);
+    }
+
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_GRID :
                 return new BitmapViewHolder(LayoutInflater.from(context).inflate(R.layout.grid_pixel, parent, false));
             case VIEW_TYPE_FOOTER :
-                if(!hasFooter)
-                    footer.setVisibility(View.GONE);
+//                if(!hasFooter) {
+//                    //footer.setVisibility(View.GONE);
+////                    return new FooterViewHolder(null);
+//                }
                 return new FooterViewHolder(footer);
             case VIEW_TYPE_HEADER :
-                if(!hasHeader)
-                    header.setVisibility(View.GONE);
+//                if(!hasHeader) {
+//                    //header.setVisibility(View.GONE);
+////                    return new HeaderViewHolder(null);
+//                }
                 return new HeaderViewHolder(header);
             default:
                 Log.e(TAG, "unknown view type");
@@ -89,9 +105,29 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof BitmapViewHolder)
-            ((BitmapViewHolder)holder).pixelView.setBackgroundColor((int) bitmap.get(position - 1).getPixel());
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        if(holder instanceof BitmapViewHolder) {
+            if(mission.getTitle() != null) {
+                if(mission.getProgressMask(position - 1)) {
+                    ((BitmapViewHolder) holder).pixelView.setBackgroundColor((int) bitmap.get(position - 1).getPixel());
+                    ((BitmapViewHolder) holder).pixelView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            try {
+                                Toast.makeText(context, position + " : " + mission.loadTweet(position).getText(), Toast.LENGTH_SHORT).show();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+                else
+                    ((BitmapViewHolder) holder).pixelView.setBackgroundColor(ColorPalette.grayer((int) bitmap.get(position - 1).getPixel()));
+            } else {
+                ((BitmapViewHolder) holder).pixelView.setBackgroundColor((int) bitmap.get(position - 1).getPixel());
+            }
+
+        }
     }
 
     @Override

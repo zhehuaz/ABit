@@ -40,14 +40,17 @@ public class BitmapViewPagerAdapter extends PagerAdapter{
     public Object instantiateItem(ViewGroup container, int position) {
 
         //GridView gridView = (GridView)context.getLayoutInflater().inflate(R.layout.gv_preview, null);
-        RecyclerView recyclerView = (RecyclerView) context.getLayoutInflater().inflate(R.layout.rv_progress, container, false);
+        // TODO Change variable name
+        MissionGridView recyclerView = (MissionGridView) context.getLayoutInflater().inflate(R.layout.mgv_progress, container, false);
         try {
             Mission mission = new Mission(context, null, 0, xmlPathList.get(position), null, null);
             mission.getProgressImage().loadImage(context);
             //gridView.setAdapter(new BitmapAdapter(context, mission));
             //gridView.setNumColumns(mission.getProgressImage().getWidth());
-            recyclerView.setAdapter(new BitmapAdapter2(context, mission));
-            recyclerView.setLayoutManager(new GridLayoutManager(context, mission.getProgressImage().getWidth()));
+//            recyclerView.setAdapter(new BitmapAdapter2(context, mission));
+//            recyclerView.setLayoutManager(new GridLayoutManager(context, mission.getProgressImage().getWidth()));
+            recyclerView.setMission(mission);
+            recyclerView.build();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
