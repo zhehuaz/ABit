@@ -1,4 +1,4 @@
-package org.bitoo.abit.ui.custom;
+package org.bitoo.abit.ui.custom.progress;
 
 import android.content.Context;
 import android.content.pm.PermissionInfo;
@@ -23,7 +23,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/9/29.
+ * The adapter for {@link MissionGridView}.
  */
 public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private final static String TAG = "BitmapAdapter2";
@@ -31,8 +31,6 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final static int VIEW_TYPE_GRID = 0;
     private final static int VIEW_TYPE_HEADER = 1;
     private final static int VIEW_TYPE_FOOTER = 2;
-
-
 
     private Context context;
 
@@ -80,6 +78,9 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
         header.setVisibility(visibility);
     }
 
+    public void setFooterVisibility(int visibility) {
+        header.setVisibility(visibility);
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -87,16 +88,8 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case VIEW_TYPE_GRID :
                 return new BitmapViewHolder(LayoutInflater.from(context).inflate(R.layout.grid_pixel, parent, false));
             case VIEW_TYPE_FOOTER :
-//                if(!hasFooter) {
-//                    //footer.setVisibility(View.GONE);
-////                    return new FooterViewHolder(null);
-//                }
                 return new FooterViewHolder(footer);
             case VIEW_TYPE_HEADER :
-//                if(!hasHeader) {
-//                    //header.setVisibility(View.GONE);
-////                    return new HeaderViewHolder(null);
-//                }
                 return new HeaderViewHolder(header);
             default:
                 Log.e(TAG, "unknown view type");
