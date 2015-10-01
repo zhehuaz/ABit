@@ -9,7 +9,7 @@ colorful image appear, yet gray before filled, to encourage you.
 
 ## Environment
 	
-I'm currently using Android Studio 1.3.2 with Android Build Tools 22.1, Gradle 1.3.0
+I'm currently using Android Studio 1.3.2 with Android Build Build-Tools 23.0.1, Gradle 1.3.1
 
 ## Developers
 
