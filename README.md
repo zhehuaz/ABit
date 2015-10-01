@@ -15,13 +15,11 @@ I'm currently using Android Studio 1.3.2 with Android Build Build-Tools 23.0.1, 
 
 Welcome to contribute to this project.I'm trying to finish doc's editing and add some new features.In addition, I'm looking forward to advices.Here are some ideas not implemented:
 
-*	**Add new progress images programmingly.**Currently I draw them and code them manually into the XML files.
+*	**Add new progress images programmingly.**Currently I draw them and code them manually into the XML files.This feature is under development. See more at [ABitractor](https://github.com/LangleyChang/ABitractor).
 *	**More powerful sharing and sync function.**Though a partial screenshot can be generated and shared in Facebook now, I hope content here is able to be synchronized in cloud and users can get it everywhere.
 *	**Link to other apps.** I want to create a interface so that other apps about sports, study and so on are able to keep progress on ABit.Because they are good at detecting credible information of users' progress.
 
 ## License
 
 GNU Public License v2
-
-
 

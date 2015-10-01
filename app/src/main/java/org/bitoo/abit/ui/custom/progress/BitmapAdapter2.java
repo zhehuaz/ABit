@@ -17,6 +17,7 @@ import android.widget.Toast;
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Pixel;
+import org.bitoo.abit.mission.image.Tweet;
 import org.bitoo.abit.utils.ColorPalette;
 
 import java.io.FileNotFoundException;
@@ -107,7 +108,11 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         @Override
                         public void onClick(View v) {
                             try {
-                                Toast.makeText(context, position + " : " + mission.loadTweet(position).getText(), Toast.LENGTH_SHORT).show();
+                                Tweet quaryResult = mission.loadTweet(position - 1);
+                                if(quaryResult != null)
+                                    Toast.makeText(context, position + " : " + mission.loadTweet(position - 1).getText(), Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(context, "Unable to show", Toast.LENGTH_SHORT).show();
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }

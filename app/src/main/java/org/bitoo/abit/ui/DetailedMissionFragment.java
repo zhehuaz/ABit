@@ -22,8 +22,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.mission.image.Tweet;
+import org.bitoo.abit.ui.custom.progress.BitmapAdapter2;
 import org.bitoo.abit.ui.custom.progress.MissionGridView;
-import org.bitoo.abit.ui.custom.ProgressBitmapAdapter;
 import org.bitoo.abit.utils.MissionSQLiteHelper;
 
 import java.io.File;
@@ -33,17 +33,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.srain.cube.views.GridViewWithHeaderAndFooter;
-
 public class DetailedMissionFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "DetailedMissionFragment";
     private MissionSQLiteHelper sqlHelper;
 
-    private GridViewWithHeaderAndFooter mGridView;
     private MissionGridView missionGridView;
+    private BitmapAdapter2 missionGridAdapter;
     private FloatingActionButton checkButton;
     private Mission mission;
-    private ProgressBitmapAdapter bitmapAdapterProgress;
     private OnMissionCreatedListener mListener = null;
 
     private static final String COLOR_KEY = "img_pixel";
@@ -94,7 +91,7 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
         View fragmentView = inflater.inflate(R.layout.fragment_detailed_mission, container, false);
 //        mGridView = (GridViewWithHeaderAndFooter)fragmentView.findViewById(R.id.gv_prog_image);
 //        missionGridView = (RecyclerView) inflater.inflate(R.layout.rv_progress, container, false);
-          missionGridView = (MissionGridView) fragmentView.findViewById(R.id.mgv_prog_image);
+        missionGridView = (MissionGridView) fragmentView.findViewById(R.id.mgv_prog_image);
         header = inflater.inflate(R.layout.header_detailed_mission, container, false);
 
 
@@ -151,29 +148,12 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
             shareBtn.setOnClickListener(this);
             delBtn.setOnClickListener(this);
 
-            bitmapAdapterProgress = new ProgressBitmapAdapter(getActivity(), mission);
-//            mGridView.setNumColumns(mission.getProgressImage().getWidth());
-//            mGridView.addHeaderView(header);
-            //mGridView.addFooterView(footer);
 
-//            missionGridView.setAdapter(new BitmapAdapter2(getActivity(), mission));
             missionGridView.setMission(mission);
             missionGridView.setHeaderView(header);
             missionGridView.build();
-//            missionGridView.setLayoutManager(new GridLayoutManager(getActivity(), mission.getProgressImage().getWidth()));
+            missionGridAdapter = (BitmapAdapter2)missionGridView.getAdapter();
 
-//            mGridView.setAdapter(bitmapAdapterProgress);
-//            mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
-//                @Override
-//                public void onScrollStateChanged(AbsListView absListView, int i) {
-//                    //Log.d(TAG, "Scroll State Changed : " + i);
-//                }
-//
-//                @Override
-//                public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItem) {
-//                    Log.d(TAG, "Scroll State : " + firstVisibleItem + " " + visibleItemCount + " " + totalItem);
-//                }
-//            });
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), "Load Image source error.", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Load Image source error.");
@@ -214,8 +194,7 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
                 sqlHelper.updateProgress(mission);
                 try {
                     mission.addTweet(new Tweet(position, tweet.toString()));
-                    bitmapAdapterProgress.notifyDataSetChanged();
-                    //checkButton.setClickable(false);
+                    missionGridAdapter.notifyDataSetChanged();
                 } catch (IOException e) {
                     Toast.makeText(getActivity(), "Error when adding Tweet", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
