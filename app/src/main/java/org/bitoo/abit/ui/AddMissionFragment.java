@@ -3,8 +3,6 @@ package org.bitoo.abit.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,34 +13,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.ui.custom.BitmapViewPagerAdapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AddMissionActivityFragment extends Fragment implements View.OnClickListener{
-    private final static String TAG = "AddMissionActivityFragment";
+public class AddMissionFragment extends Fragment implements View.OnClickListener{
+    private final static String TAG = "AddMissionFragment";
     private ViewPager viewPager;
     private List<String> xmlPaths;
     private Button saveButton;
-    private Button selcButton;
+    private Button slcButton;
     private EditText titleText;
     private EditText mottoText;
     private String themeImagePath = null;
-    private RelativeLayout themePreviewLayout;
-
+    private SimpleDraweeView themePreview;
 
     int currentPage = 0;
-    public AddMissionActivityFragment() {
 
-    }
+    public AddMissionFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,10 +49,10 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
         titleText = (EditText) view.findViewById(R.id.et_ms_title);
         mottoText = (EditText) view.findViewById(R.id.et_ms_second_title);
         saveButton = (Button) view.findViewById(R.id.bt_save);
-        selcButton = (Button) view.findViewById(R.id.bt_selc);
-        themePreviewLayout = (RelativeLayout) view.findViewById(R.id.rl_theme_prev);
+        slcButton = (Button) view.findViewById(R.id.bt_selc);
+        themePreview = (SimpleDraweeView) view.findViewById(R.id.dv_theme_prev);
         saveButton.setOnClickListener(this);
-        selcButton.setOnClickListener(this);
+        slcButton.setOnClickListener(this);
 
         viewPager = (ViewPager) view.findViewById(R.id.vp_prev);
         xmlPaths = new ArrayList<>();
@@ -64,7 +62,7 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
         xmlPaths.add("pacmonster.xml");
         viewPager.setAdapter(new BitmapViewPagerAdapter(getActivity(), xmlPaths));
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -90,13 +88,6 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
 
     }
 
-
- //   new Mission(getActivity(),
-    //                    "离开QQ",
-//                    System.currentTimeMillis(),
-//                    "pacmonster.xml",
-//                    "拒绝低头！",
-//                    tempFilePath);
     @Override
     public void onClick(View v) {
 
@@ -126,7 +117,7 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
                 getActivity().setResult(Activity.RESULT_OK, intent);
                 getActivity().finish();
             }
-        } else if(v.getId() == selcButton.getId()) {
+        } else if(v.getId() == slcButton.getId()) {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, AddMissionActivity.REQUEST_SELECT_THEME_IMAGE);
         }
@@ -149,7 +140,8 @@ public class AddMissionActivityFragment extends Fragment implements View.OnClick
             cursor.close();
             themeImagePath = picturePath;
 
-            themePreviewLayout.setBackground(new BitmapDrawable(getResources(), BitmapFactory.decodeFile(picturePath)));
+            themePreview.setImageURI(Uri.fromFile(new File(picturePath)));
+            //themePreviewLayout.setBackground(new BitmapDrawable(getResources(), BitmapFactory.decodeFile(picturePath)));
 
         }
     }

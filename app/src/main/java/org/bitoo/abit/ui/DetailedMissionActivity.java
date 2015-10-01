@@ -1,21 +1,17 @@
 package org.bitoo.abit.ui;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.image.Mission;
 
 
-public class DetailedMissionActivity extends AppCompatActivity implements TweetInputFragment.OnTweetInputListener, DetailedMissionActivityFragment.OnMissionCreatedListener{
-    Bitmap screenshot;
+public class DetailedMissionActivity extends AppCompatActivity implements TweetInputFragment.OnTweetInputListener, DetailedMissionFragment.OnMissionCreatedListener{
     Mission mission = null;
 
     @Override
@@ -37,48 +33,19 @@ public class DetailedMissionActivity extends AppCompatActivity implements TweetI
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        switch (id) {
-            case R.id.action_share :
-                Toast.makeText(this, "SHARE ", Toast.LENGTH_SHORT).show();
-                View view = this.getWindow().getDecorView();
-                view.setDrawingCacheEnabled(true);
-                view.buildDrawingCache();
-
-                screenshot = Bitmap.createBitmap(view.getDrawingCache(),
-                        0,
-                        215,// FIXME calculate it!
-                        getResources().getDisplayMetrics().widthPixels,
-                        getResources().getDisplayMetrics().widthPixels + 400);
-                if(mission != null) {
-                    ShareFragment shareFragment = ShareFragment.newInstance(mission);
-                    shareFragment.show(this.getFragmentManager(), "share");
-                }
-                view.destroyDrawingCache();
-                break;
-            case R.id.action_delete :
-                DetailedMissionActivityFragment fragment =
-                        (DetailedMissionActivityFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment);
-                fragment.deleteMission();
-                Intent intent = new Intent();
-                intent.putExtra(MainActivity.ACTION_ID_DELETED, fragment.getMissionId());
-                setResult(RESULT_OK, intent);
-                finish();
-                break;
-            default:
-                this.finish();
-                break;
-        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onTweetInput(Editable input) {
-        ((DetailedMissionActivityFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment)).onAddTweet(input);
+        ((DetailedMissionFragment) getSupportFragmentManager().findFragmentById(R.id.detailed_fragment)).onAddTweet(input);
     }
 
     public Bitmap getScreen() {
-        return screenshot;
+        return ((DetailedMissionFragment)
+                getSupportFragmentManager()
+                .findFragmentById(R.id.detailed_fragment))
+                .getScreenshot();
     }
 
     @Override

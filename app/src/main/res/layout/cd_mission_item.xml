@@ -18,10 +18,11 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="170dp">
-            <ImageView
-                android:id="@+id/iv_mission_preview"
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/dv_mission_preview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="centerCrop"
                 />
             <FrameLayout
                 android:id="@+id/ly_card_panel"

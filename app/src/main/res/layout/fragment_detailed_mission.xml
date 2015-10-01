@@ -3,30 +3,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
                 android:paddingLeft="@dimen/no_margin"
                 android:paddingRight="@dimen/no_margin"
                 android:paddingTop="@dimen/no_margin"
                 android:paddingBottom="@dimen/no_margin"
-                tools:context="org.bitoo.abit.ui.MainActivityFragment">
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height_detailed_mission"
-        android:id="@+id/tb_main"
-        app:title="Hello"
-        app:subtitle="A bit matters."
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-        </android.support.v7.widget.Toolbar>
-    <GridView
-        android:layout_below="@id/tb_main"
-        android:id="@+id/gv_prog_image"
+                tools:context="org.bitoo.abit.ui.HomeFragment">
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/toolbar_height_detailed_mission"-->
+        <!--android:id="@+id/tb_main"-->
+        <!--app:title="Hello"-->
+        <!--app:subtitle="A bit matters."-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true">-->
+        <!--</android.support.v7.widget.Toolbar>-->
+
+    <!--<in.srain.cube.views.GridViewWithHeaderAndFooter-->
+        <!--android:id="@+id/gv_prog_image"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--/>-->
+
+    <org.bitoo.abit.ui.custom.progress.MissionGridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/mgv_prog_image"
         />
 
-    <com.gc.materialdesign.views.ButtonFloatSmall
+
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginTop="@dimen/button_align_toolbar"
@@ -35,6 +41,7 @@
         android:id="@+id/bt_check"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        materialdesign:iconDrawable="@drawable/ic_star_white_48dp"/>
+        android:src="@drawable/ic_star_white_48dp"
+        />
 
 </RelativeLayout>

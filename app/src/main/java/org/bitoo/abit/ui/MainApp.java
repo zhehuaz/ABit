@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.facebook.FacebookSdk;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.utils.FileHandler;
@@ -25,6 +26,7 @@ public class MainApp extends Application {
         super.onCreate();
         Log.d(TAG, "In MainApp onCreate()");
         FacebookSdk.sdkInitialize(getApplicationContext());
+        Fresco.initialize(this);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int checkNum = preferences.getInt(VERSION_KEY, 0);
         Log.i(TAG, "checkNum is " + checkNum);

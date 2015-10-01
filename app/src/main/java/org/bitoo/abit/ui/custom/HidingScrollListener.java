@@ -2,11 +2,6 @@ package org.bitoo.abit.ui.custom;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.util.Log;
-
-import com.gc.materialdesign.utils.Utils;
 
 import org.bitoo.abit.utils.LayoutHelper;
 

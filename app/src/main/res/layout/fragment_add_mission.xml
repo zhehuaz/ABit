@@ -6,7 +6,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="org.bitoo.abit.ui.AddMissionActivityFragment">
+                tools:context="org.bitoo.abit.ui.AddMissionFragment">
 
 
     <android.support.v4.view.ViewPager
@@ -20,9 +20,14 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/vp_prev"
-        android:background="@drawable/blank"
         android:id="@+id/rl_theme_prev"
         >
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/dv_theme_prev"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/blank"
+            />
         <LinearLayout
             android:layout_width="320dp"
             android:layout_height="wrap_content"
