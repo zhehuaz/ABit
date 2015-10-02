@@ -3,12 +3,15 @@ package org.bitoo.abit.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -71,12 +74,45 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
             @Override
             public void onPageSelected(int position) {
                 currentPage = position;
-               // Log.d(TAG, String.valueOf(position));
+                // Log.d(TAG, String.valueOf(position));
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        themePreview.setOnTouchListener(new View.OnTouchListener() {
+            private PointF curFocus = new PointF(.5f, .5f);
+            float oldX;
+            float oldY;
+            float deltaX;
+            float deltaY;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                SimpleDraweeView view = (SimpleDraweeView)v;
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d(TAG, "action down");
+                        oldX = event.getX();
+                        oldY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        Log.d(TAG, "action move");
+                        deltaX = event.getX() - oldX;
+                        deltaY = event.getY() - oldY;
+                        oldX = event.getX();
+                        oldY = event.getY();
+                        curFocus.offset(-deltaX / 500, -deltaY / 500); // TODO by image's size
+                        // TODO save the image's area selected
+                        view.getHierarchy().setActualImageFocusPoint(curFocus);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        Log.d(TAG, "action up");
+                        break;
+                }
+                return true;
             }
         });
         return view;
