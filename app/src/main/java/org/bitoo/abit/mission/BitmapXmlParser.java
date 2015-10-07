@@ -1,4 +1,4 @@
-package org.bitoo.abit.utils;
+package org.bitoo.abit.mission;
 
 import android.graphics.Color;
 
@@ -23,7 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
 /**
  * Parse {@link BitmapImage} from a xml file.
  */
-public class ImageXmlParser {
+public class BitmapXmlParser {
     private List<Pixel> bitmap;
     private int height = 0;
     private int width = 0;

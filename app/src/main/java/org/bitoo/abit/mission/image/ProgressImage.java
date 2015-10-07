@@ -1,7 +1,5 @@
 package org.bitoo.abit.mission.image;
 
-import org.bitoo.abit.storage.ImageStorage;
-
 import java.util.List;
 
 /**
@@ -11,7 +9,7 @@ import java.util.List;
  *  The elements of ProgressImage is {@link #bitmap}
  *  in data structure of {@link Pixel}
  */
-public abstract class ProgressImage implements ImageStorage {
+public abstract class ProgressImage{
 
     /** Attention, this name is usually complete fileName.*/
     protected String name;

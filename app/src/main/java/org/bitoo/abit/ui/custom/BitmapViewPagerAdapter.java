@@ -40,7 +40,7 @@ public class BitmapViewPagerAdapter extends PagerAdapter{
         MissionGridView progressGrid = (MissionGridView) context.getLayoutInflater().inflate(R.layout.mgv_progress, container, false);
         try {
             Mission mission = new Mission(context, null, 0, xmlPathList.get(position), null, null);
-            mission.getProgressImage().loadImage(context);
+            //mission.getProgressImage().loadImage(context);
             progressGrid.setMission(mission);
             progressGrid.build();
         } catch (FileNotFoundException e) {

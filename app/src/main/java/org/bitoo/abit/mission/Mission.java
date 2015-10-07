@@ -82,7 +82,8 @@ public class Mission{
                    String themeImagePath)
             throws FileNotFoundException {
         this(context, 0, title, createDate, createDate - MILLIS_OF_ONE_DAY, motto, false, themeImagePath);
-        this.progressImage = new BitmapImage(XmlBitmapPath);
+        this.progressImage = new BitmapImage(context, XmlBitmapPath);
+        //this.progressImage.loadImage(context);
         this.progressMask = new byte[MAX_MARK_CONTAIN];
     }
 
@@ -132,8 +133,8 @@ public class Mission{
                    boolean isDone,
                    String themeImagePath) throws FileNotFoundException {
         this(context, id, title, createDate, lastCheckDate, motto, isDone, themeImagePath);
-        progressImage = new BitmapImage(XmlBitmapPath);
-        progressImage.loadImage(context, XmlBitmapPath);
+        progressImage = new BitmapImage(context, XmlBitmapPath);
+        //progressImage.loadImage(context);
         this.progressMask = progressMask;
         this.tweetFilePath = tweetFilePath;
         this.motto = motto;
