@@ -20,11 +20,11 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.Mission;
-import org.bitoo.abit.mission.image.Tweet;
+import org.bitoo.abit.mission.Mission;
+import org.bitoo.abit.mission.Tweet;
 import org.bitoo.abit.ui.custom.progress.BitmapAdapter2;
 import org.bitoo.abit.ui.custom.progress.MissionGridView;
-import org.bitoo.abit.utils.MissionSQLiteHelper;
+import org.bitoo.abit.mission.MissionSQLiteHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.mission.Mission;
 import org.bitoo.abit.ui.custom.progress.MissionGridView;
 
 import java.io.FileNotFoundException;

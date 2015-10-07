@@ -4,33 +4,17 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.provider.MediaStore;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.facebook.FacebookRequestError;
-import com.facebook.share.ShareApi;
-import com.facebook.share.model.ShareOpenGraphAction;
-import com.facebook.share.model.ShareOpenGraphContent;
-import com.facebook.share.model.ShareOpenGraphObject;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.Mission;
-
-import java.net.URL;
-
-import fr.tvbarthel.lib.blurdialogfragment.BlurDialogFragment;
+import org.bitoo.abit.mission.Mission;
 
 public class ShareFragment extends BaseDialogFragment {
     private ImageView screenshotView;

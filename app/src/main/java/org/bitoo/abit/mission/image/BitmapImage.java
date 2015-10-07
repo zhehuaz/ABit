@@ -20,12 +20,12 @@ public class BitmapImage extends ProgressImage {
 
     private ImageXmlParser imageParser = new ImageXmlParser();
 
-    BitmapImage() {
+    public BitmapImage() {
     }
-    BitmapImage(String imageName) {
+    public BitmapImage(String imageName) {
         name = imageName;
     }
-    BitmapImage(int height, int width, int amount) {
+    public BitmapImage(int height, int width, int amount) {
         this.height = height;
         this.width = width;
         this.amount = amount;

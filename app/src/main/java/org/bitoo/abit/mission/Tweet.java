@@ -1,4 +1,4 @@
-package org.bitoo.abit.mission.image;
+package org.bitoo.abit.mission;
 
 /**
  * A tweet is a tiny message noted for daily check.

@@ -1,9 +1,9 @@
-package org.bitoo.abit.utils;
+package org.bitoo.abit.mission;
 
 import android.content.Context;
 
 import org.bitoo.abit.mission.image.BitmapImage;
-import org.bitoo.abit.mission.image.Tweet;
+import org.bitoo.abit.mission.Tweet;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;

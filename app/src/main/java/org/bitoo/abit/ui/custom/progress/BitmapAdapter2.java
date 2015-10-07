@@ -1,12 +1,7 @@
 package org.bitoo.abit.ui.custom.progress;
 
 import android.content.Context;
-import android.content.pm.PermissionInfo;
-import android.graphics.Color;
-import android.opengl.Visibility;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.mission.Mission;
 import org.bitoo.abit.mission.image.Pixel;
-import org.bitoo.abit.mission.image.Tweet;
+import org.bitoo.abit.mission.Tweet;
 import org.bitoo.abit.utils.ColorPalette;
 
 import java.io.FileNotFoundException;

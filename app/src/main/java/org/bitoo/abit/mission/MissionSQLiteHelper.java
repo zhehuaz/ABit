@@ -1,4 +1,4 @@
-package org.bitoo.abit.utils;
+package org.bitoo.abit.mission;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import org.bitoo.abit.mission.image.Mission;
 import org.bitoo.abit.storage.MissionStorage;
 
 import java.io.FileNotFoundException;

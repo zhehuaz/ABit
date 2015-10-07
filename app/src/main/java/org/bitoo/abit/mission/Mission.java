@@ -1,10 +1,12 @@
-package org.bitoo.abit.mission.image;
+package org.bitoo.abit.mission;
 
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.bitoo.abit.utils.TweetXmlParser;
+import org.bitoo.abit.mission.image.BitColor;
+import org.bitoo.abit.mission.image.BitmapImage;
+import org.bitoo.abit.mission.image.ProgressImage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

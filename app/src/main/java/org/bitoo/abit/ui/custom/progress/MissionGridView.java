@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
-import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.mission.Mission;
 
 /**
  * <p>A grid view to show mission progress with header and footer.

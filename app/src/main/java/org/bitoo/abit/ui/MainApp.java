@@ -11,7 +11,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.utils.FileHandler;
-import org.bitoo.abit.utils.MissionSQLiteHelper;
+import org.bitoo.abit.mission.MissionSQLiteHelper;
 
 import java.io.IOException;
 

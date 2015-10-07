@@ -1,5 +1,6 @@
 package org.bitoo.abit.ui;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,7 +8,7 @@ import android.view.MenuItem;
 
 import org.bitoo.abit.R;
 
-public class AddMissionActivity extends AppCompatActivity {
+public class AddMissionActivity extends AppCompatActivity implements ABitractorFragment.OnExtractCompleteListener{
 
     public final static int REQUEST_SELECT_THEME_IMAGE = 0x1;
     @Override
@@ -36,5 +37,14 @@ public class AddMissionActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     *
+     * @param uri
+     */
+    @Override
+    public void onExtractComplete(Uri uri) {
+
     }
 }

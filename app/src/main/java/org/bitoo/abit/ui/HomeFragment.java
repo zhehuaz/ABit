@@ -14,10 +14,10 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.mission.Mission;
 import org.bitoo.abit.ui.custom.HidingScrollListener;
 import org.bitoo.abit.ui.custom.MissionListAdapter;
-import org.bitoo.abit.utils.MissionSQLiteHelper;
+import org.bitoo.abit.mission.MissionSQLiteHelper;
 
 import java.io.FileNotFoundException;
 import java.util.List;
