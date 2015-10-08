@@ -1,6 +1,7 @@
 package org.bitoo.abit.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.PointF;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.bitoo.abit.R;
+import org.bitoo.abit.mission.image.BitmapImage;
 import org.bitoo.abit.ui.custom.BitmapViewPagerAdapter;
 
 import java.io.File;
@@ -33,6 +35,7 @@ import java.util.List;
 public class AddMissionFragment extends Fragment implements View.OnClickListener{
     private final static String TAG = "AddMissionFragment";
     private ViewPager viewPager;
+    private BitmapViewPagerAdapter viewPagerAdapter;
     private List<String> xmlPaths;
     private Button saveButton;
     private Button slcButton;
@@ -60,11 +63,15 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
         viewPager = (ViewPager) view.findViewById(R.id.vp_prev);
         xmlPaths = new ArrayList<>();
 
-        // TODO add these xml paths automatically
-        xmlPaths.add("mario.xml");
-        xmlPaths.add("pacmonster.xml");
-        viewPager.setAdapter(new BitmapViewPagerAdapter(getActivity(), xmlPaths));
-
+        // traverse all the xml files to load progress grid.
+        File[] files = new File(getActivity().getFilesDir().getAbsolutePath() + BitmapImage.STORAGE_PATH).listFiles();
+        for(File f : files) {
+            if(f.isFile()) {
+                xmlPaths.add(f.getName());
+            }
+        }
+        viewPagerAdapter = new BitmapViewPagerAdapter(getActivity(), xmlPaths);
+        viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -125,6 +132,14 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof AddMissionActivity) {
+            ((AddMissionActivity) context).fragment = this;
+        }
+    }
+
+    @Override
     public void onClick(View v) {
 
         if(v.getId() == saveButton.getId()) {
@@ -163,7 +178,7 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == AddMissionActivity.REQUEST_SELECT_THEME_IMAGE && resultCode == Activity.RESULT_OK) {// FIXME why -1?
+        if(requestCode == AddMissionActivity.REQUEST_SELECT_THEME_IMAGE && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
@@ -179,6 +194,9 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
             themePreview.setImageURI(Uri.fromFile(new File(picturePath)));
             //themePreviewLayout.setBackground(new BitmapDrawable(getResources(), BitmapFactory.decodeFile(picturePath)));
 
+        } else if(requestCode == AddMissionActivity.REQUEST_NEW_GRID && resultCode == Activity.RESULT_OK) {
+            //String xmlPath = data.getStringExtra(AddMissionActivity.NEW_PROGRESS_GRID);
+            viewPagerAdapter.notifyDataSetChanged();
         }
     }
 }

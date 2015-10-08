@@ -15,9 +15,9 @@ import android.view.animation.DecelerateInterpolator;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.Mission;
+import org.bitoo.abit.mission.MissionSQLiteHelper;
 import org.bitoo.abit.ui.custom.HidingScrollListener;
 import org.bitoo.abit.ui.custom.MissionListAdapter;
-import org.bitoo.abit.mission.MissionSQLiteHelper;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //                    System.currentTimeMillis(),
 //                    "pacmonster.xml",
 //                    "拒绝低头！",
-//                    tempFilePath);// TODO Temporarily
+//                    tempFilePath);
 //            mission.setId(sqLiteHelper.addMission(mission));
 //            missions.add(mission);
 //            adapter.notifyDataSetChanged();

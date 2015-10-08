@@ -19,7 +19,7 @@ public class FileHandler {
     public static void copyFile(Context context, InputStream is, String fileName)
             throws IOException {
         //FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
-        FileOutputStream fos = new FileOutputStream(new File(context.getFilesDir().getAbsolutePath() + "/" +fileName), true);
+        FileOutputStream fos = new FileOutputStream(new File(context.getFilesDir().getAbsolutePath() +fileName), true);
 
 
         int readCount;

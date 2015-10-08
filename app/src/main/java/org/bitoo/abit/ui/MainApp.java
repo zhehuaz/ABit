@@ -11,6 +11,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.bitoo.abit.R;
 import org.bitoo.abit.mission.MissionSQLiteHelper;
+import org.bitoo.abit.mission.image.BitmapImage;
 import org.bitoo.abit.utils.FileHandler;
 
 import java.io.IOException;
@@ -51,10 +52,10 @@ public class MainApp extends Application {
 
         //save raw images into internal storage
         try {
-            // FIXME : All the source files should be moved,is there a way to traversal R.raw?
-            FileHandler.createDirectory(getFilesDir().getAbsolutePath() + "/bitmaps/");
-            FileHandler.copyFile(this, getResources().openRawResource(R.raw.mario), "bitmaps/mario.xml");
-            FileHandler.copyFile(this, getResources().openRawResource(R.raw.pacmonster), "bitmaps/pacmonster.xml");
+            //
+            FileHandler.createDirectory(getFilesDir().getAbsolutePath() + BitmapImage.STORAGE_PATH);
+            FileHandler.copyFile(this, getResources().openRawResource(R.raw.mario), BitmapImage.STORAGE_PATH + "mario.xml");
+            FileHandler.copyFile(this, getResources().openRawResource(R.raw.pacmonster), BitmapImage.STORAGE_PATH + "pacmonster.xml");
         } catch (IOException e) {
             e.printStackTrace();
             Log.e(TAG, "Can't load image source");
