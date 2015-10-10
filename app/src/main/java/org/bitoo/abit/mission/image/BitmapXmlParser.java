@@ -1,10 +1,7 @@
-package org.bitoo.abit.mission;
+package org.bitoo.abit.mission.image;
 
 import android.graphics.Color;
 
-import org.bitoo.abit.mission.image.BitColor;
-import org.bitoo.abit.mission.image.BitmapImage;
-import org.bitoo.abit.mission.image.Pixel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -21,10 +18,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 /**
- * Parse {@link BitmapImage} from a xml file.
+ * Parse {@link BitmapGrid} from a xml file.
  */
 public class BitmapXmlParser {
-    private List<Pixel> bitmap;
+    private List<BitColor> bitmap;
     private int height = 0;
     private int width = 0;
     private int amount = 0;
@@ -70,7 +67,7 @@ public class BitmapXmlParser {
         width = Integer.parseInt(rootElement.getAttribute("width"));
         amount = Integer.parseInt(rootElement.getAttribute("amount"));
         //bitmap = new BitColor[height * width];
-        bitmap = new ArrayList<Pixel>();
+        bitmap = new ArrayList<BitColor>();
 
         // Traverse <bitcolor>s
         NodeList bitColors = rootElement.getChildNodes();// list of <bitcolor>
@@ -93,7 +90,7 @@ public class BitmapXmlParser {
 
     }
 
-    public List<Pixel> getBitmap() {
+    public List<BitColor> getBitmap() {
         return bitmap;
     }
 

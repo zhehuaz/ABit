@@ -2,8 +2,6 @@ package org.bitoo.abit.mission.image;
 
 import android.content.Context;
 
-import org.bitoo.abit.mission.BitmapXmlParser;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,29 +15,29 @@ import java.util.List;
  *
  * Pixel in this class is {@link BitColor}.
  */
-public class BitmapImage extends ProgressImage {
-    private final static String TAG = "BitmapImage";
+public class BitmapGrid extends ProgressGrid<BitColor> {
+    private final static String TAG = "BitmapGrid";
     public final static String STORAGE_PATH = "/bitmaps/";
 
     private BitmapXmlParser imageParser = new BitmapXmlParser();
     private Context context;
 
-    public BitmapImage() {
+    public BitmapGrid() {
     }
 
     @Deprecated
-    public BitmapImage(String imageName) {
+    public BitmapGrid(String imageName) {
         this.name = imageName;
     }
 
-    public BitmapImage(Context context, String imageName) throws FileNotFoundException {
+    public BitmapGrid(Context context, String imageName) throws FileNotFoundException {
         this.context = context;
         name = imageName;
         if(bitmap == null) {
             this.loadImage();
         }
     }
-    public BitmapImage(int height, int width, int amount) {
+    public BitmapGrid(int height, int width, int amount) {
         this.height = height;
         this.width = width;
         this.amount = amount;
@@ -82,7 +80,7 @@ public class BitmapImage extends ProgressImage {
     }
 
     @Override
-    public List<Pixel> getBitmap() {
+    public List<BitColor> getBitmap() {
         return bitmap;
     }
 }

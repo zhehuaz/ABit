@@ -7,17 +7,17 @@ public class BitColor implements Pixel<Integer>{
     /** X-axis of the pixel square.*/
     int x;
 
-        /** Y-axis of the pixel square.*/
-        int y;
+    /** Y-axis of the pixel square.*/
+    int y;
 
-        /** Color of the pixel square.*/
-        int color;
+    /** Color of the pixel square.*/
+    int color;
 
-        public BitColor(int x,int y,int color){
-            this.x = x;
-            this.y = y;
-            this.color = color;
-    }
+    public BitColor(int x,int y,int color){
+        this.x = x;
+        this.y = y;
+        this.color = color;
+}
 
     @Override
     public int getX() {

@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.BitmapImage;
+import org.bitoo.abit.mission.image.BitmapGrid;
 import org.bitoo.abit.ui.custom.BitmapViewPagerAdapter;
 
 import java.io.File;
@@ -64,7 +64,7 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
         xmlPaths = new ArrayList<>();
 
         // traverse all the xml files to load progress grid.
-        File[] files = new File(getActivity().getFilesDir().getAbsolutePath() + BitmapImage.STORAGE_PATH).listFiles();
+        File[] files = new File(getActivity().getFilesDir().getAbsolutePath() + BitmapGrid.STORAGE_PATH).listFiles();
         for(File f : files) {
             if(f.isFile()) {
                 xmlPaths.add(f.getName());

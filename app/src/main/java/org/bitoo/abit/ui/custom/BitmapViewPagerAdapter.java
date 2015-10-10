@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
- * Created by admin on 2015/9/17.
+ * Adapter of view pager for progress grids preview in {@link AddMissionActivity}.
  */
 public class BitmapViewPagerAdapter extends PagerAdapter{
 

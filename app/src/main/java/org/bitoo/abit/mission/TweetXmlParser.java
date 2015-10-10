@@ -2,7 +2,7 @@ package org.bitoo.abit.mission;
 
 import android.content.Context;
 
-import org.bitoo.abit.mission.image.BitmapImage;
+import org.bitoo.abit.mission.image.BitmapGrid;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -57,7 +57,7 @@ public class TweetXmlParser {
     /**
      * Get a tweet with index of position.
      * You can translate the Date into position.
-     * @param position of the tweet you want, in {@link BitmapImage}.
+     * @param position of the tweet you want, in {@link BitmapGrid}.
      * @return the tweet get
      * @throws FileNotFoundException
      */
