@@ -156,7 +156,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hideToolbar() {
-        toolbarContainer.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(5f)).start();
+        toolbarContainer.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(55f)).start();
+//        toolbarContainer.animate().translationY(-toolbar.getHeight()).setInterpolator(new Interpolator() {
+//            @Override
+//            public float getInterpolation(float input) {
+//                Log.d(TAG, input + "");
+//                return 1f - ((float)Math.pow((1f - input / 2), 2f));
+//            }
+//        }).start();
     }
 
     private void showToolbarAnimation() {

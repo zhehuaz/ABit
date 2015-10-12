@@ -25,8 +25,6 @@ import java.util.List;
 public class HomeFragment extends Fragment implements View.OnClickListener {
     private final static String TAG = "HomeFragment";
 
-    private final static String tempFilePath = "/storage/emulated/0/DCIM/bg_cardtest.jpg";
-
     private MissionSQLiteHelper sqLiteHelper;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -85,21 +83,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-//        Mission mission = null;
-//        try {
-//            mission = new Mission(getActivity(),
-//                    "离开QQ",
-//                    System.currentTimeMillis(),
-//                    "pacmonster.xml",
-//                    "拒绝低头！",
-//                    tempFilePath);
-//            mission.setId(sqLiteHelper.addMission(mission));
-//            missions.add(mission);
-//            adapter.notifyDataSetChanged();
-//            recyclerView.scrollToPosition(recyclerView.getChildCount() - 1);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
         Intent intent = new Intent(getActivity(), AddMissionActivity.class);
         startActivityForResult(intent, MainActivity.REQUEST_IS_NEW);
     }
@@ -135,7 +118,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-
                     //missions.add(newMission);
                 }
                 break;

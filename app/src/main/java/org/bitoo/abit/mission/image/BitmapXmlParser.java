@@ -21,9 +21,13 @@ import javax.xml.parsers.ParserConfigurationException;
  * Parse {@link BitmapGrid} from a xml file.
  */
 public class BitmapXmlParser {
+    /* The generated bitmap.*/
     private List<BitColor> bitmap;
+
     private int height = 0;
     private int width = 0;
+
+    /* The amount of pixels in cast the bitmap is not a rectangle.*/
     private int amount = 0;
 
     /**

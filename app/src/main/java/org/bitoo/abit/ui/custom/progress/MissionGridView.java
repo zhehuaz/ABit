@@ -9,7 +9,7 @@ import android.view.View;
 import org.bitoo.abit.mission.Mission;
 
 /**
- * <p>A grid view to show mission progress with header and footer.
+ * <p>A grid view to show mission progress available with header and footer.
  * </p>
  *
  * ATTENTION: Call {@link #setHeaderView(View)} and {@link #setFooterView(View)}
@@ -50,7 +50,7 @@ public class MissionGridView extends RecyclerView{
      */
     public MissionGridView setHeaderView(View header) {
         if(adapter != null)
-            adapter.addHeader(header);
+            adapter.setHeader(header);
         return this;
     }
 
@@ -60,7 +60,7 @@ public class MissionGridView extends RecyclerView{
      */
     public MissionGridView setFooterView(View footer) {
         if(adapter != null)
-            adapter.addFooter(footer);
+            adapter.setFooter(footer);
         return this;
     }
 
