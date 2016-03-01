@@ -1,7 +1,7 @@
 # ABit
 ###### A bit matters.
 
-<img src="http://zchang.me/wp-content/uploads/2015/09/S50920-224235.jpg" height="800"/>
+<img src="http://zhehua.me/wp-content/uploads/2015/09/S50920-224235.jpg" height="800"/>
 
 Keep a story of your ambition with ABit.It traces your steps when you persist by filling
 little blocks like GitHub does.What's more, when you keep on it every day, you'll see a
