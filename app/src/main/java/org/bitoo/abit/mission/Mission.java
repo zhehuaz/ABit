@@ -1,10 +1,12 @@
-package org.bitoo.abit.mission.image;
+package org.bitoo.abit.mission;
 
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.bitoo.abit.utils.TweetXmlParser;
+import org.bitoo.abit.mission.image.BitColor;
+import org.bitoo.abit.mission.image.BitmapGrid;
+import org.bitoo.abit.mission.image.ProgressGrid;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,7 +14,7 @@ import java.sql.Date;
 
 /**
  * A Mission is a progress memoir that marks your progress
- * of a particular task.The progress displays as {@link ProgressImage}.
+ * of a particular task.The progress displays as {@link ProgressGrid}.
  */
 public class Mission{
 
@@ -20,7 +22,7 @@ public class Mission{
     public final static long MILLIS_OF_ONE_DAY = 86400000;
     public final static long MILLIS_OF_EIGHT_HOURS = 28800000;
     protected final static int MAX_MARK_CONTAIN = 50;
-    protected ProgressImage progressImage;
+    protected ProgressGrid progressImage;
     protected TweetXmlParser tweetXmlParser;
 
     /**
@@ -80,7 +82,8 @@ public class Mission{
                    String themeImagePath)
             throws FileNotFoundException {
         this(context, 0, title, createDate, createDate - MILLIS_OF_ONE_DAY, motto, false, themeImagePath);
-        this.progressImage = new BitmapImage(XmlBitmapPath);
+        this.progressImage = new BitmapGrid(context, XmlBitmapPath);
+        //this.progressImage.loadImage(context);
         this.progressMask = new byte[MAX_MARK_CONTAIN];
     }
 
@@ -130,19 +133,19 @@ public class Mission{
                    boolean isDone,
                    String themeImagePath) throws FileNotFoundException {
         this(context, id, title, createDate, lastCheckDate, motto, isDone, themeImagePath);
-        progressImage = new BitmapImage(XmlBitmapPath);
-        progressImage.loadImage(context, XmlBitmapPath);
+        progressImage = new BitmapGrid(context, XmlBitmapPath);
+        //progressImage.loadImage(context);
         this.progressMask = progressMask;
         this.tweetFilePath = tweetFilePath;
         this.motto = motto;
         tweetXmlParser = new TweetXmlParser(context, tweetFilePath);
     }
 
-    public void setProgressImage(ProgressImage image){
+    public void setProgressImage(ProgressGrid image){
         progressImage = image;
     }
 
-    public ProgressImage getProgressImage(){
+    public ProgressGrid getProgressImage(){
         return progressImage;
     }
 

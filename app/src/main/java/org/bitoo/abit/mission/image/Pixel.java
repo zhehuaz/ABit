@@ -1,7 +1,7 @@
 package org.bitoo.abit.mission.image;
 
 /**
- * The element in a {@link ProgressImage}, which contain an
+ * The element in a {@link ProgressGrid}, which contain an
  * array of Pixels.
  */
 public interface Pixel<T> {

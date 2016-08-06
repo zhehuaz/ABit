@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.mission.Mission;
 
 
 public class DetailedMissionActivity extends AppCompatActivity implements TweetInputFragment.OnTweetInputListener, DetailedMissionFragment.OnMissionCreatedListener{

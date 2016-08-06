@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.mission.Mission;
 import org.bitoo.abit.utils.ColorPalette;
 
 import java.io.FileNotFoundException;

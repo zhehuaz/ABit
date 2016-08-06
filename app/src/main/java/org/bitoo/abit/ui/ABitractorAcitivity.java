@@ -7,24 +7,18 @@ import android.view.MenuItem;
 
 import org.bitoo.abit.R;
 
-public class AddMissionActivity extends AppCompatActivity {
-
-    public final static int REQUEST_SELECT_THEME_IMAGE = 0x1;
-    public final static int REQUEST_NEW_GRID = 0x2;
-
-    public final static String NEW_PROGRESS_GRID = "newXmlPath";
-    public AddMissionFragment fragment;
+public class ABitractorAcitivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_mission);
+        setContentView(R.layout.activity_abitractor_acitivity);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_mission, menu);
+        getMenuInflater().inflate(R.menu.menu_abitractor_acitivity, menu);
         return true;
     }
 
@@ -42,6 +36,4 @@ public class AddMissionActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }

@@ -1,12 +1,8 @@
 package org.bitoo.abit.ui.custom.progress;
 
 import android.content.Context;
-import android.content.pm.PermissionInfo;
-import android.graphics.Color;
-import android.opengl.Visibility;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.mission.Mission;
+import org.bitoo.abit.mission.Tweet;
 import org.bitoo.abit.mission.image.Pixel;
-import org.bitoo.abit.mission.image.Tweet;
 import org.bitoo.abit.utils.ColorPalette;
 
 import java.io.FileNotFoundException;
@@ -57,12 +53,12 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
         hasFooter = false;
     }
 
-    public void addHeader(View view) {
+    public void setHeader(View view) {
         header = view;
         hasHeader = true;
     }
 
-    public void addFooter(View view) {
+    public void setFooter(View view) {
         footer = view;
         hasFooter = true;
     }
@@ -75,10 +71,20 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return hasFooter;
     }
 
+    /**
+     * Set visibility of header.
+     * @param visibility Set one of {@link View#GONE}, {@link View#VISIBLE} and {@link View#INVISIBLE}
+     *                   in the class {@link View}.
+     */
     public void setHeaderVisibility(int visibility) {
         header.setVisibility(visibility);
     }
 
+    /**
+     * Set visibility of footer.
+     * @param visibility Set one of {@link View#GONE}, {@link View#VISIBLE} and {@link View#INVISIBLE}
+     *                   in the class {@link View}.
+     */
     public void setFooterVisibility(int visibility) {
         header.setVisibility(visibility);
     }
@@ -144,7 +150,7 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return -1;
     }
 
-    public static class BitmapViewHolder extends RecyclerView.ViewHolder {
+    public static class BitmapViewHolder extends ViewHolder {
         ImageView pixelView;
         public BitmapViewHolder(View itemView) {
             super(itemView);
@@ -152,14 +158,22 @@ public class BitmapAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public static class HeaderViewHolder extends  RecyclerView.ViewHolder {
+    /**
+     * A {@link ViewHolder} to hold a header for {@link MissionGridView}.
+     * Call {@link #setHeader(View)} to set one and only one header.
+     */
+    public static class HeaderViewHolder extends  ViewHolder {
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
         }
     }
 
-    public static class FooterViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * A {@link ViewHolder} to hold a footer for {@link MissionGridView}.
+     * Call {@link #setFooter(View)} to set one and only one footer.
+     */
+    public static class FooterViewHolder extends ViewHolder {
 
         public FooterViewHolder(View itemView) {
             super(itemView);

@@ -1,6 +1,6 @@
 package org.bitoo.abit.storage;
 
-import org.bitoo.abit.mission.image.Mission;
+import org.bitoo.abit.mission.Mission;
 
 /**
  * The way to handle storage of mission.

@@ -7,7 +7,7 @@ public class ColorPalette {
     private static final String TAG = "ColorPalette";
 
     /**
-     * To get gray version of a BitmapImage.
+     * To get gray version of a BitmapGrid.
      * @param color The original color in ARGB.
      * @return The gray version.
      */

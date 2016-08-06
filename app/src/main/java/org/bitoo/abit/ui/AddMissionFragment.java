@@ -1,14 +1,18 @@
 package org.bitoo.abit.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +22,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.bitoo.abit.R;
+import org.bitoo.abit.mission.image.BitmapGrid;
 import org.bitoo.abit.ui.custom.BitmapViewPagerAdapter;
 
 import java.io.File;
@@ -30,6 +35,7 @@ import java.util.List;
 public class AddMissionFragment extends Fragment implements View.OnClickListener{
     private final static String TAG = "AddMissionFragment";
     private ViewPager viewPager;
+    private BitmapViewPagerAdapter viewPagerAdapter;
     private List<String> xmlPaths;
     private Button saveButton;
     private Button slcButton;
@@ -57,11 +63,15 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
         viewPager = (ViewPager) view.findViewById(R.id.vp_prev);
         xmlPaths = new ArrayList<>();
 
-        // TODO add these xml paths automatically
-        xmlPaths.add("mario.xml");
-        xmlPaths.add("pacmonster.xml");
-        viewPager.setAdapter(new BitmapViewPagerAdapter(getActivity(), xmlPaths));
-
+        // traverse all the xml files to load progress grid.
+        File[] files = new File(getActivity().getFilesDir().getAbsolutePath() + BitmapGrid.STORAGE_PATH).listFiles();
+        for(File f : files) {
+            if(f.isFile()) {
+                xmlPaths.add(f.getName());
+            }
+        }
+        viewPagerAdapter = new BitmapViewPagerAdapter(getActivity(), xmlPaths);
+        viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -71,12 +81,45 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
             @Override
             public void onPageSelected(int position) {
                 currentPage = position;
-               // Log.d(TAG, String.valueOf(position));
+                // Log.d(TAG, String.valueOf(position));
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        themePreview.setOnTouchListener(new View.OnTouchListener() {
+            private PointF curFocus = new PointF(.5f, .5f);
+            float oldX;
+            float oldY;
+            float deltaX;
+            float deltaY;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                SimpleDraweeView view = (SimpleDraweeView)v;
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d(TAG, "action down");
+                        oldX = event.getX();
+                        oldY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        Log.d(TAG, "action move");
+                        deltaX = event.getX() - oldX;
+                        deltaY = event.getY() - oldY;
+                        oldX = event.getX();
+                        oldY = event.getY();
+                        curFocus.offset(-deltaX / 500, -deltaY / 500); // TODO by image's size
+                        // TODO save the image's area selected
+                        view.getHierarchy().setActualImageFocusPoint(curFocus);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        Log.d(TAG, "action up");
+                        break;
+                }
+                return true;
             }
         });
         return view;
@@ -86,6 +129,14 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof AddMissionActivity) {
+            ((AddMissionActivity) context).fragment = this;
+        }
     }
 
     @Override
@@ -127,7 +178,7 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == AddMissionActivity.REQUEST_SELECT_THEME_IMAGE && resultCode == Activity.RESULT_OK) {// FIXME why -1?
+        if(requestCode == AddMissionActivity.REQUEST_SELECT_THEME_IMAGE && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
@@ -143,6 +194,9 @@ public class AddMissionFragment extends Fragment implements View.OnClickListener
             themePreview.setImageURI(Uri.fromFile(new File(picturePath)));
             //themePreviewLayout.setBackground(new BitmapDrawable(getResources(), BitmapFactory.decodeFile(picturePath)));
 
+        } else if(requestCode == AddMissionActivity.REQUEST_NEW_GRID && resultCode == Activity.RESULT_OK) {
+            //String xmlPath = data.getStringExtra(AddMissionActivity.NEW_PROGRESS_GRID);
+            viewPagerAdapter.notifyDataSetChanged();
         }
     }
 }

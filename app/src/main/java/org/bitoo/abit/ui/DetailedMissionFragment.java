@@ -20,11 +20,11 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.bitoo.abit.R;
-import org.bitoo.abit.mission.image.Mission;
-import org.bitoo.abit.mission.image.Tweet;
+import org.bitoo.abit.mission.Mission;
+import org.bitoo.abit.mission.Tweet;
 import org.bitoo.abit.ui.custom.progress.BitmapAdapter2;
 import org.bitoo.abit.ui.custom.progress.MissionGridView;
-import org.bitoo.abit.utils.MissionSQLiteHelper;
+import org.bitoo.abit.mission.MissionSQLiteHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -223,15 +223,17 @@ public class DetailedMissionFragment extends Fragment implements View.OnClickLis
                 break;
             case R.id.ibt_share:
                 Toast.makeText(getActivity(), "SHARE ", Toast.LENGTH_SHORT).show();
+                checkButton.setVisibility(View.INVISIBLE);
                 View view = getActivity().getWindow().getDecorView();
                 view.setDrawingCacheEnabled(true);
                 view.buildDrawingCache();
 
                screenshot = Bitmap.createBitmap(view.getDrawingCache(),
                         0,
-                        215,// FIXME calculate it!
+                        235,// FIXME calculate it!
                         getResources().getDisplayMetrics().widthPixels,
                         getResources().getDisplayMetrics().widthPixels + 400);
+                checkButton.setVisibility(View.VISIBLE);
                 if(mission != null) {
                     ShareFragment shareFragment = ShareFragment.newInstance(mission);
                     shareFragment.show(getActivity().getFragmentManager(), "share");

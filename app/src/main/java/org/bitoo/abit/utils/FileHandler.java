@@ -18,7 +18,9 @@ public class FileHandler {
      */
     public static void copyFile(Context context, InputStream is, String fileName)
             throws IOException {
-        FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+        //FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+        FileOutputStream fos = new FileOutputStream(new File(context.getFilesDir().getAbsolutePath() +fileName), true);
+
 
         int readCount;
         byte[] buff = new byte[1024];
@@ -26,5 +28,12 @@ public class FileHandler {
             fos.write(buff, 0, readCount);
         }
         fos.close();
+    }
+
+    public static void createDirectory(String path) {
+        File file = new File(path);
+        if(!file.exists()) {
+            file.mkdir();
+        }
     }
 }

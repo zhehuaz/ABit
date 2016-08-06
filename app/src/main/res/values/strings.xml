@@ -20,4 +20,5 @@
     <string name="facebook_app_id" translatable="false">103605823315551</string>
     <string name="title">TITLE</string>
     <string name="motto">MOTTO</string>
+    <string name="title_activity_abitractor_acitivity">ABitractorAcitivity</string>
 </resources>
